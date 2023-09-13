@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://oicjjw82y2vb"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_o3vs8"]
+[ext_resource type="Script" path="res://Gun.gd" id="2_r5x02"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qvtm"]
+size = Vector2(10.3455, 56.7642)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y3saw"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dgw43"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgtmy"]
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(176, -120)
+script = ExtResource("1_o3vs8")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+scale = Vector2(6.49639, -2.26795)
+shape = SubResource("RectangleShape2D_7qvtm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Hurtbox"]
+use_parent_material = true
+position = Vector2(0, -0.162766)
+scale = Vector2(0.0797438, -0.454484)
+texture = SubResource("CompressedTexture2D_y3saw")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="Gun" type="StaticBody2D" parent="."]
+scale = Vector2(1, 0.834726)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_r5x02")
+
+[node name="GunSprite" type="Sprite2D" parent="Gun"]
+modulate = Color(0, 0.027451, 0.870588, 1)
+position = Vector2(0, 47.9199)
+rotation = 3.14159
+scale = Vector2(0.213678, -0.9718)
+texture = SubResource("CompressedTexture2D_dgw43")
+
+[node name="GunRayCast" type="RayCast2D" parent="Gun"]
+position = Vector2(0, 86.2559)
+scale = Vector2(1.86901, 0.375132)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="GunTipBox" type="CollisionShape2D" parent="Gun"]
+position = Vector2(0, 95.8398)
+shape = SubResource("RectangleShape2D_cgtmy")
+disabled = true
+
+[node name="AimCast" type="RayCast2D" parent="Gun"]
+scale = Vector2(1, 16.5803)
+collision_mask = 2
+collide_with_areas = true

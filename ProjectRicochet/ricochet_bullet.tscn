@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://blt13d8uevmm"]
+
+[ext_resource type="Script" path="res://ricochet_bullet.gd" id="1_03oqu"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixho1"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3ar8"]
+
+[node name="Bullet" type="Area2D"]
+rotation = 1.5708
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_03oqu")
+
+[node name="BulletSprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.180392, 0.180392, 1)
+position = Vector2(0, 12.8125)
+scale = Vector2(0.1, 0.2)
+texture = SubResource("CompressedTexture2D_ixho1")
+
+[node name="BulletHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(6.99423e-07, 12.6326)
+scale = Vector2(0.600001, 0.759999)
+shape = SubResource("CapsuleShape2D_u3ar8")
+disabled = true
+
+[node name="BulletCast" type="RayCast2D" parent="."]
+position = Vector2(-9.29832e-06, 7.33379)
+scale = Vector2(0.667571, 1.85699)
+enabled = false
+target_position = Vector2(0, 19.2169)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="DestructionTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="DestructionTimer" to="." method="_on_destruction_timer_timeout"]
