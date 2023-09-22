@@ -12,6 +12,7 @@ scale = Vector2(0.3, 0.3)
 script = ExtResource("1_0tvdi")
 
 [node name="TestSprite" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.729412, 0.729412, 0.729412, 0.407843)
 scale = Vector2(0.3, 0.3)
 texture = SubResource("CompressedTexture2D_rcgws")

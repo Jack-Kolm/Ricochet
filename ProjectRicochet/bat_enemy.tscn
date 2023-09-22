@@ -1,20 +1,110 @@
-[gd_scene load_steps=4 format=3 uid="uid://7g343iav3fgo"]
+[gd_scene load_steps=21 format=3 uid="uid://7g343iav3fgo"]
 
 [ext_resource type="Script" path="res://BatEnemy.gd" id="1_y4u8h"]
-[ext_resource type="Texture2D" uid="uid://cdhyx1swgprvq" path="res://icon.svg" id="2_7ujsi"]
+[ext_resource type="Texture2D" uid="uid://xs3g32spp7vl" path="res://Sprites/Bat/bat1.png" id="2_w1424"]
+[ext_resource type="Texture2D" uid="uid://bfa0d67js48tt" path="res://Sprites/Bat/bat2.png" id="3_csskg"]
+[ext_resource type="Texture2D" uid="uid://6bghxgf5ym6o" path="res://Sprites/Bat/bat3.png" id="4_03pmp"]
+[ext_resource type="Texture2D" uid="uid://di6vuqyt04ea7" path="res://Sprites/Bat/bat4.png" id="5_buxhp"]
+[ext_resource type="Texture2D" uid="uid://dodeax7gauf3" path="res://Sprites/Bat/bat5.png" id="6_m2ovi"]
+[ext_resource type="Texture2D" uid="uid://dc07tfyc55jbl" path="res://Sprites/Bat/bat6.png" id="7_cklrn"]
+[ext_resource type="Texture2D" uid="uid://bsyy7pbq2l3lh" path="res://Sprites/Bat/bat7.png" id="8_tkbp4"]
+[ext_resource type="Texture2D" uid="uid://5vjy5gfwy6uu" path="res://Sprites/Bat/bat8.png" id="9_8w7jx"]
+[ext_resource type="Texture2D" uid="uid://b41spyoqrnnxo" path="res://Sprites/Bat/bat9.png" id="10_vk0sk"]
+[ext_resource type="Texture2D" uid="uid://drxehysiwyyig" path="res://Sprites/Bat/bat10.png" id="11_mhgcs"]
+[ext_resource type="Texture2D" uid="uid://dl03ttlb24ada" path="res://Sprites/Explosion/explosion1.png" id="12_vfoku"]
+[ext_resource type="Texture2D" uid="uid://dt4xoaxgrgijr" path="res://Sprites/Explosion/explosion2.png" id="13_iy7qj"]
+[ext_resource type="Texture2D" uid="uid://b5gger2f4230r" path="res://Sprites/Explosion/explosion3.png" id="14_55f30"]
+[ext_resource type="Texture2D" uid="uid://bodebyb4vgk07" path="res://Sprites/Explosion/explosion4.png" id="15_mlqhv"]
+[ext_resource type="Texture2D" uid="uid://biskv30bbbw7q" path="res://Sprites/Explosion/explosion5.png" id="16_el5nv"]
+[ext_resource type="Texture2D" uid="uid://cb2clutnd13pb" path="res://Sprites/Explosion/explosion6.png" id="17_iebco"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pfn3b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w1424")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_csskg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_03pmp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_buxhp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_m2ovi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_cklrn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tkbp4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8w7jx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vk0sk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mhgcs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7h4m7"]
-radius = 12.0
+radius = 12.5
+height = 26.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_douax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_vfoku")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_iy7qj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_55f30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_mlqhv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_el5nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_iebco")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
 
 [node name="BatEnemy" type="CharacterBody2D"]
 position = Vector2(328, -160)
+motion_mode = 1
+slide_on_ceiling = false
 script = ExtResource("1_y4u8h")
 
-[node name="BatSprite" type="Sprite2D" parent="."]
-modulate = Color(0.458824, 0.0509804, 0.0509804, 1)
-scale = Vector2(0.333456, 0.24)
-texture = ExtResource("2_7ujsi")
+[node name="BatSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_pfn3b")
+autoplay = "default"
+frame_progress = 0.121327
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
 scale = Vector2(2, 1.24)
 shape = SubResource("CapsuleShape2D_7h4m7")
+
+[node name="ExplosionSprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.65098)
+sprite_frames = SubResource("SpriteFrames_douax")
+
+[connection signal="animation_finished" from="ExplosionSprite" to="." method="_on_explosion_sprite_animation_finished"]

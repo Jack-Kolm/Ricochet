@@ -1,49 +1,85 @@
-[gd_scene load_steps=7 format=3 uid="uid://oicjjw82y2vb"]
+[gd_scene load_steps=15 format=3 uid="uid://oicjjw82y2vb"]
 
 [ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_o3vs8"]
 [ext_resource type="Script" path="res://Gun.gd" id="2_r5x02"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qvtm"]
-size = Vector2(10.3455, 56.7642)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y3saw"]
-load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dgw43"]
-load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+[ext_resource type="Texture2D" uid="uid://cxfi5waq4gbuu" path="res://Sprites/Player/Cannon.png" id="3_bltv5"]
+[ext_resource type="Texture2D" uid="uid://b606ix5vt7h6a" path="res://Sprites/Player/maleBase/base/char1.png" id="3_fryf3"]
+[ext_resource type="Texture2D" uid="uid://jqhysk0tda26" path="res://Sprites/Player/maleBase/base/char18.png" id="4_sjyko"]
+[ext_resource type="Texture2D" uid="uid://ci6b1iisoasmh" path="res://Sprites/Player/maleBase/base/char2.png" id="5_ae7yn"]
+[ext_resource type="Texture2D" uid="uid://qpvy7nerblwc" path="res://Sprites/Player/maleBase/base/char3.png" id="6_ydjyb"]
+[ext_resource type="Texture2D" uid="uid://c04l0adjdaivd" path="res://Sprites/Player/maleBase/base/char4.png" id="7_grnjk"]
+[ext_resource type="Texture2D" uid="uid://dcuqd52omdmog" path="res://Sprites/Player/maleBase/base/char5.png" id="8_jx3fu"]
+[ext_resource type="Texture2D" uid="uid://cdihgtxj33d5x" path="res://Sprites/Player/maleBase/base/char7.png" id="9_fc5ws"]
+[ext_resource type="Texture2D" uid="uid://rw61ggynusn7" path="res://Sprites/Player/maleBase/base/char6.png" id="10_hn1rj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgtmy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fy1hp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_fryf3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_sjyko")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ae7yn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ydjyb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_grnjk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jx3fu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_fc5ws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hn1rj")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qvtm"]
+size = Vector2(2.46291, 35.2741)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(176, -120)
 script = ExtResource("1_o3vs8")
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
-scale = Vector2(6.49639, -2.26795)
-shape = SubResource("RectangleShape2D_7qvtm")
-
-[node name="Sprite2D" type="Sprite2D" parent="Hurtbox"]
-use_parent_material = true
-position = Vector2(0, -0.162766)
-scale = Vector2(0.0797438, -0.454484)
-texture = SubResource("CompressedTexture2D_y3saw")
-
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Gun" type="StaticBody2D" parent="."]
-scale = Vector2(1, 0.834726)
+position = Vector2(0, -8)
+scale = Vector2(0.540252, 0.437986)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_r5x02")
 
 [node name="GunSprite" type="Sprite2D" parent="Gun"]
-modulate = Color(0, 0.027451, 0.870588, 1)
 position = Vector2(0, 47.9199)
-rotation = 3.14159
-scale = Vector2(0.213678, -0.9718)
-texture = SubResource("CompressedTexture2D_dgw43")
+rotation = 1.57079
+scale = Vector2(7.64359, -4.17328)
+texture = ExtResource("3_bltv5")
 
 [node name="GunRayCast" type="RayCast2D" parent="Gun"]
 position = Vector2(0, 86.2559)
@@ -60,3 +96,25 @@ disabled = true
 scale = Vector2(1, 16.5803)
 collision_mask = 2
 collide_with_areas = true
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fy1hp")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="HurtboxArea" type="Area2D" parent="."]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HurtboxArea"]
+position = Vector2(0, 24)
+scale = Vector2(6.49639, -2.26795)
+shape = SubResource("RectangleShape2D_7qvtm")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 24)
+scale = Vector2(6.49639, -2.26795)
+shape = SubResource("RectangleShape2D_7qvtm")
+
+[connection signal="body_entered" from="HurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
