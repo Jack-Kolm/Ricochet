@@ -9,6 +9,7 @@ var current_damage
 @onready var bullet_sprite = $BulletSprite
 @onready var explosion_sprite = $ExplosionSprite
 @onready var animation_player = $AnimationPlayer
+@onready var sound_player = $RicochetSoundPlayer2D
 
 @onready var speed = 0
 @onready var direction = Vector2(0,0)
@@ -20,8 +21,16 @@ var current_damage
 var bounces = 0
 var max_bounces = null
 var destroyed = false
+
+var impact1 = preload("res://Sounds/Impact/metal_solid_impact_bullet1.wav")
+var impact2 = preload("res://Sounds/Impact/metal_solid_impact_bullet2.wav")
+var impact3 = preload("res://Sounds/Impact/metal_solid_impact_bullet3.wav")
+var impact4 = preload("res://Sounds/Impact/metal_solid_impact_bullet4.wav")
+var rng = RandomNumberGenerator.new()
+var impact_sounds = [impact1, impact2, impact3, impact4]
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.add_to_group("bullets")
 	current_damage = BASE_DAMAGE
 	explosion_sprite.visible = false
 
@@ -34,17 +43,23 @@ func _process(delta):
 func step(delta):
 	
 	if should_bounce and points.is_empty() == false:
+		speed = speed + speed*0.2
+		current_damage = BASE_DAMAGE * bounces
+		bullet_sprite.set_modulate(Color(1, 1, 1, 1))
 		current_goal = points.pop_front()
 		next_point = current_goal[0]
 		#print(current_goal)
 		direction = global_position.direction_to(next_point)
+		var index = rng.randi_range(0,3)
+		sound_player.stream = impact_sounds[index]
+		sound_player.play()
+		sound_player.volume_db += 3
+		sound_player.pitch_scale += 0.3
 		should_bounce = false
 	if global_position.distance_to(next_point) < 15:
 		bounces += 1
-		current_damage = BASE_DAMAGE * bounces
 		if bullet_sprite.frame < 6:
 			bullet_sprite.frame += 1
-		speed += 1
 		
 		if bounces >= max_bounces:
 			destroy()
@@ -69,6 +84,7 @@ func prepare_bullet(new_speed, travel_points, start_spot):
 	self.next_point = self.current_goal[0]
 	self.direction = start_spot.direction_to(self.next_point)
 	self.should_bounce = false
+	self.bullet_sprite.set_modulate(Color(1, 1, 1, 0.4))
 
 func destroy():
 	destroyed = true

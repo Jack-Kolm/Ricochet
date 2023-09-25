@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b43ivldqwfjgi"
+path="res://.godot/imported/574818__wesleyextreme_gamer__gunshot.ogg-6ea987162ca48bb20c7c8e3aae1ba07a.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Player Shooting Sounds/574818__wesleyextreme_gamer__gunshot.ogg"
+dest_files=["res://.godot/imported/574818__wesleyextreme_gamer__gunshot.ogg-6ea987162ca48bb20c7c8e3aae1ba07a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

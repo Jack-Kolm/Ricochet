@@ -1,0 +1,221 @@
+[gd_scene load_steps=15 format=3 uid="uid://c08gjkfnsbi8f"]
+
+[ext_resource type="Script" path="res://init_main.gd" id="1_75bg6"]
+[ext_resource type="PackedScene" uid="uid://oicjjw82y2vb" path="res://player.tscn" id="1_gg7eu"]
+[ext_resource type="Texture2D" uid="uid://dyahsdnwtv4pa" path="res://Sprites/Tile.png" id="3_a36vh"]
+[ext_resource type="PackedScene" uid="uid://t05htaou5xnq" path="res://bullet.tscn" id="4_ojrm5"]
+[ext_resource type="PackedScene" uid="uid://ddaqxjxrip0b5" path="res://test_item.tscn" id="5_e6l7y"]
+[ext_resource type="PackedScene" uid="uid://blt13d8uevmm" path="res://ricochet_bullet.tscn" id="5_xjq4i"]
+[ext_resource type="Texture2D" uid="uid://chkbpg3aylfqh" path="res://Sprites/Tile3.png" id="6_2dys8"]
+[ext_resource type="Script" path="res://BatSpawner.gd" id="9_gnnxf"]
+[ext_resource type="Texture2D" uid="uid://dsm8mqllfe310" path="res://Sprites/Background/parallax_mountain_pack/layers/parallax-mountain-bg.png" id="9_i3ly2"]
+[ext_resource type="AudioStream" uid="uid://cer8m4cfbcrsj" path="res://Sounds/wind2.wav" id="10_dd4aa"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7xlbv"]
+texture = ExtResource("6_2dys8")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/terrains_peering_bit/bottom_right_corner = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/terrains_peering_bit/bottom_right_corner = 0
+1:0/0/terrains_peering_bit/bottom_left_corner = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/terrains_peering_bit/bottom_left_corner = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0/terrains_peering_bit/bottom_right_corner = 0
+0:1/0/terrains_peering_bit/top_right_corner = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0/terrains_peering_bit/bottom_right_corner = 0
+1:1/0/terrains_peering_bit/bottom_left_corner = 0
+1:1/0/terrains_peering_bit/top_left_corner = 0
+1:1/0/terrains_peering_bit/top_right_corner = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0/terrains_peering_bit/bottom_left_corner = 0
+2:1/0/terrains_peering_bit/top_left_corner = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:2/0/terrains_peering_bit/top_right_corner = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:2/0/physics_layer_0/angular_velocity = 0.0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/0/terrains_peering_bit/top_left_corner = 0
+1:2/0/terrains_peering_bit/top_right_corner = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:2/0/physics_layer_0/angular_velocity = 0.0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0/terrains_peering_bit/top_left_corner = 0
+
+[sub_resource type="TileSet" id="TileSet_f1y6v"]
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
+terrain_set_0/mode = 1
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
+sources/2 = SubResource("TileSetAtlasSource_7xlbv")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjhsa"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc8l4"]
+size = Vector2(184.357, 874.763)
+
+[node name="InitMain" type="Node2D"]
+script = ExtResource("1_75bg6")
+
+[node name="Player" parent="." instance=ExtResource("1_gg7eu")]
+position = Vector2(184, -152)
+
+[node name="Node" type="Node" parent="."]
+process_mode = 4
+
+[node name="Area2D" type="Area2D" parent="Node"]
+visible = false
+
+[node name="PhysicsBullet" parent="Node/Area2D" instance=ExtResource("4_ojrm5")]
+collision_layer = 3
+collision_mask = 3
+gravity_scale = 0.0
+
+[node name="Bullet" parent="Node/Area2D" instance=ExtResource("5_xjq4i")]
+
+[node name="TestItem" parent="Node/Area2D" instance=ExtResource("5_e6l7y")]
+position = Vector2(208, -48)
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(160, -64)
+tile_set = SubResource("TileSet_f1y6v")
+format = 2
+layer_0/tile_data = PackedInt32Array(-458720, 131074, 2, -458721, 65538, 2, -458722, 65538, 2, -458723, 65538, 2, -458724, 65538, 2, -458725, 65538, 2, -458726, 65538, 2, -458727, 65538, 2, -458728, 65538, 2, -458729, 65538, 2, -393239, 65538, 2, -458775, 65538, 0, -393240, 65538, 2, -458776, 65538, 0, -393241, 65538, 2, -458777, 65538, 0, -393242, 65538, 2, -458778, 65538, 0, -393243, 65538, 2, -458779, 65538, 0, -393244, 65538, 2, -458780, 65538, 0, -393245, 65538, 2, -458781, 65538, 0, -393246, 65538, 2, -458782, 65538, 0, -393247, 65538, 2, -458783, 65538, 0, -393248, 2, 2, -458784, 2, 0, -393231, 131074, 1, -458767, 131074, 0, -393232, 65538, 2, -458768, 65538, 0, -393233, 65538, 2, -458769, 65538, 0, -393234, 65538, 2, -458770, 65538, 0, -393235, 65538, 2, -458771, 65538, 0, -393236, 65538, 2, -458772, 65538, 0, -393237, 65538, 2, -458773, 65538, 0, -393238, 65538, 2, -458774, 65538, 0, 131076, 65538, 2, 65540, 65538, 0, 131075, 65538, 2, 65539, 65538, 0, 131074, 65538, 2, 65538, 65538, 0, 131073, 65538, 2, 65537, 65538, 0, 131072, 65538, 2, 65536, 65538, 0, 196607, 65538, 2, 131071, 65538, 0, 196606, 65538, 2, 131070, 65538, 0, 196605, 65538, 2, 131069, 65538, 0, 196604, 65538, 2, 131068, 65538, 0, 196603, 2, 2, 131067, 2, 0, -524256, 131074, 0, -524257, 65538, 0, -524258, 65538, 0, -524259, 65538, 0, -524260, 65538, 0, -524261, 65538, 0, -524262, 65538, 0, -524263, 65538, 0, -524264, 65538, 0, -524265, 65538, 0, -458730, 65538, 2, -524266, 65538, 0, -458731, 65538, 1, -524267, 65538, 0, -458732, 2, 1, -524268, 65538, 0, 131077, 131074, 2, 65541, 131074, 0, -1114108, 131074, 2, -1179644, 131074, 0, -1114109, 65538, 2, -1179645, 65538, 0, -1114110, 65538, 2, -1179646, 65538, 0, -1114111, 65538, 2, -1179647, 65538, 0, -1114112, 65538, 2, -1179648, 65538, 0, -1048577, 65538, 2, -1114113, 65538, 0, -1048578, 65538, 2, -1114114, 65538, 0, -1048579, 2, 2, -1114115, 2, 0, -15, 131074, 1, -65551, 131074, 1, -131087, 131074, 1, -196623, 131074, 1, -262159, 131074, 1, -327695, 131074, 1, -16, 2, 1, -65552, 2, 1, -131088, 2, 1, -196624, 2, 1, -262160, 2, 1, -327696, 2, 1, -458733, 65538, 2, -524269, 65538, 0, -458734, 65538, 2, -524270, 65538, 0, -458735, 65538, 2, -524271, 65538, 0, -458736, 65538, 2, -524272, 65538, 0, -458737, 65538, 2, -524273, 65538, 0, -458738, 65538, 2, -524274, 65538, 0, -131058, 131074, 1, -196594, 131074, 1, -262130, 131074, 1, -327666, 131074, 1, -393202, 131074, 1, -131059, 2, 1, -196595, 2, 1, -262131, 2, 1, -327667, 2, 1, -393203, 2, 0, -458739, 2, 2, -524275, 2, 0, 14, 131074, 2, -65522, 131074, 1, 13, 2, 2, -65523, 2, 1, 65521, 131074, 2, 65520, 2, 2)
+
+[node name="BatSpawner" type="Node2D" parent="."]
+position = Vector2(165, -514)
+script = ExtResource("9_gnnxf")
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" type="StaticBody2D" parent="Walls"]
+position = Vector2(704, -472)
+rotation = 0.523598
+scale = Vector2(2.02603, 0.171101)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall"]
+scale = Vector2(7.97027, 7.95892)
+texture = ExtResource("3_a36vh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
+shape = SubResource("RectangleShape2D_pjhsa")
+
+[node name="Wall2" type="StaticBody2D" parent="Walls"]
+position = Vector2(-360, -472)
+rotation = -0.523598
+scale = Vector2(2.19138, 0.171101)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall2"]
+scale = Vector2(7.97027, 7.95892)
+texture = ExtResource("3_a36vh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
+shape = SubResource("RectangleShape2D_pjhsa")
+
+[node name="Wall3" type="StaticBody2D" parent="Walls"]
+position = Vector2(784, -216)
+rotation = 2.35619
+scale = Vector2(1, 0.16)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall3"]
+scale = Vector2(7.97027, 7.95892)
+texture = ExtResource("3_a36vh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall3"]
+shape = SubResource("RectangleShape2D_pjhsa")
+
+[node name="Wall4" type="StaticBody2D" parent="Walls"]
+position = Vector2(-440, -216)
+rotation = 0.785397
+scale = Vector2(1, 0.16)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall4"]
+scale = Vector2(7.97027, 7.95892)
+texture = ExtResource("3_a36vh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall4"]
+shape = SubResource("RectangleShape2D_pjhsa")
+
+[node name="GameArea" type="Area2D" parent="."]
+position = Vector2(184, -1052)
+scale = Vector2(1.12, 2.6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea"]
+visible = false
+position = Vector2(-1.52588e-05, 0)
+scale = Vector2(9.91183, 1.23827)
+shape = SubResource("RectangleShape2D_lc8l4")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2(1215, -180)
+transform = Transform2D(1, 0, 0, 1, 1215, -180)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(176, -120)
+motion_scale = Vector2(0.2, 0.4)
+motion_mirroring = Vector2(2176, 0)
+
+[node name="BackgroundSprite" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color(0.721569, 1, 0.870588, 1)
+position = Vector2(7.99988, -72.0001)
+scale = Vector2(8, 8)
+texture = ExtResource("9_i3ly2")
+centered = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_dd4aa")
+autoplay = true
+
+[connection signal="body_exited" from="GameArea" to="." method="_on_game_area_body_exited"]

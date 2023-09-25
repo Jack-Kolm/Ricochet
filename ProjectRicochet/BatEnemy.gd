@@ -4,17 +4,21 @@ var BASE_SPEED = 100
 
 var health = 800
 
-@onready var hitbox = $Hitbox
+@onready var collision_box = $CollisionBoxShape
 @onready var bat_sprite = $BatSprite
 @onready var explosion_sprite = $ExplosionSprite
-var group = []
+@onready var hit_sound_player = $HitSoundPlayer2D
 
+var hit_sound = preload("res://Sounds/hitHurtEnemy.wav")
+var death_sound = preload("res://Sounds/explosion.wav")
+
+var group = []
 var player = null
 var root_node = null
 var goal = null
 var is_bat=true
 var destroyed = false
-
+var dir = Vector2(0,0)
 var angle = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +28,7 @@ func _ready():
 	self.set_collision_mask_value(1, false)
 	self.set_collision_layer_value(2, true)
 	self.set_collision_mask_value(2, false)
-
+	self.set_collision_mask_value(3, true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -33,15 +37,11 @@ func _process(delta):
 
 func step(delta):
 	bat_sprite.set_modulate(lerp(bat_sprite.get_modulate(), Color(1,1,1), delta*6)) 
-	
-	#print(group)
-	if root_node.player:
-		player = root_node.player
 		
-	if player:
+	if weakref(player).get_ref():
 		goal = player.global_position
 		var distance = self.global_position.distance_to(goal)
-		var dir = (player.global_position - self.global_position).normalized()
+		dir = (player.global_position - self.global_position).normalized()
 		#global_position += (dir * 10)
 		if distance < 300:
 			velocity += dir * 2
@@ -78,8 +78,7 @@ func boids(separation_factor, cohesion_factor, delta):
 	var cohesion_ypos_avg = 0
 	
 	for bat in group:
-		var wr = weakref(bat)
-		if wr.get_ref():
+		if weakref(bat).get_ref():
 			if self.global_position.distance_to(bat.global_position) < 50:
 				separation_dx += self.global_position.x - bat.global_position.x
 				separation_dy += self.global_position.y - bat.global_position.y
@@ -98,6 +97,8 @@ func boids(separation_factor, cohesion_factor, delta):
 	
 
 func take_damage(damage):
+	hit_sound_player.stream = hit_sound
+	hit_sound_player.play()
 	bat_sprite.set_modulate(Color(2, 0.1, 0.1))
 	self.health -= damage
 	if self.health <= 0:
@@ -108,13 +109,26 @@ func apply_force(force, direction):
 	velocity += force * direction
 
 func destroy():
+	hit_sound_player.stream = death_sound
+	hit_sound_player.play()
 	destroyed = true
 	self.set_collision_layer_value(2, false)
+	self.set_collision_mask_value(3, false)
 	bat_sprite.visible = false
 	explosion_sprite.visible = true
 	explosion_sprite.play("default")
 	#queue_free()
+	
+func set_player(player):
+	self.player = player
 
 func _on_explosion_sprite_animation_finished():
 	explosion_sprite.visible = false
 	queue_free()
+
+
+func _on_hitbox_body_entered(body):
+	if body.name == "Player":
+		body.take_damage(10, dir)
+
+	pass # Replace with function body.

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://chqaod10qwjby"
+path="res://.godot/imported/363698__jofae__retro-gun-shot.mp3-82d442fb7f28eb5679a06957c9c0a8ea.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Player Shooting Sounds/363698__jofae__retro-gun-shot.mp3"
+dest_files=["res://.godot/imported/363698__jofae__retro-gun-shot.mp3-82d442fb7f28eb5679a06957c9c0a8ea.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

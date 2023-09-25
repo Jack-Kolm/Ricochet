@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cnl7p1ht80moj"
+path="res://.godot/imported/515801__matrixxx__retro-pirate-cannon-shot.wav-fbd8d0938d38f99e817230e50f204c78.sample"
+
+[deps]
+
+source_file="res://Sounds/Player Shooting Sounds/515801__matrixxx__retro-pirate-cannon-shot.wav"
+dest_files=["res://.godot/imported/515801__matrixxx__retro-pirate-cannon-shot.wav-fbd8d0938d38f99e817230e50f204c78.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d2cr4pmmy3gyg"
+path="res://.godot/imported/368736__leszek_szary__shoot-5.wav-70cd5f9e519ead883c2a70c0d026d52f.sample"
+
+[deps]
+
+source_file="res://Sounds/Player Shooting Sounds/368736__leszek_szary__shoot-5.wav"
+dest_files=["res://.godot/imported/368736__leszek_szary__shoot-5.wav-70cd5f9e519ead883c2a70c0d026d52f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

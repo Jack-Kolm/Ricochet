@@ -1,21 +1,46 @@
-[gd_scene load_steps=15 format=3 uid="uid://oicjjw82y2vb"]
+[gd_scene load_steps=29 format=3 uid="uid://oicjjw82y2vb"]
 
-[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_o3vs8"]
+[ext_resource type="Script" path="res://Player.gd" id="1_45r8q"]
+[ext_resource type="Texture2D" uid="uid://buodxi47dnrum" path="res://Sprites/Bullet1.png" id="2_boxfg"]
 [ext_resource type="Script" path="res://Gun.gd" id="2_r5x02"]
+[ext_resource type="Texture2D" uid="uid://gofaabkc1fye" path="res://Sprites/Bullet4.png" id="3_0lqac"]
 [ext_resource type="Texture2D" uid="uid://cxfi5waq4gbuu" path="res://Sprites/Player/Cannon.png" id="3_bltv5"]
 [ext_resource type="Texture2D" uid="uid://b606ix5vt7h6a" path="res://Sprites/Player/maleBase/base/char1.png" id="3_fryf3"]
+[ext_resource type="Texture2D" uid="uid://cqgotutnbentn" path="res://Sprites/Bullet7.png" id="4_7snlf"]
+[ext_resource type="Texture2D" uid="uid://dr8fvxm582nds" path="res://Sprites/Player/maleBase/base/base_dark8.png" id="4_icuj3"]
 [ext_resource type="Texture2D" uid="uid://jqhysk0tda26" path="res://Sprites/Player/maleBase/base/char18.png" id="4_sjyko"]
+[ext_resource type="Texture2D" uid="uid://dojr0tf8krxln" path="res://Sprites/Player/maleBase/base/base_dark9.png" id="5_a5uud"]
 [ext_resource type="Texture2D" uid="uid://ci6b1iisoasmh" path="res://Sprites/Player/maleBase/base/char2.png" id="5_ae7yn"]
+[ext_resource type="Texture2D" uid="uid://cabchjotgjwd2" path="res://Sprites/Player/maleBase/base/base_dark10.png" id="6_llmk6"]
 [ext_resource type="Texture2D" uid="uid://qpvy7nerblwc" path="res://Sprites/Player/maleBase/base/char3.png" id="6_ydjyb"]
 [ext_resource type="Texture2D" uid="uid://c04l0adjdaivd" path="res://Sprites/Player/maleBase/base/char4.png" id="7_grnjk"]
 [ext_resource type="Texture2D" uid="uid://dcuqd52omdmog" path="res://Sprites/Player/maleBase/base/char5.png" id="8_jx3fu"]
 [ext_resource type="Texture2D" uid="uid://cdihgtxj33d5x" path="res://Sprites/Player/maleBase/base/char7.png" id="9_fc5ws"]
 [ext_resource type="Texture2D" uid="uid://rw61ggynusn7" path="res://Sprites/Player/maleBase/base/char6.png" id="10_hn1rj"]
+[ext_resource type="AudioStream" uid="uid://bh0732a8dwx22" path="res://Sounds/hitHurtPlayer.wav" id="12_0bt7h"]
+[ext_resource type="AudioStream" uid="uid://cikbrt1kyvtwb" path="res://Sounds/Player Shooting Sounds/368735__leszek_szary__shoot-6.wav" id="12_dto3d"]
+[ext_resource type="AudioStream" uid="uid://b43ivldqwfjgi" path="res://Sounds/Player Shooting Sounds/574818__wesleyextreme_gamer__gunshot.ogg" id="12_x4i6c"]
+[ext_resource type="Script" path="res://StateMachine.gd" id="21_x0d11"]
+[ext_resource type="Script" path="res://Scripts/PlayerIdle.gd" id="22_5o04u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgtmy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fy1hp"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_icuj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_a5uud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_llmk6")
+}],
+"loop": false,
+"name": &"crouch",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_fryf3")
@@ -56,15 +81,37 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jk4k"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e1tmr"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qvtm"]
 size = Vector2(2.46291, 35.2741)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_04hsf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_boxfg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0lqac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7snlf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(176, -120)
-script = ExtResource("1_o3vs8")
+script = ExtResource("1_45r8q")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.8, 0.8)
+limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -97,24 +144,110 @@ scale = Vector2(1, 16.5803)
 collision_mask = 2
 collide_with_areas = true
 
+[node name="ShootTimer" type="Timer" parent="Gun"]
+wait_time = 0.5
+one_shot = true
+
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fy1hp")
-animation = &"walk"
+animation = &"crouch"
 autoplay = "walk"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="HurtboxArea" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HurtboxArea"]
 position = Vector2(0, 24)
-scale = Vector2(6.49639, -2.26795)
-shape = SubResource("RectangleShape2D_7qvtm")
+scale = Vector2(0.908302, -2.50796)
+shape = SubResource("CapsuleShape2D_3jk4k")
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
+[node name="CrouchHurtboxArea" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Hurtbox" type="CollisionShape2D" parent="CrouchHurtboxArea"]
+visible = false
+position = Vector2(0, 37)
+scale = Vector2(1.01639, -1.06795)
+shape = SubResource("CapsuleShape2D_e1tmr")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 24)
 scale = Vector2(6.49639, -2.26795)
 shape = SubResource("RectangleShape2D_7qvtm")
 
+[node name="Sounds" type="Node" parent="."]
+
+[node name="GunSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("12_x4i6c")
+volume_db = -12.0
+pitch_scale = 0.8
+max_polyphony = 2
+
+[node name="GunSoundPlayer2D" type="AudioStreamPlayer2D" parent="Sounds"]
+visible = false
+position = Vector2(176, -120)
+stream = ExtResource("12_dto3d")
+
+[node name="HitSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("12_0bt7h")
+
+[node name="MovementSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthSprite" type="AnimatedSprite2D" parent="CanvasLayer"]
+visible = false
+z_index = 10
+position = Vector2(64, 51)
+rotation = 1.5708
+scale = Vector2(3.99032, 5.06176)
+sprite_frames = SubResource("SpriteFrames_04hsf")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -290.0
+offset_right = 160.0
+offset_bottom = -264.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+text = "IAM THE HEALTH"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("21_x0d11")
+initial_state = NodePath("PlayerIdle")
+
+[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("22_5o04u")
+player = NodePath("../..")
+
 [connection signal="body_entered" from="HurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
+[connection signal="body_entered" from="CrouchHurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
