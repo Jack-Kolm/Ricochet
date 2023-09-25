@@ -48,7 +48,7 @@ func _ready():
 
 func _physics_process(delta):
 	direction = Input.get_axis("ui_left", "ui_right")
-	"""
+	
 	match current_state:
 		States.STANDARD:
 			standard_state(delta)
@@ -58,7 +58,7 @@ func _physics_process(delta):
 			pass
 		_:
 			print("how sway")
-	"""
+	
 	default_step(delta)
 
 func default_step(delta):
