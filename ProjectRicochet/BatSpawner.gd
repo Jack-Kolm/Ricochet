@@ -1,8 +1,11 @@
 extends Node2D
 
+class_name BatSpawner
+
 @onready var Bat = preload("res://bat_enemy.tscn")
 
 var SPAWN_COUNT = 5
+
 func _ready():
 	var rng = RandomNumberGenerator.new()
 	var group = []
@@ -11,6 +14,7 @@ func _ready():
 		var r1 = rng.randf_range(-50.0, 50.0)
 		var r2 = rng.randf_range(-50.0, 50.0)
 		var new_bat = Bat.instantiate()
+		new_bat.add_to_group("avoid_bullet")
 		new_bat.add_to_group("enemies")
 		new_bat.global_position = self.global_position + Vector2(r1, r2)
 		

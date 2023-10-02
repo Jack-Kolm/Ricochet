@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://nk3n3e6a5tr1"]
+
+[ext_resource type="Script" path="res://FlyingEnemy.gd" id="1_af1a1"]
+[ext_resource type="Texture2D" uid="uid://cdhyx1swgprvq" path="res://icon.svg" id="2_el2bq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wqdeg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_el2bq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t6ex3"]
+radius = 10.0629
+height = 128.0
+
+[node name="FlyingEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_af1a1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wqdeg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(6.04, 1)
+shape = SubResource("CapsuleShape2D_t6ex3")

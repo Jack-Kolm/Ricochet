@@ -103,7 +103,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["avoid_bullet"]]
 position = Vector2(176, -120)
 script = ExtResource("1_45r8q")
 
@@ -116,8 +116,8 @@ position_smoothing_speed = 10.0
 [node name="Gun" type="StaticBody2D" parent="."]
 position = Vector2(0, -8)
 scale = Vector2(0.540252, 0.437986)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("2_r5x02")
 
 [node name="GunSprite" type="Sprite2D" parent="Gun"]
@@ -155,6 +155,7 @@ autoplay = "walk"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="HurtboxArea" type="Area2D" parent="."]
+scale = Vector2(0.559998, 0.879999)
 collision_layer = 3
 collision_mask = 3
 

@@ -22,13 +22,14 @@ func set_player(player):
 
 
 func _on_game_area_body_exited(body):
-	var enemies = get_tree().get_nodes_in_group("enemies")
-	var bullets = get_tree().get_nodes_in_group("bullets")
-	for enemy in enemies:
-		enemy.queue_free()
-	for bullet in bullets:
-		bullet.queue_free()
-	#self.visible = false
-	#restart_menu.restart_flag = true
-	#get_tree().change_scene_to_packed(menu_scene)
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	if body.name == "Player":
+		var enemies = get_tree().get_nodes_in_group("enemies")
+		var bullets = get_tree().get_nodes_in_group("bullets")
+		for enemy in enemies:
+			enemy.queue_free()
+		for bullet in bullets:
+			bullet.queue_free()
+		#self.visible = false
+		#restart_menu.restart_flag = true
+		#get_tree().change_scene_to_packed(menu_scene)
+		get_tree().change_scene_to_file("res://main_menu.tscn")

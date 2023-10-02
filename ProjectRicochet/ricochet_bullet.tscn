@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://blt13d8uevmm"]
+[gd_scene load_steps=21 format=3 uid="uid://blt13d8uevmm"]
 
 [ext_resource type="Script" path="res://ricochet_bullet.gd" id="1_03oqu"]
 [ext_resource type="Texture2D" uid="uid://buodxi47dnrum" path="res://Sprites/Bullet1.png" id="2_gw8jr"]
@@ -94,6 +94,9 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o73pb"]
+size = Vector2(12, 15)
+
 [node name="Bullet" type="Area2D"]
 rotation = 1.5708
 collision_layer = 2
@@ -104,13 +107,12 @@ script = ExtResource("1_03oqu")
 position = Vector2(2.19345e-05, -0.19981)
 scale = Vector2(0.880001, 1.44)
 shape = SubResource("CapsuleShape2D_u3ar8")
+disabled = true
 
 [node name="BulletCast" type="RayCast2D" parent="."]
 position = Vector2(-6.19888e-05, 0.0881703)
 scale = Vector2(0.667571, 1.85699)
-enabled = false
 target_position = Vector2(0, 19.2169)
-collision_mask = 2
 collide_with_areas = true
 
 [node name="DestructionTimer" type="Timer" parent="."]
@@ -139,6 +141,15 @@ volume_db = -15.0
 pitch_scale = 0.6
 max_polyphony = 5
 
+[node name="WallCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCheck"]
+position = Vector2(3.62396e-05, 10)
+scale = Vector2(0.76, 0.759999)
+shape = SubResource("RectangleShape2D_o73pb")
+one_way_collision_margin = 0.0
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="DestructionTimer" to="." method="_on_destruction_timer_timeout"]
 [connection signal="animation_finished" from="ExplosionSprite" to="." method="_on_explosion_sprite_animation_finished"]
+[connection signal="body_entered" from="WallCheck" to="." method="_on_wall_check_body_entered"]

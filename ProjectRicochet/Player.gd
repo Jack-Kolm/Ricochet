@@ -10,11 +10,9 @@ var rng = RandomNumberGenerator.new()
 enum States {STANDARD, CROUCHING, DESTROYED}
 var current_state = States.STANDARD
 var direction = 0
-var health = 1000
-
+var health = 100
 
 var friction_factor = 2000
-
 
 @onready var position_is_position = Vector2(0,0)
 
@@ -35,8 +33,8 @@ var friction_factor = 2000
 
 #@onready var Bullet = preload("res://bullet.tscn")
 @onready var Bullet = preload("res://ricochet_bullet.tscn")
+@onready var AdvancedBullet = preload("res://advanced_ricochet_bullet.tscn")
 @onready var TestItem = preload("res://test_item.tscn")
-
 
 #@onready var gun_sounds = [GunSound1, GunSound2, GunSound3, GunSound4]
 
@@ -58,8 +56,8 @@ func _physics_process(delta):
 			pass
 		_:
 			print("how sway")
-	
 	default_step(delta)
+
 
 func default_step(delta):
 	health_bar.text = "HP: "+str(health)
@@ -101,6 +99,7 @@ func exit_crouch_state():
 	current_state = States.STANDARD
 	player_sprite.play()
 
+
 func _input(event):
 	if event.is_action_pressed("Shoot"):
 		shoot()
@@ -114,65 +113,58 @@ func _input(event):
 func shoot():
 	if not player_gun.is_tip_colliding() and shoot_timer.is_stopped():
 		var direction = (get_global_mouse_position() - self.global_position).normalized()
-		var end_point = self.global_position + direction * 10000
-		#var collision_point = aimcast.get_collision_point()
-		var query = PhysicsRayQueryParameters2D.create(global_position, end_point)
-		query.set_collision_mask(1)
-		var space_state = get_world_2d().direct_space_state
-		var bullet_spots = make_bounces(query, direction, space_state)
-		
-		var new_bullet = Bullet.instantiate()
-		new_bullet.global_position = self.global_position + direction * 10
+		var new_bullet = AdvancedBullet.instantiate()
+		new_bullet.prepare(direction*800)
+		new_bullet.global_position = self.global_position + direction * 40
 		get_tree().get_root().add_child(new_bullet)
-		new_bullet.prepare_bullet(12, bullet_spots, global_position)
-		
-		var i = rng.randf_range(0, 3)
-		#gun_sound_player.stream = self.gun_sounds[i]
 		gun_sound_player.play()
 		shoot_timer.start()
+		"""
+		var i = rng.randf_range(0, 3)
+		gun_sound_player.stream = self.gun_sounds[i]
+		"""
 
 
 func make_bounces(query, direction, space_state, list=[], i=0, max_bounces=6):
-		var result = space_state.intersect_ray(query)
-		if result:
-			
-			# Get bounce dir
-			var collision_point = result["position"]
-			var normal = result["normal"]
-			var new_dir = direction.bounce(normal).normalized()
-			
-			# Visualize the bounce
-			var test_item = TestItem.instantiate()
-			test_item.global_position = (collision_point)
-			get_tree().get_root().add_child(test_item)
-
-			# Append collision spot to list
-			#print(result["collider"].name)
-			if result["collider"].is_in_group("enemies"):
-				var new_goal = collision_point + direction*10000
-				var new_query = PhysicsRayQueryParameters2D.create(collision_point, new_goal)
-				#list.append([collision_point, result["collider"]])
-				return make_bounces(new_query, direction, space_state, list, i, max_bounces+1)
-			else:
-				list.append([collision_point, null])
-			
-			# Make bounce query
-			var new_goal = collision_point + new_dir*10000
+	"""
+	Calculates bounces for hitscan ricocheting bullet recursively
+	"""
+	var result = space_state.intersect_ray(query)
+	if result:
+		# Get bounce dir
+		var collision_point = result["position"]
+		var normal = result["normal"]
+		var new_dir = direction.bounce(normal).normalized()
+		
+		# Visualize the bounce
+		var test_item = TestItem.instantiate()
+		test_item.global_position = (collision_point)
+		get_tree().get_root().add_child(test_item)
+		# Append collision spot to list
+		#print(result["collider"].name)
+		if result["collider"].is_in_group("enemies"):
+			var new_goal = collision_point + direction*10000
 			var new_query = PhysicsRayQueryParameters2D.create(collision_point, new_goal)
-			new_query.exclude = [result["rid"]]
-			new_query.set_collision_mask(1)
-			i += 1
-			
-			if i >= max_bounces:
-				return list
-			
-			return make_bounces(new_query, new_dir, space_state, list, i, max_bounces)
+			#list.append([collision_point, result["collider"]])
+			return make_bounces(new_query, direction, space_state, list, i, max_bounces+1)
 		else:
-			# Append non-colliding spot to list
-			var point = global_position + direction * 10000
-			list.append([point, null])
+			list.append([collision_point, null])
+		
+		# Make bounce query
+		var new_goal = collision_point + new_dir*10000
+		var new_query = PhysicsRayQueryParameters2D.create(collision_point, new_goal)
+		new_query.exclude = [result["rid"]]
+		new_query.set_collision_mask(1)
+		i += 1
+		
+		if i >= max_bounces:
 			return list
-			
+		return make_bounces(new_query, new_dir, space_state, list, i, max_bounces)
+	else:
+		# Append non-colliding spot to list
+		var point = global_position + direction * 10000
+		list.append([point, null])
+		return list
 
 
 func apply_knockback(force, direction):
@@ -184,19 +176,16 @@ func apply_knockback(force, direction):
 		
 	else:
 		velocity += Vector2(-400, -300)
-	
-	
 
 
 func take_damage(damage, dir=null):
-	
 	if hit_timer.is_stopped():
 		self.health -= damage
 		hit_sound_player.play()
 		hit_timer.start()
 		self.player_sprite.set_modulate(Color(1, 1, 1, 0.5))
-		#if dir:
-		#	apply_knockback(1000, dir)
+		if dir:
+			apply_knockback(1000, dir)
 		if health <= 0:
 			current_state = States.DESTROYED
 			queue_free()
@@ -206,12 +195,8 @@ func _on_hurtbox_area_body_entered(body):
 	pass
 
 
-
-
-
 func _on_hit_timer_timeout():
 	self.player_sprite.set_modulate(Color(1, 1, 1, 1))
-
 
 
 func _on_knockback_timer_timeout():
