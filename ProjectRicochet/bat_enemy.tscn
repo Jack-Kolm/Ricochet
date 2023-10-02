@@ -121,8 +121,8 @@ shape = SubResource("CapsuleShape2D_7h4m7")
 [node name="HitSoundPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 0
 
 [node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(2.19345e-05, -0.19981)

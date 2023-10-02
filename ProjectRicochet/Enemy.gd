@@ -2,7 +2,9 @@ extends CharacterBody2D
 
 class_name Enemy
 
-var health
+var health = 400
+var friction_factor = 2000
+var x_axis = -1
 
 
 # Called when the node enters the scene tree for the first time.

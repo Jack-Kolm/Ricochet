@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://oicjjw82y2vb"]
+[gd_scene load_steps=28 format=3 uid="uid://oicjjw82y2vb"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_45r8q"]
 [ext_resource type="Texture2D" uid="uid://buodxi47dnrum" path="res://Sprites/Bullet1.png" id="2_boxfg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b606ix5vt7h6a" path="res://Sprites/Player/maleBase/base/char1.png" id="3_fryf3"]
 [ext_resource type="Texture2D" uid="uid://cqgotutnbentn" path="res://Sprites/Bullet7.png" id="4_7snlf"]
 [ext_resource type="Texture2D" uid="uid://dr8fvxm582nds" path="res://Sprites/Player/maleBase/base/base_dark8.png" id="4_icuj3"]
+[ext_resource type="Texture2D" uid="uid://chkbpg3aylfqh" path="res://Sprites/Tile3.png" id="4_pasi0"]
 [ext_resource type="Texture2D" uid="uid://jqhysk0tda26" path="res://Sprites/Player/maleBase/base/char18.png" id="4_sjyko"]
 [ext_resource type="Texture2D" uid="uid://dojr0tf8krxln" path="res://Sprites/Player/maleBase/base/base_dark9.png" id="5_a5uud"]
 [ext_resource type="Texture2D" uid="uid://ci6b1iisoasmh" path="res://Sprites/Player/maleBase/base/char2.png" id="5_ae7yn"]
@@ -146,6 +147,13 @@ collide_with_areas = true
 wait_time = 0.5
 one_shot = true
 
+[node name="Laser" type="Sprite2D" parent="Gun"]
+modulate = Color(4.14, 0, 0, 0.43)
+position = Vector2(-0.000976563, 105.026)
+scale = Vector2(0.182844, 40.5133)
+texture = ExtResource("4_pasi0")
+offset = Vector2(0.0146484, 23.6434)
+
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fy1hp")
@@ -155,23 +163,18 @@ autoplay = "walk"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="HurtboxArea" type="Area2D" parent="."]
+position = Vector2(0, 20)
 scale = Vector2(0.559998, 0.879999)
 collision_layer = 3
 collision_mask = 3
 
-[node name="Hurtbox" type="CollisionShape2D" parent="HurtboxArea"]
-position = Vector2(0, 24)
+[node name="StandHurtbox" type="CollisionShape2D" parent="HurtboxArea"]
 scale = Vector2(0.908302, -2.50796)
 shape = SubResource("CapsuleShape2D_3jk4k")
 
-[node name="CrouchHurtboxArea" type="Area2D" parent="."]
-collision_layer = 3
-collision_mask = 3
-
-[node name="Hurtbox" type="CollisionShape2D" parent="CrouchHurtboxArea"]
-visible = false
-position = Vector2(0, 37)
-scale = Vector2(1.01639, -1.06795)
+[node name="CrouchHurtbox" type="CollisionShape2D" parent="HurtboxArea"]
+position = Vector2(1.78571, 17.0455)
+scale = Vector2(1.81499, -1.21358)
 shape = SubResource("CapsuleShape2D_e1tmr")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
@@ -245,6 +248,5 @@ text = "IAM THE HEALTH"
 [node name="PlayerCrouch" type="Node" parent="StateMachine"]
 
 [connection signal="body_entered" from="HurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
-[connection signal="body_entered" from="CrouchHurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]

@@ -11,9 +11,7 @@ enum States {STANDARD, CROUCHING, DESTROYED}
 var current_state = States.STANDARD
 var direction = 0
 var health = 100
-
 var friction_factor = 2000
-
 @onready var position_is_position = Vector2(0,0)
 
 @onready var player_gun = $Gun
@@ -23,14 +21,14 @@ var friction_factor = 2000
 @onready var knockback_timer = $KnockbackTimer
 @onready var shoot_timer = $Gun/ShootTimer
 @onready var health_bar = $CanvasLayer/Control/MarginContainer/Label
-@onready var hurtbox = $HurtboxArea
-@onready var crouch_hurtbox = $CrouchHurtboxArea
+@onready var stand_hurtbox = $HurtboxArea/StandHurtbox
+@onready var crouch_hurtbox = $HurtboxArea/CrouchHurtbox
+@onready var laser_sprite = $Gun/Laser
 
 @onready var gun_sound_player = $Sounds/GunSoundPlayer
 @onready var hit_sound_player = $Sounds/HitSoundPlayer
 
 @onready var root_node = null
-
 #@onready var Bullet = preload("res://bullet.tscn")
 @onready var Bullet = preload("res://ricochet_bullet.tscn")
 @onready var AdvancedBullet = preload("res://advanced_ricochet_bullet.tscn")
@@ -71,6 +69,8 @@ func default_step(delta):
 
 
 func standard_state(delta):
+	stand_hurtbox.disabled = false
+	crouch_hurtbox.disabled = true
 	if direction:
 		velocity.x = lerp(velocity.x, direction * SPEED, delta*5)
 	else:
@@ -86,6 +86,8 @@ func standard_state(delta):
 
 
 func  crouch_state(delta):
+	stand_hurtbox.disabled = true
+	crouch_hurtbox.disabled = false
 	if is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, delta*friction_factor)
 		player_sprite.animation = "crouch"
@@ -114,8 +116,8 @@ func shoot():
 	if not player_gun.is_tip_colliding() and shoot_timer.is_stopped():
 		var direction = (get_global_mouse_position() - self.global_position).normalized()
 		var new_bullet = AdvancedBullet.instantiate()
-		new_bullet.prepare(direction*800)
-		new_bullet.global_position = self.global_position + direction * 40
+		new_bullet.prepare(direction)
+		new_bullet.global_position = laser_sprite.global_position
 		get_tree().get_root().add_child(new_bullet)
 		gun_sound_player.play()
 		shoot_timer.start()
@@ -189,6 +191,18 @@ func take_damage(damage, dir=null):
 		if health <= 0:
 			current_state = States.DESTROYED
 			queue_free()
+
+
+func hitpoint():
+	match current_state:
+		States.STANDARD:
+			return self.global_position
+		States.CROUCHING:
+			return self.global_position + Vector2(0, 50)
+		States.DESTROYED:
+			return self.global_position
+		_:
+			return self.global_position 
 
 
 func _on_hurtbox_area_body_entered(body):

@@ -134,18 +134,19 @@ animation = &"crouch"
 autoplay = "walk"
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+position = Vector2(0, 20)
+scale = Vector2(1, 1.16)
+collision_layer = 4
+collision_mask = 0
 
 [node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, 24)
+scale = Vector2(0.640001, 1)
 shape = SubResource("CapsuleShape2D_kdqwi")
 
 [node name="State" type="Node" parent="."]
 script = ExtResource("13_utisb")
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
 monitoring = false
 monitorable = false
 
@@ -163,9 +164,10 @@ scale = Vector2(1.12, 1.12196)
 shape = SubResource("RectangleShape2D_vh2oe")
 
 [node name="Shield" type="StaticBody2D" parent="."]
-position = Vector2(20, 24)
-collision_layer = 6
-collision_mask = 6
+position = Vector2(24, 24)
+scale = Vector2(1, 1.12)
+collision_layer = 0
+collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Shield"]
 modulate = Color(0.662745, 0.172549, 0.74902, 1)
@@ -176,15 +178,15 @@ texture = ExtResource("14_ehgut")
 position = Vector2(-1.90735e-06, 0)
 scale = Vector2(0.297079, 1.32349)
 shape = SubResource("RectangleShape2D_gss8k")
-one_way_collision_margin = 0.0
+disabled = true
 
-[node name="Area2D" type="Area2D" parent="Shield"]
+[node name="ShieldArea" type="Area2D" parent="Shield"]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield/ShieldArea"]
 position = Vector2(-1.90735e-06, 0)
-scale = Vector2(0.297079, 1.32349)
+scale = Vector2(0.697079, 1.44349)
 shape = SubResource("RectangleShape2D_gss8k")
 
 [node name="PlayerCheck" type="Area2D" parent="."]
@@ -218,8 +220,17 @@ sprite_frames = SubResource("SpriteFrames_ahjkr")
 wait_time = 0.5
 autostart = true
 
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="WallCheck" to="." method="_on_wall_check_body_entered"]
+[connection signal="body_entered" from="Shield/ShieldArea" to="." method="_on_shield_area_body_entered"]
 [connection signal="body_entered" from="PlayerCheck" to="." method="_on_player_check_body_entered"]
 [connection signal="timeout" from="TurnAroundTimer" to="." method="_on_turn_around_timer_timeout"]
 [connection signal="animation_finished" from="ExplosionSprite" to="." method="_on_explosion_sprite_animation_finished"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
