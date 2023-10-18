@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-const SPEED = 800
+const SPEED = 1000
 const MAX_BOUNCES = 6
 const BASE_DAMAGE = 100
-
+const KNOCKBACK_FACTOR = 100
 
 @onready var bullet_sprite = $BulletSprite
 @onready var destruction_timer = $DestructionTimer
@@ -12,7 +12,7 @@ const BASE_DAMAGE = 100
 @onready var sound_player = $RicochetSoundPlayer2D
 @onready var ricochet_timer = $RicochetTimer
 @onready var destruction_delay_timer = $DestructionDelayTimer
-
+@onready var hitbox = $Hitbox
 var direction = Vector2(0, 0)
 var bounces = 0
 var should_bounce = false
@@ -30,7 +30,7 @@ var impact_sounds = [impact1, impact2, impact3, impact4]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.add_to_group("ricochet_bullets")
+	add_to_group("ricochet_bullets")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,7 +38,7 @@ func _physics_process(delta):
 	if destroyed:
 		return
 	direction = velocity.normalized()
-	self.rotation = direction.angle() - PI/2
+	rotation = direction.angle() - PI/2
 	var collision_info = move_and_collide(velocity * delta)
 	if collision_info:
 		if not collision_info.get_collider().is_in_group("avoid_bullet"):
@@ -55,7 +55,7 @@ func ricochet(normal):
 		play_ricochet_sound()
 		destroy()
 	else:
-		#velocity = velocity + velocity*0.1
+		#velocity = velocity + velocity*0.1 #speed increase
 		damage = BASE_DAMAGE * bounces
 		bullet_sprite.set_modulate(Color(1, 1, 1, 1))
 		play_ricochet_sound()
@@ -69,35 +69,41 @@ func play_ricochet_sound():
 	sound_player.pitch_scale += 0.3
 
 func check_enemy(body):
-	print("Enemy name: ",body.name)
 	if body.is_in_group("enemies"):
 		if bounces > 0:
 			var enemy = body
-			enemy.take_damage(damage)
-			enemy.apply_force(100*bounces, direction)
-		self.destroy()
+			enemy.apply_damage(damage)
+			enemy.apply_knockback(KNOCKBACK_FACTOR*bounces, direction)
+		destroy()
 
 
 func prepare(start_direction):
-	self.direction = start_direction
-	self.velocity = start_direction * SPEED
+	direction = start_direction
+	velocity = start_direction * SPEED
 
 
 func destroy():
 	destroyed = true
-	self.set_collision_layer_value(2, false)
-	self.set_collision_mask_value(2, false)
+	hitbox.set_collision_layer_value(2, false)
+	hitbox.set_collision_mask_value(3, false)
+	set_collision_layer_value(2, false)
+	set_collision_mask_value(3, false)
 	bullet_sprite.visible = false
 	explosion_sprite.visible = true
 	explosion_sprite.play("default")
-	
-	
+
+
 func get_direction():
 	return direction
-	
+
+
 func get_damage():
 	return damage
-	
+
+
+func get_bounces():
+	return bounces
+
 func _on_destruction_timer_timeout():
 	destroy()
 	#queue_free()
@@ -112,6 +118,6 @@ func _on_hitbox_area_entered(area):
 	check_enemy(area.get_owner())
 
 
-
 func _on_destruction_delay_timer_timeout():
 	queue_free()
+

@@ -104,8 +104,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" groups=["avoid_bullet"]]
+[node name="Player" type="CharacterBody2D" groups=["avoid_bullet", "player"]]
 position = Vector2(176, -120)
+collision_layer = 17
+collision_mask = 17
 script = ExtResource("1_45r8q")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -113,6 +115,7 @@ zoom = Vector2(0.8, 0.8)
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
 
 [node name="Gun" type="StaticBody2D" parent="."]
 position = Vector2(0, -8)
@@ -148,9 +151,9 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Laser" type="Sprite2D" parent="Gun"]
-modulate = Color(4.14, 0, 0, 0.43)
+modulate = Color(4.14118, 0.294118, 0, 0.439216)
 position = Vector2(-0.000976563, 105.026)
-scale = Vector2(0.182844, 40.5133)
+scale = Vector2(0.0347695, 40.5133)
 texture = ExtResource("4_pasi0")
 offset = Vector2(0.0146484, 23.6434)
 
@@ -165,8 +168,6 @@ autoplay = "walk"
 [node name="HurtboxArea" type="Area2D" parent="."]
 position = Vector2(0, 20)
 scale = Vector2(0.559998, 0.879999)
-collision_layer = 3
-collision_mask = 3
 
 [node name="StandHurtbox" type="CollisionShape2D" parent="HurtboxArea"]
 scale = Vector2(0.908302, -2.50796)
@@ -202,6 +203,7 @@ stream = ExtResource("12_0bt7h")
 [node name="MovementSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
 
 [node name="HitTimer" type="Timer" parent="."]
+wait_time = 4.0
 one_shot = true
 
 [node name="KnockbackTimer" type="Timer" parent="."]
@@ -239,7 +241,6 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer"]
 layout_mode = 2
-text = "IAM THE HEALTH"
 
 [node name="StateMachine" type="Node" parent="."]
 

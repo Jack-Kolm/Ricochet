@@ -1,19 +1,28 @@
 extends CharacterBody2D
 
+class_name Player
 
 const SPEED = 400.0
 const JUMP_VELOCITY = -600.0
+const ACCELERATION_FACTOR = 4.0
+const AIM_FACTOR = 4.0
+const MOUSE_POS_SCALE = 0.2
+const KNOCKBACK = 400.0
+const KNOCKBACK_DELTA = 500.0
+
+const NORMAL_FRICTION = 2000.0
+const KNOCKBACK_FRICTION = 500.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var rng = RandomNumberGenerator.new()
 enum States {STANDARD, CROUCHING, DESTROYED}
 var current_state = States.STANDARD
-var direction = 0
-var health = 100
-var friction_factor = 2000
-@onready var position_is_position = Vector2(0,0)
+var direction = 0.0
+var health = 1000.0
+var friction_factor = NORMAL_FRICTION
 
+@onready var position_is_position = Vector2(0,0)
 @onready var player_gun = $Gun
 @onready var aimcast = $Gun/AimCast
 @onready var player_sprite = $PlayerSprite
@@ -21,9 +30,11 @@ var friction_factor = 2000
 @onready var knockback_timer = $KnockbackTimer
 @onready var shoot_timer = $Gun/ShootTimer
 @onready var health_bar = $CanvasLayer/Control/MarginContainer/Label
+@onready var hurtbox_area = $HurtboxArea
 @onready var stand_hurtbox = $HurtboxArea/StandHurtbox
 @onready var crouch_hurtbox = $HurtboxArea/CrouchHurtbox
 @onready var laser_sprite = $Gun/Laser
+@onready var camera = $Camera2D
 
 @onready var gun_sound_player = $Sounds/GunSoundPlayer
 @onready var hit_sound_player = $Sounds/HitSoundPlayer
@@ -38,13 +49,13 @@ var friction_factor = 2000
 
 
 func _ready():
+	print(get_tree().get_root())
 	root_node = get_tree().get_root().get_child(0)
-	root_node.set_player(self)
+	#root_node.set_player(self)
 
 
 func _physics_process(delta):
 	direction = Input.get_axis("ui_left", "ui_right")
-	
 	match current_state:
 		States.STANDARD:
 			standard_state(delta)
@@ -54,10 +65,12 @@ func _physics_process(delta):
 			pass
 		_:
 			print("how sway")
-	default_step(delta)
+	general_step(delta)
 
 
-func default_step(delta):
+func general_step(delta):
+	var mouse_dir = (get_global_mouse_position() - global_position)
+	camera.offset = lerp(camera.offset, mouse_dir*MOUSE_POS_SCALE, delta*AIM_FACTOR)
 	health_bar.text = "HP: "+str(health)
 	if direction:
 		player_sprite.scale.x = 2 * direction
@@ -72,7 +85,7 @@ func standard_state(delta):
 	stand_hurtbox.disabled = false
 	crouch_hurtbox.disabled = true
 	if direction:
-		velocity.x = lerp(velocity.x, direction * SPEED, delta*5)
+		velocity.x = lerp(velocity.x, direction * SPEED, delta*ACCELERATION_FACTOR)
 	else:
 		velocity.x = move_toward(velocity.x, 0, delta*friction_factor)
 	if is_on_floor():
@@ -80,7 +93,6 @@ func standard_state(delta):
 			player_sprite.animation = "walk"
 		else:
 			player_sprite.animation = "idle"
-		
 		if Input.is_action_just_pressed("ui_accept"):
 			velocity.y = JUMP_VELOCITY
 
@@ -114,95 +126,45 @@ func _input(event):
 
 func shoot():
 	if not player_gun.is_tip_colliding() and shoot_timer.is_stopped():
-		var direction = (get_global_mouse_position() - self.global_position).normalized()
+		var direction = (get_global_mouse_position() - global_position).normalized()
 		var new_bullet = AdvancedBullet.instantiate()
 		new_bullet.prepare(direction)
 		new_bullet.global_position = laser_sprite.global_position
 		get_tree().get_root().add_child(new_bullet)
 		gun_sound_player.play()
 		shoot_timer.start()
-		"""
-		var i = rng.randf_range(0, 3)
-		gun_sound_player.stream = self.gun_sounds[i]
-		"""
 
 
-func make_bounces(query, direction, space_state, list=[], i=0, max_bounces=6):
-	"""
-	Calculates bounces for hitscan ricocheting bullet recursively
-	"""
-	var result = space_state.intersect_ray(query)
-	if result:
-		# Get bounce dir
-		var collision_point = result["position"]
-		var normal = result["normal"]
-		var new_dir = direction.bounce(normal).normalized()
-		
-		# Visualize the bounce
-		var test_item = TestItem.instantiate()
-		test_item.global_position = (collision_point)
-		get_tree().get_root().add_child(test_item)
-		# Append collision spot to list
-		#print(result["collider"].name)
-		if result["collider"].is_in_group("enemies"):
-			var new_goal = collision_point + direction*10000
-			var new_query = PhysicsRayQueryParameters2D.create(collision_point, new_goal)
-			#list.append([collision_point, result["collider"]])
-			return make_bounces(new_query, direction, space_state, list, i, max_bounces+1)
-		else:
-			list.append([collision_point, null])
-		
-		# Make bounce query
-		var new_goal = collision_point + new_dir*10000
-		var new_query = PhysicsRayQueryParameters2D.create(collision_point, new_goal)
-		new_query.exclude = [result["rid"]]
-		new_query.set_collision_mask(1)
-		i += 1
-		
-		if i >= max_bounces:
-			return list
-		return make_bounces(new_query, new_dir, space_state, list, i, max_bounces)
-	else:
-		# Append non-colliding spot to list
-		var point = global_position + direction * 10000
-		list.append([point, null])
-		return list
 
-
-func apply_knockback(force, direction):
-	knockback_timer.start()
-	velocity = Vector2(0,0)
-	self.friction_factor = 500
-	if direction.x > 0:
-		velocity += Vector2(400, -300)
-		
-	else:
-		velocity += Vector2(-400, -300)
-
-
-func take_damage(damage, dir=null):
+func apply_damage(damage):
 	if hit_timer.is_stopped():
-		self.health -= damage
+		hurtbox_area.set_collision_layer_value(1, false)
+		hurtbox_area.set_collision_mask_value(1, false)
+		health -= damage
 		hit_sound_player.play()
 		hit_timer.start()
-		self.player_sprite.set_modulate(Color(1, 1, 1, 0.5))
-		if dir:
-			apply_knockback(1000, dir)
+		player_sprite.set_modulate(Color(1, 1, 1, 0.5))
 		if health <= 0:
 			current_state = States.DESTROYED
 			queue_free()
 
 
+func apply_knockback(direction, force=KNOCKBACK):
+	knockback_timer.start()
+	friction_factor = KNOCKBACK_FRICTION
+	velocity = Vector2(force*sign(direction.x), -force)
+
+
 func hitpoint():
 	match current_state:
 		States.STANDARD:
-			return self.global_position
+			return global_position
 		States.CROUCHING:
-			return self.global_position + Vector2(0, 50)
+			return global_position + Vector2(0, 50)
 		States.DESTROYED:
-			return self.global_position
+			return global_position
 		_:
-			return self.global_position 
+			return global_position 
 
 
 func _on_hurtbox_area_body_entered(body):
@@ -210,9 +172,11 @@ func _on_hurtbox_area_body_entered(body):
 
 
 func _on_hit_timer_timeout():
-	self.player_sprite.set_modulate(Color(1, 1, 1, 1))
+	player_sprite.set_modulate(Color(1, 1, 1, 1))
+	hurtbox_area.set_collision_layer_value(1, true)
+	hurtbox_area.set_collision_mask_value(1, true)
 
 
 func _on_knockback_timer_timeout():
-	self.friction_factor = 2000
+	friction_factor = NORMAL_FRICTION
 

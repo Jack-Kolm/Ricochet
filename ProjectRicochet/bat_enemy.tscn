@@ -98,7 +98,7 @@ motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_y4u8h")
 
-[node name="BatSprite" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_pfn3b")
 autoplay = "default"
@@ -123,6 +123,7 @@ shape = SubResource("CapsuleShape2D_7h4m7")
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 0
+monitoring = false
 
 [node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(2.19345e-05, -0.19981)
@@ -131,4 +132,3 @@ shape = SubResource("CapsuleShape2D_hniqn")
 
 [connection signal="animation_finished" from="ExplosionSprite" to="." method="_on_explosion_sprite_animation_finished"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
-[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

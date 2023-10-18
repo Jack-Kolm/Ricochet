@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const BASE_DAMAGE = 100
 
+var damage = BASE_DAMAGE
 var direction = Vector2(0,0)
 
 @onready var bullet_sprite = $BulletSprite
@@ -27,11 +28,22 @@ func destroy():
 	queue_free()
 
 func _on_hitbox_body_entered(body):
-	if body.name == "Player":
-		body.take_damage(10, direction)
-		destroy()
+	#if body.name == "Player":
+	#	var player = body
+	#	player.apply_damage(damage, direction)
+	#	self.destroy()
+	pass
 
 
 func _on_destruction_timer_timeout():
 	destroy()
+
+
+
+func _on_hitbox_area_entered(area):
+	if area.get_owner().name == "Player":
+		var player = area.get_owner()
+		player.apply_damage(damage)
+		player.apply_knockback(direction)
+		self.destroy()
 
