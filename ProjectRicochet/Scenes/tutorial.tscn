@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://c3jpqctqncljx"]
 
-[ext_resource type="PackedScene" uid="uid://oicjjw82y2vb" path="res://player.tscn" id="1_g8htl"]
-[ext_resource type="Script" path="res://Scenes/tutorial.gd" id="1_u6xun"]
+[ext_resource type="PackedScene" uid="uid://oicjjw82y2vb" path="res://Scenes/Player/player.tscn" id="1_g8htl"]
+[ext_resource type="Script" path="res://Scripts/tutorial.gd" id="1_u6xun"]
 [ext_resource type="Texture2D" uid="uid://dyahsdnwtv4pa" path="res://Sprites/Tile.png" id="2_fln2i"]
 [ext_resource type="Texture2D" uid="uid://b3bwcq37g5jv6" path="res://Sprites/Tile2.png" id="2_ghh1b"]
 [ext_resource type="Texture2D" uid="uid://vfraqmtiek3c" path="res://Sprites/2d_lights_and_shadows_neutral_point_light.webp" id="4_fhkrf"]
-[ext_resource type="Script" path="res://Scenes/TutorialSwitch.gd" id="6_jo2od"]
+[ext_resource type="Script" path="res://Scripts/tutorial_switch.gd" id="6_52xqi"]
 [ext_resource type="Texture2D" uid="uid://chkbpg3aylfqh" path="res://Sprites/Tile3.png" id="7_7q8je"]
 [ext_resource type="Texture2D" uid="uid://cdhyx1swgprvq" path="res://icon.svg" id="8_kekkf"]
 
@@ -116,7 +116,7 @@ texture = ExtResource("4_fhkrf")
 [node name="Switch1" type="StaticBody2D" parent="."]
 modulate = Color(0.65, 0.65, 0.65, 1)
 position = Vector2(424, 64)
-script = ExtResource("6_jo2od")
+script = ExtResource("6_52xqi")
 
 [node name="Hurtbox" type="Area2D" parent="Switch1"]
 collision_layer = 2
@@ -134,7 +134,7 @@ texture = ExtResource("2_fln2i")
 [node name="Switch2" type="StaticBody2D" parent="."]
 modulate = Color(0.65, 0.65, 0.65, 1)
 position = Vector2(173, -34)
-script = ExtResource("6_jo2od")
+script = ExtResource("6_52xqi")
 start_visible = false
 
 [node name="Hurtbox" type="Area2D" parent="Switch2"]

@@ -1,0 +1,134 @@
+[gd_scene load_steps=22 format=3 uid="uid://7g343iav3fgo"]
+
+[ext_resource type="Script" path="res://Scripts/bat_enemy.gd" id="1_takm6"]
+[ext_resource type="Texture2D" uid="uid://xs3g32spp7vl" path="res://Sprites/Bat/bat1.png" id="2_dy4j6"]
+[ext_resource type="Texture2D" uid="uid://bfa0d67js48tt" path="res://Sprites/Bat/bat2.png" id="3_dkhbb"]
+[ext_resource type="Texture2D" uid="uid://6bghxgf5ym6o" path="res://Sprites/Bat/bat3.png" id="4_yudac"]
+[ext_resource type="Texture2D" uid="uid://di6vuqyt04ea7" path="res://Sprites/Bat/bat4.png" id="5_28edk"]
+[ext_resource type="Texture2D" uid="uid://dodeax7gauf3" path="res://Sprites/Bat/bat5.png" id="6_ng1i4"]
+[ext_resource type="Texture2D" uid="uid://dc07tfyc55jbl" path="res://Sprites/Bat/bat6.png" id="7_xh4re"]
+[ext_resource type="Texture2D" uid="uid://bsyy7pbq2l3lh" path="res://Sprites/Bat/bat7.png" id="8_a1hn0"]
+[ext_resource type="Texture2D" uid="uid://5vjy5gfwy6uu" path="res://Sprites/Bat/bat8.png" id="9_fut0h"]
+[ext_resource type="Texture2D" uid="uid://b41spyoqrnnxo" path="res://Sprites/Bat/bat9.png" id="10_myjhi"]
+[ext_resource type="Texture2D" uid="uid://drxehysiwyyig" path="res://Sprites/Bat/bat10.png" id="11_gav0s"]
+[ext_resource type="Texture2D" uid="uid://dl03ttlb24ada" path="res://Sprites/Explosion/explosion1.png" id="12_cduld"]
+[ext_resource type="Texture2D" uid="uid://dt4xoaxgrgijr" path="res://Sprites/Explosion/explosion2.png" id="13_vhu3e"]
+[ext_resource type="Texture2D" uid="uid://b5gger2f4230r" path="res://Sprites/Explosion/explosion3.png" id="14_ygiko"]
+[ext_resource type="Texture2D" uid="uid://bodebyb4vgk07" path="res://Sprites/Explosion/explosion4.png" id="15_0v4qi"]
+[ext_resource type="Texture2D" uid="uid://biskv30bbbw7q" path="res://Sprites/Explosion/explosion5.png" id="16_8k7x7"]
+[ext_resource type="Texture2D" uid="uid://cb2clutnd13pb" path="res://Sprites/Explosion/explosion6.png" id="17_5svqu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pfn3b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dy4j6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dkhbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yudac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_28edk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ng1i4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xh4re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_a1hn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_fut0h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_myjhi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_gav0s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7h4m7"]
+radius = 6.5
+height = 18.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_douax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_cduld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_vhu3e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ygiko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_0v4qi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_8k7x7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_5svqu")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hniqn"]
+radius = 4.4308
+height = 8.86159
+
+[node name="BatEnemy" type="CharacterBody2D"]
+position = Vector2(328, -160)
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+slide_on_ceiling = false
+script = ExtResource("1_takm6")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_pfn3b")
+autoplay = "default"
+frame_progress = 0.121327
+
+[node name="CollisionBoxShape" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 1.24)
+shape = SubResource("CapsuleShape2D_7h4m7")
+
+[node name="ExplosionSprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.65098)
+sprite_frames = SubResource("SpriteFrames_douax")
+
+[node name="Hitbox" type="Area2D" parent="." groups=["enemies"]]
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+scale = Vector2(4, 1.5376)
+shape = SubResource("CapsuleShape2D_7h4m7")
+
+[node name="HitSoundPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(2.19345e-05, -0.19981)
+scale = Vector2(0.880001, 1.44)
+shape = SubResource("CapsuleShape2D_hniqn")
+
+[connection signal="animation_finished" from="ExplosionSprite" to="." method="_on_explosion_sprite_animation_finished"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
