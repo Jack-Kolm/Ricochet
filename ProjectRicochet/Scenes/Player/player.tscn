@@ -110,7 +110,7 @@ collision_layer = 17
 collision_mask = 17
 script = ExtResource("1_ihb4m")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -236,6 +236,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="GunChargeLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="JumpChargeLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
 
 [node name="StateMachine" type="Node" parent="."]

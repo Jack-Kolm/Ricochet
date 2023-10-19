@@ -17,8 +17,8 @@ const DAMAGE_MODULATE_FACTOR = 2
 const STOP_CHASE_X = 1200
 const STOP_CHASE_Y = 600
 
-const KNOCKBACK_X = 300
-const KNOCKBACK_Y = 300
+const SELF_KNOCKBACK_X = 300
+const SELF_KNOCKBACK_Y = 300
 const KNOCKBACK_PLAYER_FORCE = 500
 
 const SPRITE_SCALE = 1
@@ -35,6 +35,7 @@ const SPRITE_SCALE = 1
 var detect_player_y = 400
 
 enum States {ROAM, CHASE, HURT}
+
 var current_state = States.ROAM
 var previous_state = null
 
@@ -156,6 +157,7 @@ func exit_state(state):
 		_:
 			previous_state = state
 
+
 func detect_player():
 	var target_x = player.global_position.x - global_position.x
 	var target_y = player.global_position.y - global_position.y
@@ -179,7 +181,7 @@ func apply_damage(damage):
 func apply_knockback(force, direction):
 	enter_state(States.HURT)
 	knockback_timer.start()
-	velocity = Vector2(KNOCKBACK_X*sign(direction.x), -KNOCKBACK_Y)
+	velocity = Vector2(SELF_KNOCKBACK_X*sign(direction.x), -SELF_KNOCKBACK_Y)
 
 
 func destroy():

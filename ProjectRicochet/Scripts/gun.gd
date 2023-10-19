@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+class_name Gun
+
 @onready var raycast = $GunRayCast
 @onready var tip_box = $GunTipBox
 
@@ -26,3 +28,6 @@ func is_tip_colliding():
 
 func get_tip_global_position():
 	return tip_box.global_position
+
+func shoot():
+	pass

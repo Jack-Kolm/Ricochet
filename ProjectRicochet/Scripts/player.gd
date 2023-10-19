@@ -3,26 +3,43 @@ extends CharacterBody2D
 class_name Player
 
 const SPEED = 400.0
-const JUMP_VELOCITY = -600.0
 const ACCELERATION_FACTOR = 4.0
 const AIM_FACTOR = 4.0
 const MOUSE_POS_SCALE = 0.2
 const KNOCKBACK = 400.0
 const KNOCKBACK_DELTA = 500.0
 
+const INITIAL_JUMP_VELOCITY = -350.0
+const SECOND_JUMP_ADD = -300.0
+const SECOND_JUMP_START = -500.0
+const JUMP_ADD = -1800.0
+const JUMP_DELTA = 15.0
+const MAX_JUMP_TIME = 0.25
+const MAX_JUMP_VELOCITY = -600.0
+
 const NORMAL_FRICTION = 2000.0
 const KNOCKBACK_FRICTION = 500.0
+
+
+
+const MIN_GUN_CHARGE = 0.1
+const MAX_GUN_CHARGE = 0.2
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var rng = RandomNumberGenerator.new()
 enum States {STANDARD, CROUCHING, DESTROYED}
 var current_state = States.STANDARD
+var previous_state = States.STANDARD
 var direction = 0.0
 var health = 1000.0
 var friction_factor = NORMAL_FRICTION
+var second_jump = false
 
+var jump_charge = 0
 var gun_charge = 0
+
+var jump_timer = 0.0
 
 @onready var position_is_position = Vector2(0,0)
 @onready var player_gun = $Gun
@@ -33,12 +50,12 @@ var gun_charge = 0
 @onready var shoot_timer = $Gun/ShootTimer
 @onready var health_bar = $CanvasLayer/Control/VBoxContainer/HealthLabel
 @onready var gun_bar = $CanvasLayer/Control/VBoxContainer/GunChargeLabel
+@onready var jump_bar = $CanvasLayer/Control/VBoxContainer/JumpChargeLabel
 @onready var hurtbox_area = $HurtboxArea
 @onready var stand_hurtbox = $HurtboxArea/StandHurtbox
 @onready var crouch_hurtbox = $HurtboxArea/CrouchHurtbox
 @onready var laser_sprite = $Gun/Laser
-@onready var camera = $Camera2D
-
+@onready var camera = $Camera
 @onready var gun_sound_player = $Sounds/GunSoundPlayer
 @onready var hit_sound_player = $Sounds/HitSoundPlayer
 
@@ -74,25 +91,30 @@ func _physics_process(delta):
 func general_step(delta):
 	gun_bar.set_modulate(Color(0.5,0.5,0.5))
 	if Input.is_action_pressed("Shoot"):
-		if gun_charge < 100:
-			gun_charge += 100 * delta
+		if gun_charge < MAX_GUN_CHARGE:
+			gun_charge += delta
 		else:
 			gun_bar.set_modulate(Color(0.5,0.5,1))
 	if Input.is_action_just_released("Shoot"):
-		if gun_charge >= 50:
+		if gun_charge >= MIN_GUN_CHARGE:
 			shoot()
 		gun_charge = 0
 	
 	var mouse_dir = (get_global_mouse_position() - global_position)
 	camera.offset = lerp(camera.offset, mouse_dir*MOUSE_POS_SCALE, delta*AIM_FACTOR)
 	health_bar.text = "HP: "+str(health)
-	gun_bar.text = "GUN: "+str(int(gun_charge))
-
+	gun_bar.text = "GUN: "+str(gun_charge)
+	jump_bar.text = "JUMP: "+str(jump_timer)
+	
 	if direction:
 		player_sprite.scale.x = 2 * direction
-	if not is_on_floor():
+	
+	check_jump(delta)
+	if is_on_floor(): 
+		second_jump = false
+	else:
 		# Add the gravity.
-		velocity.y += gravity * delta
+		velocity.y += gravity * delta * 1.5
 		player_sprite.animation = "jump"
 	move_and_slide()
 
@@ -109,25 +131,14 @@ func standard_state(delta):
 			player_sprite.animation = "walk"
 		else:
 			player_sprite.animation = "idle"
-		if Input.is_action_just_pressed("ui_accept"):
-			velocity.y = JUMP_VELOCITY
 
 
 func  crouch_state(delta):
 	stand_hurtbox.disabled = true
 	crouch_hurtbox.disabled = false
-	if is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, delta*friction_factor)
-		player_sprite.animation = "crouch"
-		#player_sprite.frame = 0
-		if Input.is_action_just_pressed("ui_accept"):
-			velocity.y = JUMP_VELOCITY
-			exit_crouch_state()
-
-
-func exit_crouch_state():
-	current_state = States.STANDARD
-	player_sprite.play()
+	velocity.x = move_toward(velocity.x, 0, delta*friction_factor)
+	player_sprite.animation = "crouch"
+	
 
 
 func _input(event):
@@ -135,12 +146,27 @@ func _input(event):
 		#shoot()
 		pass
 	if event.is_action_pressed("Crouch"):
-		player_sprite.play()
-		current_state = States.CROUCHING
+		if is_on_floor():
+			enter_state(States.CROUCHING)
 	if event.is_action_released("Crouch"):
-		exit_crouch_state()
+		enter_state(States.STANDARD)
 	if event.is_action("Shoot"):
 		print("brap")
+
+
+func enter_state(state):
+	exit_state(current_state)
+	match state:
+		States.CROUCHING:
+			player_sprite.play()
+	current_state = state
+
+
+func exit_state(state):
+	match state:
+		States.CROUCHING:
+			player_sprite.play()
+	previous_state = state
 
 func shoot():
 	if not player_gun.is_tip_colliding() and shoot_timer.is_stopped():
@@ -151,6 +177,33 @@ func shoot():
 		get_tree().get_root().add_child(new_bullet)
 		gun_sound_player.play()
 		shoot_timer.start()
+
+func check_jump(delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		jump_timer = 0.0
+		if current_state != States.STANDARD:
+			enter_state(States.STANDARD)
+		if is_on_floor():
+			velocity.y = INITIAL_JUMP_VELOCITY
+		elif not second_jump:
+			velocity.y = SECOND_JUMP_START
+			second_jump = true
+	if Input.is_action_pressed("ui_accept") and not is_on_floor():
+		jump_timer += delta
+		if jump_timer < MAX_JUMP_TIME and not second_jump:
+			#velocity.y += JUMP_ADD * delta
+			#velocity.y = move_toward(velocity.y, MAX_JUMP_VELOCITY, delta*JUMP_DELTA)
+			velocity.y = lerp(velocity.y, MAX_JUMP_VELOCITY, delta*JUMP_DELTA)
+			#print(velocity.y)
+	if Input.is_action_just_released("ui_accept") and not is_on_floor():
+			jump_timer = 1
+		
+	#elif Input.is_action_just_released("ui_accept"):
+	#	velocity.y = JUMP_VELOCITY
+	#	jump_charge = 0
+		
+	#else:
+	#	jump_charge = 0
 
 
 
