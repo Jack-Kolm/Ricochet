@@ -56,7 +56,7 @@ var player_x_axis = null
 @onready var wall_check = $WallCheck
 @onready var navigation_agent = $NavigationAgent
 @onready var player_check = $PlayerCheck
-@onready var ledge_raycast = $LedgeRaycast
+#@onready var ledge_raycast = $LedgeRaycast
 @onready var turn_around_timer = $TurnAroundTimer
 @onready var move_timer = $MoveTimer
 @onready var explosion_sprite = $ExplosionSprite
@@ -164,6 +164,8 @@ func detect_player():
 	if target_x*facing_x_axis < 0 and abs(target_x) < detect_player_x and abs(target_y) < detect_player_y:
 		enter_state(States.CHASE)
 
+func aggro():
+	enter_state(States.CHASE)
 
 func turn_around():
 	if turn_around_timer.is_stopped() and turn_to_player_timer.is_stopped():

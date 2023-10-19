@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 1000
 const MAX_BOUNCES = 6
-const BASE_DAMAGE = 100
+const BASE_DAMAGE = 1000
 const KNOCKBACK_FACTOR = 100
 
 @onready var bullet_sprite = $BulletSprite

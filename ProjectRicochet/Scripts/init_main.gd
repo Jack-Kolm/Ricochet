@@ -10,6 +10,7 @@ var restart_menu = null
 func _ready():
 	self.visible = true
 	restart_menu = menu_scene.instantiate()
+	self.player.change_camera_zoom(2)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,7 +20,7 @@ func _process(delta):
 
 func a_simple_test():
 	print("HALLÅ!")
-
+	
 
 func set_player(player):
 	self.player = player
@@ -43,3 +44,12 @@ func _on_game_area_body_exited(body):
 		#get_tree().change_scene_to_packed(menu_scene)
 		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
+
+
+
+
+func _on_zoom_in_area_body_exited(body):
+	player.change_camera_zoom(1, 2)
+	$AmbiencePlayer.stop()
+	$MusicPlayer.play()
+	pass # Replace with function body.

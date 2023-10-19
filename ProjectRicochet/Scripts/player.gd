@@ -5,7 +5,7 @@ class_name Player
 const SPEED = 400.0
 const ACCELERATION_FACTOR = 4.0
 const AIM_FACTOR = 4.0
-const MOUSE_POS_SCALE = 0.2
+const MOUSE_POS_SCALE = 0.1
 const KNOCKBACK = 400.0
 const KNOCKBACK_DELTA = 500.0
 
@@ -16,7 +16,7 @@ const JUMP_ADD = -1800.0
 const JUMP_DELTA = 15.0
 const MAX_JUMP_TIME = 0.25
 const MAX_JUMP_VELOCITY = -600.0
-
+const MAX_CAMERA_OFFSET = 400
 const NORMAL_FRICTION = 2000.0
 const KNOCKBACK_FRICTION = 500.0
 
@@ -40,6 +40,9 @@ var jump_charge = 0
 var gun_charge = 0
 
 var jump_timer = 0.0
+
+var target_zoom = Vector2(1.0,1.0)
+var zoom_delta = 1
 
 @onready var position_is_position = Vector2(0,0)
 @onready var player_gun = $Gun
@@ -68,9 +71,7 @@ var jump_timer = 0.0
 
 
 func _ready():
-	print(get_tree().get_root())
 	root_node = get_tree().get_root().get_child(0)
-	#root_node.set_player(self)
 
 
 func _physics_process(delta):
@@ -89,6 +90,7 @@ func _physics_process(delta):
 
 
 func general_step(delta):
+	camera.zoom = lerp(camera.zoom, target_zoom, delta*zoom_delta)
 	gun_bar.set_modulate(Color(0.5,0.5,0.5))
 	if Input.is_action_pressed("Shoot"):
 		if gun_charge < MAX_GUN_CHARGE:
@@ -100,8 +102,12 @@ func general_step(delta):
 			shoot()
 		gun_charge = 0
 	
-	var mouse_dir = (get_global_mouse_position() - global_position)
-	camera.offset = lerp(camera.offset, mouse_dir*MOUSE_POS_SCALE, delta*AIM_FACTOR)
+	var mouse_local_pos = (get_global_mouse_position() - global_position)
+	var mouse_dir = mouse_local_pos.normalized()
+	if global_position.distance_to(get_global_mouse_position()) < MAX_CAMERA_OFFSET:
+		camera.offset = lerp(camera.offset, -mouse_local_pos*MOUSE_POS_SCALE, delta*AIM_FACTOR)
+	else:
+		camera.offset = lerp(camera.offset, -mouse_dir*MOUSE_POS_SCALE*MAX_CAMERA_OFFSET, delta*AIM_FACTOR)
 	health_bar.text = "HP: "+str(health)
 	gun_bar.text = "GUN: "+str(gun_charge)
 	jump_bar.text = "JUMP: "+str(jump_timer)
@@ -114,7 +120,7 @@ func general_step(delta):
 		second_jump = false
 	else:
 		# Add the gravity.
-		velocity.y += gravity * delta * 1.5
+		velocity.y += gravity * delta
 		player_sprite.animation = "jump"
 	move_and_slide()
 
@@ -151,7 +157,7 @@ func _input(event):
 	if event.is_action_released("Crouch"):
 		enter_state(States.STANDARD)
 	if event.is_action("Shoot"):
-		print("brap")
+		pass
 
 
 func enter_state(state):
@@ -237,6 +243,9 @@ func hitpoint():
 		_:
 			return global_position 
 
+func change_camera_zoom(zoom_scale, delta_factor=1):
+	target_zoom = Vector2(zoom_scale, zoom_scale)
+	zoom_delta = delta_factor
 
 func _on_hurtbox_area_body_entered(body):
 	pass

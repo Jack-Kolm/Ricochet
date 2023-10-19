@@ -96,9 +96,9 @@ func boids(separation_factor, cohesion_factor, delta):
 	
 	global_position.x += separation_dx*separation_factor*delta
 	global_position.y += separation_dy*separation_factor*delta
-	
-	cohesion_xpos_avg = cohesion_xpos_avg/cohesion_neighboring_boids
-	cohesion_ypos_avg = cohesion_ypos_avg/cohesion_neighboring_boids
+	if(cohesion_neighboring_boids != 0):
+		cohesion_xpos_avg = cohesion_xpos_avg/cohesion_neighboring_boids
+		cohesion_ypos_avg = cohesion_ypos_avg/cohesion_neighboring_boids
 	global_position.x += (cohesion_xpos_avg - global_position.x)*cohesion_factor*delta
 	global_position.y += (cohesion_ypos_avg - global_position.y)*cohesion_factor*delta
 
