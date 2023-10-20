@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cgshgrem1j5uk"]
+[gd_scene load_steps=22 format=3 uid="uid://cgshgrem1j5uk"]
 
 [ext_resource type="Script" path="res://Scripts/Bullets/advanced_ricochet_bullet.gd" id="1_ug471"]
 [ext_resource type="Texture2D" uid="uid://buodxi47dnrum" path="res://Sprites/Bullet1.png" id="2_j6ccl"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dkrtwqwcpxk3o" path="res://Sprites/Bullet6.png" id="7_ceu2n"]
 [ext_resource type="Texture2D" uid="uid://cqgotutnbentn" path="res://Sprites/Bullet7.png" id="8_qspqr"]
 [ext_resource type="Texture2D" uid="uid://dl03ttlb24ada" path="res://Sprites/Explosion/explosion1.png" id="9_06wn0"]
+[ext_resource type="Texture2D" uid="uid://bvbdowigv2yk1" path="res://Sprites/light1.png" id="9_pgq7h"]
 [ext_resource type="Texture2D" uid="uid://dt4xoaxgrgijr" path="res://Sprites/Explosion/explosion2.png" id="10_n84x8"]
 [ext_resource type="Texture2D" uid="uid://b5gger2f4230r" path="res://Sprites/Explosion/explosion3.png" id="11_i8bi0"]
 [ext_resource type="Texture2D" uid="uid://bodebyb4vgk07" path="res://Sprites/Explosion/explosion4.png" id="12_6go1u"]
@@ -126,6 +127,11 @@ autostart = true
 [node name="BulletSprite" type="AnimatedSprite2D" parent="."]
 rotation = 1.57079
 sprite_frames = SubResource("SpriteFrames_dght0")
+
+[node name="PointLight2D" type="PointLight2D" parent="BulletSprite"]
+energy = 0.5
+texture = ExtResource("9_pgq7h")
+texture_scale = 0.1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

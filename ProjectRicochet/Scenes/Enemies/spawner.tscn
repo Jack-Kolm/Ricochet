@@ -6,7 +6,7 @@
 a = Vector2(-224, 0)
 b = Vector2(312, 0)
 
-[node name="TurretSpawner" type="Node"]
+[node name="Spawner" type="Node"]
 script = ExtResource("1_gr8tw")
 
 [node name="ActivateSpawnArea" type="Area2D" parent="."]

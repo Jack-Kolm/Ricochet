@@ -48,6 +48,9 @@ func spawn():
 	$SpawnSound.play()
 	return new_enemy
 
+func set_sprite_rotation(angle):
+	$SpawnSprite.rotation = angle
+
 func _on_activate_spawn_area_body_entered(body):
 	spawn()
 

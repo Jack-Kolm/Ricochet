@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends EnemyBase
 
 class_name ShieldEnemyBase
 
@@ -103,7 +103,8 @@ func _physics_process(delta):
 # Called no matter state
 func general_step(delta):
 	sprite.set_modulate(lerp(sprite.get_modulate(), Color(2,1,1), delta*DAMAGE_MODULATE_FACTOR))
-	player_x_axis = sign(global_position.direction_to(player.global_position).x)
+	if weakref(player).get_ref():
+		player_x_axis = sign(global_position.direction_to(player.global_position).x)
 	if not is_on_floor():
 		# Add the gravity.
 		velocity.y += gravity * delta

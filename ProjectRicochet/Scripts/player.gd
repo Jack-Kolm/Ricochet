@@ -19,7 +19,8 @@ const MAX_JUMP_VELOCITY = -600.0
 const MAX_CAMERA_OFFSET = 400
 const NORMAL_FRICTION = 2000.0
 const KNOCKBACK_FRICTION = 500.0
-
+const SPRITE_X_SCALE = 1.3
+const SPRITE_Y_SCALE = 1.5
 
 
 const MIN_GUN_CHARGE = 0.1
@@ -44,6 +45,7 @@ var jump_timer = 0.0
 var target_zoom = Vector2(1.0,1.0)
 var zoom_delta = 1
 
+var jump_check = 1
 @onready var position_is_position = Vector2(0,0)
 @onready var player_gun = $Gun
 @onready var aimcast = $Gun/AimCast
@@ -76,7 +78,7 @@ func _ready():
 
 func _physics_process(delta):
 	direction = Input.get_axis("ui_left", "ui_right")
-	
+	print(delta)
 	match current_state:
 		States.STANDARD:
 			standard_state(delta)
@@ -113,15 +115,19 @@ func general_step(delta):
 	jump_bar.text = "JUMP: "+str(jump_timer)
 	
 	if direction:
-		player_sprite.scale.x = 2 * direction
+		player_sprite.scale.x = SPRITE_X_SCALE * direction
 	
 	check_jump(delta)
 	if is_on_floor(): 
 		second_jump = false
+		jump_check = 1
 	else:
 		# Add the gravity.
 		velocity.y += gravity * delta
-		player_sprite.animation = "jump"
+		if sign(velocity.y)*jump_check == 1:
+			player_sprite.animation = "fall"
+			player_sprite.play()
+			jump_check = -1
 	move_and_slide()
 
 
@@ -129,12 +135,20 @@ func standard_state(delta):
 	stand_hurtbox.disabled = false
 	crouch_hurtbox.disabled = true
 	if direction:
-		velocity.x = lerp(velocity.x, direction * SPEED, delta*ACCELERATION_FACTOR)
+		if Input.is_action_pressed("Sprint"):
+			velocity.x = lerp(velocity.x, direction * SPEED * 1.5, delta*ACCELERATION_FACTOR)
+		else:
+			velocity.x = lerp(velocity.x, direction * SPEED, delta*ACCELERATION_FACTOR)
 	else:
 		velocity.x = move_toward(velocity.x, 0, delta*friction_factor)
 	if is_on_floor():
+		if not player_sprite.is_playing():
+			player_sprite.play()
 		if direction:
-			player_sprite.animation = "walk"
+			if Input.is_action_pressed("Sprint"):
+				player_sprite.animation = "run"
+			else:
+				player_sprite.animation = "walk"
 		else:
 			player_sprite.animation = "idle"
 
@@ -152,7 +166,7 @@ func _input(event):
 		#shoot()
 		pass
 	if event.is_action_pressed("Crouch"):
-		if is_on_floor():
+		if is_on_floor() and current_state != States.CROUCHING:
 			enter_state(States.CROUCHING)
 	if event.is_action_released("Crouch"):
 		enter_state(States.STANDARD)
@@ -185,15 +199,20 @@ func shoot():
 		shoot_timer.start()
 
 func check_jump(delta):
+	
 	if Input.is_action_just_pressed("ui_accept"):
 		jump_timer = 0.0
 		if current_state != States.STANDARD:
 			enter_state(States.STANDARD)
 		if is_on_floor():
 			velocity.y = INITIAL_JUMP_VELOCITY
+			player_sprite.animation = "jump"
+			player_sprite.play()
+			jump_check = 1
 		elif not second_jump:
 			velocity.y = SECOND_JUMP_START
 			second_jump = true
+			jump_check = 1
 	if Input.is_action_pressed("ui_accept") and not is_on_floor():
 		jump_timer += delta
 		if jump_timer < MAX_JUMP_TIME and not second_jump:

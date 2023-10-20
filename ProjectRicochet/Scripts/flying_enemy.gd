@@ -31,6 +31,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	if destroyed:
 		return
 	match current_state:
@@ -62,8 +63,12 @@ func chase_step(delta):
 		
 		if shoot_timer.is_stopped():
 			shoot_timer.start()
-
-
+		if direction.x > 0:
+			$Sprite.scale.x = -1
+			$Sprite.rotation = direction.angle()
+		else:
+			$Sprite.scale.x = 1
+			$Sprite.rotation = direction.angle() - PI
 func boids_separation(delta):
 
 	var separation_distance = 1000

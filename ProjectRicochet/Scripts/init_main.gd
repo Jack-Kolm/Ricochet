@@ -16,11 +16,12 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
 
 
 func a_simple_test():
 	print("HALLÅ!")
-	
+
 
 func set_player(player):
 	self.player = player
@@ -43,9 +44,6 @@ func _on_game_area_body_exited(body):
 		#restart_menu.restart_flag = true
 		#get_tree().change_scene_to_packed(menu_scene)
 		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
-
-
-
 
 
 func _on_zoom_in_area_body_exited(body):

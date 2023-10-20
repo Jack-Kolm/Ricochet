@@ -15,7 +15,11 @@ func _process(delta):
 
 
 func _on_activate_spawn_area_body_entered(body):
+	var angle = PI
+	var rng = RandomNumberGenerator.new()
+	var angle_variation = rng.randf_range(0.0, 2.0)
 	for spawner in $Spawners.get_children():
+		spawner.set_sprite_rotation(angle_variation*angle)
 		var enemy = spawner.spawn()
 		spawned_enemies.append(enemy)
 		await get_tree().create_timer(1).timeout
