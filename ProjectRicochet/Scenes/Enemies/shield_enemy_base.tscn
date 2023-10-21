@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=3 uid="uid://dbbd0e4tcevj1"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/shield_enemy_base.gd" id="1_t871a"]
-[ext_resource type="Texture2D" uid="uid://b3bwcq37g5jv6" path="res://Sprites/Tile2.png" id="2_m2u1t"]
+[ext_resource type="Texture2D" uid="uid://b3bwcq37g5jv6" path="res://Sprites/Tiles/Tile2.png" id="2_op65x"]
 [ext_resource type="Texture2D" uid="uid://dr8fvxm582nds" path="res://Sprites/Player/maleBase/base/base_dark8.png" id="3_rpxqq"]
 [ext_resource type="Texture2D" uid="uid://dojr0tf8krxln" path="res://Sprites/Player/maleBase/base/base_dark9.png" id="4_itb6b"]
 [ext_resource type="Texture2D" uid="uid://cabchjotgjwd2" path="res://Sprites/Player/maleBase/base/base_dark10.png" id="5_bmyo3"]
@@ -149,7 +149,7 @@ collision_mask = 0
 modulate = Color(0.662745, 0.172549, 0.74902, 1)
 position = Vector2(13, 1)
 scale = Vector2(0.279999, 1.2)
-texture = ExtResource("2_m2u1t")
+texture = ExtResource("2_op65x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
 position = Vector2(13, 1)

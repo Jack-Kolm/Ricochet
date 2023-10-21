@@ -106,9 +106,9 @@ func general_step(delta):
 	var mouse_local_pos = (get_global_mouse_position() - global_position)
 	var mouse_dir = mouse_local_pos.normalized()
 	if global_position.distance_to(get_global_mouse_position()) < MAX_CAMERA_OFFSET:
-		camera.offset = lerp(camera.offset, -mouse_local_pos*MOUSE_POS_SCALE, delta*AIM_FACTOR)
+		camera.offset = lerp(camera.offset, mouse_local_pos*MOUSE_POS_SCALE, delta*AIM_FACTOR)
 	else:
-		camera.offset = lerp(camera.offset, -mouse_dir*MOUSE_POS_SCALE*MAX_CAMERA_OFFSET, delta*AIM_FACTOR)
+		camera.offset = lerp(camera.offset, mouse_dir*MOUSE_POS_SCALE*MAX_CAMERA_OFFSET, delta*AIM_FACTOR)
 	health_bar.text = "HP: "+str(health)
 	gun_bar.text = "GUN: "+str(gun_charge)
 	jump_bar.text = "JUMP: "+str(jump_timer)

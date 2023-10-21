@@ -5,7 +5,7 @@ extends LevelInit
 func _ready():
 	super()
 	self.visible = true
-	self.player.change_camera_zoom(0.75)
+	self.player.change_camera_zoom(1.75)
 
 
 func _on_game_area_body_exited(body):
@@ -40,4 +40,6 @@ func _on_zoom_in_area_body_exited(body):
 
 func _on_spawner_completed():
 	$Walls/Wall.queue_free()
-
+	$AmbiencePlayer.play()
+	$MusicPlayer.stop()
+	player.change_camera_zoom(1.5, 0.5)

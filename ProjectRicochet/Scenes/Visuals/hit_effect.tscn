@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://cakyr4abvxxco"]
 
 [ext_resource type="Script" path="res://Scripts/Visuals/hit_effect.gd" id="1_uxyhf"]
-[ext_resource type="Texture2D" uid="uid://dhps1ov0uy6lb" path="res://Sprites/hit_effect3.png" id="2_akwl4"]
+[ext_resource type="Texture2D" uid="uid://dhps1ov0uy6lb" path="res://Sprites/Hit effects/hit_effect3.png" id="2_akwl4"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f07jg"]
 light_mode = 1

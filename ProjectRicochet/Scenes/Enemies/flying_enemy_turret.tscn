@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://nk3n3e6a5tr1"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/flying_enemy_turret.gd" id="1_oddko"]
-[ext_resource type="Texture2D" uid="uid://vixdndmfcwn" path="res://Sprites/turret.png" id="2_5o4ek"]
+[ext_resource type="Texture2D" uid="uid://vixdndmfcwn" path="res://Sprites/Enemies/turret.png" id="2_5o4ek"]
 [ext_resource type="Texture2D" uid="uid://dl03ttlb24ada" path="res://Sprites/Explosion/explosion1.png" id="3_gnly7"]
 [ext_resource type="Texture2D" uid="uid://dt4xoaxgrgijr" path="res://Sprites/Explosion/explosion2.png" id="4_mvvny"]
 [ext_resource type="Texture2D" uid="uid://b5gger2f4230r" path="res://Sprites/Explosion/explosion3.png" id="5_h84r3"]

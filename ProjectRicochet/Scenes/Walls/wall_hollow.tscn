@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjmox7k7bbm68"]
 
-[ext_resource type="Texture2D" uid="uid://bs714o663qwe2" path="res://Sprites/grating_floor.png" id="1_s8sni"]
+[ext_resource type="Texture2D" uid="uid://bs714o663qwe2" path="res://Sprites/Tiles/grating_floor.png" id="1_s8sni"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upk0g"]
 size = Vector2(128, 32)
