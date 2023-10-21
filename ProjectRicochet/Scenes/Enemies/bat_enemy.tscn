@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://7g343iav3fgo"]
 
-[ext_resource type="Script" path="res://Scripts/bat_enemy.gd" id="1_takm6"]
+[ext_resource type="Script" path="res://Scripts/Enemies/bat_enemy.gd" id="1_takm6"]
 [ext_resource type="Texture2D" uid="uid://xs3g32spp7vl" path="res://Sprites/Bat/bat1.png" id="2_dy4j6"]
 [ext_resource type="Texture2D" uid="uid://bfa0d67js48tt" path="res://Sprites/Bat/bat2.png" id="3_dkhbb"]
 [ext_resource type="Texture2D" uid="uid://6bghxgf5ym6o" path="res://Sprites/Bat/bat3.png" id="4_yudac"]

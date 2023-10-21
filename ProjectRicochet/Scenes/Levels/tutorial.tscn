@@ -1,0 +1,226 @@
+[gd_scene load_steps=14 format=3 uid="uid://c3jpqctqncljx"]
+
+[ext_resource type="PackedScene" uid="uid://oicjjw82y2vb" path="res://Scenes/Player/player.tscn" id="1_g8htl"]
+[ext_resource type="Script" path="res://Scripts/tutorial.gd" id="1_u6xun"]
+[ext_resource type="Texture2D" uid="uid://dyahsdnwtv4pa" path="res://Sprites/Tile.png" id="2_fln2i"]
+[ext_resource type="Texture2D" uid="uid://b3bwcq37g5jv6" path="res://Sprites/Tile2.png" id="2_ghh1b"]
+[ext_resource type="Texture2D" uid="uid://vfraqmtiek3c" path="res://Sprites/2d_lights_and_shadows_neutral_point_light.webp" id="4_fhkrf"]
+[ext_resource type="Script" path="res://Scripts/tutorial_switch.gd" id="6_52xqi"]
+[ext_resource type="Texture2D" uid="uid://chkbpg3aylfqh" path="res://Sprites/Tile3.png" id="7_7q8je"]
+[ext_resource type="Texture2D" uid="uid://cdhyx1swgprvq" path="res://icon.svg" id="8_kekkf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tmc7d"]
+texture = ExtResource("2_ghh1b")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_7lnrl"]
+physics_layer_0/collision_layer = 15
+physics_layer_0/collision_mask = 15
+terrain_set_0/mode = 0
+sources/0 = SubResource("TileSetAtlasSource_tmc7d")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hfu15"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tathy"]
+size = Vector2(48.0054, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v2qpt"]
+radius = 65.0077
+
+[node name="tutorial" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_u6xun")
+player = NodePath("Player")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.85098, 0.85098, 0.85098, 0.776471)
+scale = Vector2(67429.5, 90.4078)
+texture = ExtResource("2_fln2i")
+
+[node name="Player" parent="." instance=ExtResource("1_g8htl")]
+position = Vector2(-63, 55)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_7lnrl")
+format = 2
+layer_0/tile_data = PackedInt32Array(589819, 0, 0, 655355, 0, 1, 589820, 65536, 0, 655356, 65536, 1, -65513, 0, 0, 23, 0, 1, -65512, 65536, 0, 24, 65536, 1)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.298039, 0.298039, 0.298039, 1)
+
+[node name="Lamp2" type="PointLight2D" parent="."]
+position = Vector2(176, -40)
+scale = Vector2(0.5, 0.5)
+enabled = false
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.5
+texture = ExtResource("4_fhkrf")
+
+[node name="Lamp3" type="PointLight2D" parent="."]
+position = Vector2(330, 62)
+scale = Vector2(0.5, 0.5)
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.5
+texture = ExtResource("4_fhkrf")
+
+[node name="Lamp4" type="PointLight2D" parent="."]
+position = Vector2(59, -70)
+scale = Vector2(1.4, 1.4)
+enabled = false
+energy = 0.7
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.5
+texture = ExtResource("4_fhkrf")
+
+[node name="Lamp5" type="PointLight2D" parent="."]
+position = Vector2(-33, -87)
+scale = Vector2(0.75, 0.75)
+enabled = false
+energy = 0.7
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.5
+texture = ExtResource("4_fhkrf")
+
+[node name="Switch1" type="StaticBody2D" parent="."]
+modulate = Color(0.65, 0.65, 0.65, 1)
+position = Vector2(424, 64)
+script = ExtResource("6_52xqi")
+
+[node name="Hurtbox" type="Area2D" parent="Switch1"]
+collision_layer = 2
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Switch1/Hurtbox"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_hfu15")
+
+[node name="Sprite2D" type="Sprite2D" parent="Switch1"]
+modulate = Color(0.427451, 0.772549, 0.780392, 1)
+texture = ExtResource("2_fln2i")
+
+[node name="Switch2" type="StaticBody2D" parent="."]
+modulate = Color(0.65, 0.65, 0.65, 1)
+position = Vector2(173, -34)
+script = ExtResource("6_52xqi")
+start_visible = false
+
+[node name="Hurtbox" type="Area2D" parent="Switch2"]
+collision_layer = 2
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Switch2/Hurtbox"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_hfu15")
+
+[node name="Sprite2D" type="Sprite2D" parent="Switch2"]
+modulate = Color(0.427451, 0.772549, 0.780392, 1)
+texture = ExtResource("2_fln2i")
+
+[node name="SwitchTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="FirstText" type="Label" parent="."]
+offset_left = 280.0
+offset_top = 48.0
+offset_right = 389.0
+offset_bottom = 74.0
+text = "Shoot here -->"
+
+[node name="Lamp1" type="PointLight2D" parent="FirstText"]
+position = Vector2(144, 16)
+scale = Vector2(0.5, 0.5)
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.5
+texture = ExtResource("4_fhkrf")
+
+[node name="SecondText" type="Node2D" parent="."]
+
+[node name="SecondText1" type="Label" parent="SecondText"]
+offset_left = 263.0
+offset_top = 3.0
+offset_right = 303.0
+offset_bottom = 29.0
+rotation = -0.134404
+text = "--->"
+
+[node name="SecondText2" type="Label" parent="SecondText"]
+offset_left = 285.0
+offset_right = 325.0
+offset_bottom = 26.0
+rotation = -2.87979
+text = "--->"
+
+[node name="MiddleText" type="Label" parent="."]
+modulate = Color(1, 0.3, 0.3, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = -130.0
+offset_right = 21.0
+offset_bottom = -107.0
+grow_horizontal = 2
+scale = Vector2(3.06164, 3.04)
+size_flags_horizontal = 4
+autowrap_mode = 2
+
+[node name="Walkway" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2(558, 190)
+scale = Vector2(25.68, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Walkway"]
+texture = ExtResource("7_7q8je")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walkway"]
+position = Vector2(0.0027113, 0)
+shape = SubResource("RectangleShape2D_tathy")
+disabled = true
+
+[node name="Teleport" type="Node2D" parent="."]
+position = Vector2(1152, 84)
+
+[node name="Sprite2D" type="Sprite2D" parent="Teleport"]
+texture = ExtResource("8_kekkf")
+
+[node name="TeleportArea" type="Area2D" parent="Teleport"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport/TeleportArea"]
+shape = SubResource("CircleShape2D_v2qpt")
+
+[connection signal="area_shape_entered" from="Switch1/Hurtbox" to="Switch1" method="_on_hurtbox_area_shape_entered"]
+[connection signal="body_entered" from="Switch1/Hurtbox" to="Switch1" method="_on_hurtbox_body_entered"]
+[connection signal="body_shape_entered" from="Switch1/Hurtbox" to="Switch1" method="_on_hurtbox_body_shape_entered"]
+[connection signal="area_shape_entered" from="Switch2/Hurtbox" to="Switch2" method="_on_hurtbox_area_shape_entered"]
+[connection signal="body_entered" from="Switch2/Hurtbox" to="Switch2" method="_on_hurtbox_body_entered"]
+[connection signal="body_shape_entered" from="Switch2/Hurtbox" to="Switch2" method="_on_hurtbox_body_shape_entered"]
+[connection signal="timeout" from="SwitchTimer" to="." method="_on_switch_timer_timeout"]
+[connection signal="body_entered" from="Teleport/TeleportArea" to="." method="_on_teleport_area_body_entered"]

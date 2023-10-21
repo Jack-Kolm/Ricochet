@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjmox7k7bbm68"]
+
+[ext_resource type="Texture2D" uid="uid://bs714o663qwe2" path="res://Sprites/grating_floor.png" id="1_s8sni"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_upk0g"]
+size = Vector2(128, 32)
+
+[node name="wall_hollow" type="StaticBody2D"]
+modulate = Color(0.258824, 0.341176, 0.419608, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s8sni")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_upk0g")

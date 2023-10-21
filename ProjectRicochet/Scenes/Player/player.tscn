@@ -1,8 +1,8 @@
 [gd_scene load_steps=68 format=3 uid="uid://oicjjw82y2vb"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_ihb4m"]
-[ext_resource type="Script" path="res://Scripts/gun.gd" id="2_bnfml"]
+[ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_0oquj"]
 [ext_resource type="Texture2D" uid="uid://buodxi47dnrum" path="res://Sprites/Bullet1.png" id="2_boxfg"]
+[ext_resource type="Script" path="res://Scripts/Player/gun.gd" id="2_n2pkr"]
 [ext_resource type="Texture2D" uid="uid://gofaabkc1fye" path="res://Sprites/Bullet4.png" id="3_0lqac"]
 [ext_resource type="Texture2D" uid="uid://cxfi5waq4gbuu" path="res://Sprites/Player/Cannon.png" id="3_bltv5"]
 [ext_resource type="Texture2D" uid="uid://b606ix5vt7h6a" path="res://Sprites/Player/maleBase/base/char1.png" id="3_fryf3"]
@@ -380,7 +380,7 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e1tmr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qvtm"]
-size = Vector2(2.46291, 35.2741)
+size = Vector2(2.46291, 34.8332)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_04hsf"]
 animations = [{
@@ -403,7 +403,7 @@ animations = [{
 position = Vector2(176, -120)
 collision_layer = 17
 collision_mask = 17
-script = ExtResource("1_ihb4m")
+script = ExtResource("1_0oquj")
 
 [node name="Camera" type="Camera2D" parent="."]
 limit_smoothed = true
@@ -416,7 +416,7 @@ position = Vector2(0, -8)
 scale = Vector2(0.540252, 0.437986)
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("2_bnfml")
+script = ExtResource("2_n2pkr")
 
 [node name="GunSprite" type="Sprite2D" parent="Gun"]
 position = Vector2(0, 47.9199)
@@ -462,8 +462,10 @@ autoplay = "walk"
 position = Vector2(1, 16)
 scale = Vector2(1.3, 1.5)
 sprite_frames = SubResource("SpriteFrames_0m3sn")
-animation = &"crouch"
+animation = &"walk"
 autoplay = "walk"
+frame = 3
+frame_progress = 0.302422
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
@@ -481,7 +483,7 @@ scale = Vector2(1.81499, -1.21358)
 shape = SubResource("CapsuleShape2D_e1tmr")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 24)
+position = Vector2(0, 24.5)
 scale = Vector2(6.49639, -2.26795)
 shape = SubResource("RectangleShape2D_7qvtm")
 

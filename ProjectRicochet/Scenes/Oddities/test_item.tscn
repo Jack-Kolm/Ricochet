@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddaqxjxrip0b5"]
 
-[ext_resource type="Script" path="res://Scripts/test_item.gd" id="1_0tvdi"]
+[ext_resource type="Script" path="res://Scripts/Oddities/test_item.gd" id="1_0tvdi"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rcgws"]
 load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"

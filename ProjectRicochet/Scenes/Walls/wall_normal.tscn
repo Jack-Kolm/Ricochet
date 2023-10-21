@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://kt5cvfx4d4hd"]
+
+[ext_resource type="Texture2D" uid="uid://dyahsdnwtv4pa" path="res://Sprites/Tile.png" id="1_hl4rr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjhsa"]
+size = Vector2(128, 128)
+
+[node name="WallNormal" type="StaticBody2D"]
+position = Vector2(480, -424)
+rotation = 0.523598
+scale = Vector2(1.54354, 0.171101)
+collision_layer = 7
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(7.97027, 7.95892)
+texture = ExtResource("1_hl4rr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pjhsa")

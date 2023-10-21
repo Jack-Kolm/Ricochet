@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://b8kcpdf7o18or"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/flying_enemy_base.gd" id="1_cfk8u"]
+[ext_resource type="Texture2D" uid="uid://dl03ttlb24ada" path="res://Sprites/Explosion/explosion1.png" id="3_bc3d6"]
+[ext_resource type="Texture2D" uid="uid://dt4xoaxgrgijr" path="res://Sprites/Explosion/explosion2.png" id="4_w1hij"]
+[ext_resource type="Texture2D" uid="uid://b5gger2f4230r" path="res://Sprites/Explosion/explosion3.png" id="5_p0hlc"]
+[ext_resource type="Texture2D" uid="uid://bodebyb4vgk07" path="res://Sprites/Explosion/explosion4.png" id="6_2px7b"]
+[ext_resource type="Texture2D" uid="uid://biskv30bbbw7q" path="res://Sprites/Explosion/explosion5.png" id="7_2afog"]
+[ext_resource type="Texture2D" uid="uid://cb2clutnd13pb" path="res://Sprites/Explosion/explosion6.png" id="8_wtcug"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yq4b8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bc3d6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_w1hij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_p0hlc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2px7b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2afog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wtcug")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="FlyingEnemyBase" type="CharacterBody2D"]
+script = ExtResource("1_cfk8u")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+scale = Vector2(6.04, 6.32)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+
+[node name="SeparationArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape2D" parent="SeparationArea"]
+
+[node name="HurtboxArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HurtboxArea"]
+scale = Vector2(6.24, 6.4)
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
+scale = Vector2(2, 2)
+
+[node name="Shape" type="CollisionShape2D" parent="PlayerDetection"]
+scale = Vector2(50, 50)
+
+[node name="ExplosionSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(4, -6)
+sprite_frames = SubResource("SpriteFrames_yq4b8")
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]

@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 1000
 const MAX_BOUNCES = 6
-const BASE_DAMAGE = 100
+const BASE_DAMAGE = 1000
 const KNOCKBACK_FACTOR = 100
 
 @onready var bullet_sprite = $BulletSprite
@@ -27,7 +27,7 @@ var impact3 = preload("res://Sounds/Impact/metal_solid_impact_bullet3.wav")
 var impact4 = preload("res://Sounds/Impact/metal_solid_impact_bullet4.wav")
 var impact_sounds = [impact1, impact2, impact3, impact4]
 
-var HitEffect = preload("res://Scenes/hit_effect.tscn")
+var HitEffect = preload("res://Scenes/Visuals/hit_effect.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
