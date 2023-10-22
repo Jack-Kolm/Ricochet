@@ -26,7 +26,3 @@ func _ready():
 	for bat in group:
 		bat.set_group(group)
 		get_tree().get_root().add_child.call_deferred(bat)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

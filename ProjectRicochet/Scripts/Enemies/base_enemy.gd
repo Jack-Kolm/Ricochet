@@ -15,13 +15,15 @@ var spawner : Spawner = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player = get_tree().get_nodes_in_group("player")[0]
 	root_node = get_tree().get_root().get_child(0)
-	player = root_node.player
+	#player = root_node.player
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _physics_process(delta):
+	delta = delta * Global.delta_factor
+
 
 func apply_damage(damage):
 	health -= damage

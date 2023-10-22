@@ -14,6 +14,7 @@ var direction = Vector2(0,0)
 
 
 func _physics_process(delta):
+	delta = delta * Global.delta_factor
 	self.rotation = direction.angle() - PI/2
 	var collision_info = move_and_collide(velocity * delta)
 	#if collision_info:

@@ -1,5 +1,7 @@
-extends Node2D
 
+extends Node
+
+var delta_factor = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,7 +10,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	delta = delta * Global.delta_factor
-
-func _on_sprite_animation_finished():
-	queue_free()
+	pass

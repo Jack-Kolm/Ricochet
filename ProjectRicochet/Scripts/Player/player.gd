@@ -64,6 +64,10 @@ var jump_check = 1
 @onready var gun_sound_player = $Sounds/GunSoundPlayer
 @onready var hit_sound_player = $Sounds/HitSoundPlayer
 
+@onready var inner_ring = $CanvasLayer/Control/Rings/Inner
+@onready var inner_inner_ring = $CanvasLayer/Control/Rings/InnerInner
+@onready var outer_ring = $CanvasLayer/Control/Rings/Outer
+
 @onready var root_node = null
 
 @onready var AdvancedBullet = preload("res://Scenes/Bullets/advanced_ricochet_bullet.tscn")
@@ -77,6 +81,7 @@ func _ready():
 
 
 func _physics_process(delta):
+	delta = delta * Global.delta_factor
 	direction = Input.get_axis("ui_left", "ui_right")
 	match current_state:
 		States.STANDARD:
@@ -93,15 +98,25 @@ func _physics_process(delta):
 func general_step(delta):
 	camera.zoom = lerp(camera.zoom, target_zoom, delta*zoom_delta)
 	gun_bar.set_modulate(Color(0.5,0.5,0.5))
-	if Input.is_action_pressed("Shoot"):
-		if gun_charge < MAX_GUN_CHARGE:
-			gun_charge += delta
-		else:
-			gun_bar.set_modulate(Color(0.5,0.5,1))
 	if Input.is_action_just_released("Shoot"):
-		if gun_charge >= MIN_GUN_CHARGE:
+		#if gun_charge >= MIN_GUN_CHARGE:
+		if outer_ring.scale.x <= inner_ring.scale.x and outer_ring.scale.x > inner_inner_ring.scale.x:
 			shoot()
-		gun_charge = 0
+		#gun_charge = 0
+	if Input.is_action_pressed("Shoot"):
+		var aim_speed_delta = 1.5
+		outer_ring.visible = true
+		outer_ring.scale = lerp(outer_ring.scale, Vector2(0.01,0.01), delta*aim_speed_delta)
+		outer_ring.modulate = lerp(outer_ring.modulate, Color(255,255,255, 1), delta)
+		#if gun_charge < MAX_GUN_CHARGE:
+		#	gun_charge += delta
+		#else:
+		#	gun_bar.set_modulate(Color(0.5,0.5,1))
+	else:
+		outer_ring.modulate = Color(255,255,255,0)
+		outer_ring.visible = false
+		outer_ring.scale = Vector2(1,1)
+	
 	
 	var mouse_local_pos = (get_global_mouse_position() - global_position)
 	var mouse_dir = mouse_local_pos.normalized()
@@ -111,7 +126,7 @@ func general_step(delta):
 		camera.offset = lerp(camera.offset, mouse_dir*MOUSE_POS_SCALE*MAX_CAMERA_OFFSET, delta*AIM_FACTOR)
 	health_bar.text = "HP: "+str(health)
 	gun_bar.text = "GUN: "+str(gun_charge)
-	jump_bar.text = "JUMP: "+str(jump_timer)
+	jump_bar.text = "JUMP: "+str(outer_ring.scale.x)
 	
 	if direction:
 		player_sprite.scale.x = SPRITE_X_SCALE * direction
@@ -191,6 +206,14 @@ func shoot():
 	if not player_gun.is_tip_colliding() and shoot_timer.is_stopped():
 		var direction = (get_global_mouse_position() - global_position).normalized()
 		var new_bullet = AdvancedBullet.instantiate()
+		
+		player_gun.recoil(direction)
+		
+		var shake_amount = 3
+		var r1 = rng.randf_range(-1.0, 1.0)
+		var r2 = rng.randf_range(-1.0, 1.0)
+		camera.set_offset(camera.offset + Vector2(r1 * shake_amount, r2 * shake_amount))
+		
 		new_bullet.prepare(direction)
 		new_bullet.global_position = laser_sprite.global_position
 		get_tree().get_root().add_child(new_bullet)
@@ -198,7 +221,6 @@ func shoot():
 		shoot_timer.start()
 
 func check_jump(delta):
-	
 	if Input.is_action_just_pressed("ui_accept"):
 		jump_timer = 0.0
 		if current_state != States.STANDARD:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://oicjjw82y2vb"]
+[gd_scene load_steps=69 format=3 uid="uid://oicjjw82y2vb"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_0oquj"]
 [ext_resource type="Script" path="res://Scripts/Player/gun.gd" id="2_n2pkr"]
@@ -29,6 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://buodxi47dnrum" path="res://Sprites/Bullets/Bullet1.png" id="27_uyajr"]
 [ext_resource type="Texture2D" uid="uid://gofaabkc1fye" path="res://Sprites/Bullets/Bullet4.png" id="28_5gm7l"]
 [ext_resource type="Texture2D" uid="uid://cqgotutnbentn" path="res://Sprites/Bullets/Bullet7.png" id="29_jgtwb"]
+[ext_resource type="Texture2D" uid="uid://x3loedkebb1w" path="res://Sprites/Tiles/Outer.png" id="30_4kjf4"]
+[ext_resource type="Texture2D" uid="uid://cg5t7d4tusorq" path="res://Sprites/Tiles/inner.png" id="31_yy8x0"]
+[ext_resource type="Texture2D" uid="uid://cv4gx8xpbhreg" path="res://Sprites/Tiles/Innerinner.png" id="32_h6kr4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgtmy"]
 
@@ -528,6 +531,25 @@ layout_mode = 2
 
 [node name="JumpChargeLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
+
+[node name="Rings" type="Node2D" parent="CanvasLayer/Control"]
+position = Vector2(576, 512)
+scale = Vector2(0.7, 0.7)
+
+[node name="Outer" type="Sprite2D" parent="CanvasLayer/Control/Rings"]
+modulate = Color(1, 1, 1, 0.941176)
+rotation = 1.5708
+texture = ExtResource("30_4kjf4")
+
+[node name="Inner" type="Sprite2D" parent="CanvasLayer/Control/Rings"]
+modulate = Color(1, 1, 1, 0.501961)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("31_yy8x0")
+
+[node name="InnerInner" type="Sprite2D" parent="CanvasLayer/Control/Rings"]
+modulate = Color(1, 1, 1, 0.576471)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("32_h6kr4")
 
 [node name="StateMachine" type="Node" parent="."]
 

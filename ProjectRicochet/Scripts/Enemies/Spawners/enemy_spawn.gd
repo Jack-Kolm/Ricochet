@@ -19,6 +19,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#delta = delta * Global.delta_factor
 	if fadeout:
 		$SpawnSprite.set_modulate(lerp($SpawnSprite.get_modulate(), Color(10,0.3,0.3,0), delta*FADEOUT_DELTA)) 
 
