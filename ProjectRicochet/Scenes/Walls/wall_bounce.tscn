@@ -1,21 +1,20 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmrfmdxahubd5"]
 
-[ext_resource type="Texture2D" uid="uid://dyahsdnwtv4pa" path="res://Sprites/Tiles/Tile.png" id="1_uq3d0"]
+[ext_resource type="Texture2D" uid="uid://d02wfoxgst8pi" path="res://Sprites/Wall/Wall_BOUNCE.png" id="1_pcfod"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjhsa"]
-size = Vector2(128, 128)
+size = Vector2(1280, 160)
 
 [node name="WallBounce" type="StaticBody2D"]
 modulate = Color(0.0588235, 1, 0.639216, 0.34902)
-position = Vector2(-2288, -2912)
-rotation = 1.57079
-scale = Vector2(3.74603, 0.131096)
+z_index = -1
 collision_layer = 6
 collision_mask = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(7.97027, 7.95892)
-texture = ExtResource("1_uq3d0")
+texture = ExtResource("1_pcfod")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.33786e-06, 4.17233e-07)
+scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_pjhsa")

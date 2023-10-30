@@ -6,9 +6,5 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	delta = delta * Global.delta_factor
-
 func _on_sprite_animation_finished():
 	queue_free()

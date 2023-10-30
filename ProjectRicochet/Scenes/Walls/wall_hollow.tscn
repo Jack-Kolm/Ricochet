@@ -1,16 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjmox7k7bbm68"]
 
-[ext_resource type="Texture2D" uid="uid://bs714o663qwe2" path="res://Sprites/Tiles/grating_floor.png" id="1_s8sni"]
+[ext_resource type="Texture2D" uid="uid://dq3vw7umxlobp" path="res://Sprites/Wall/Wall_GRATE_v2.png" id="1_88ffm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upk0g"]
-size = Vector2(128, 32)
+size = Vector2(128, 16)
 
-[node name="wall_hollow" type="StaticBody2D"]
-modulate = Color(0.258824, 0.341176, 0.419608, 1)
+[node name="HollowWall" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_s8sni")
+texture = ExtResource("1_88ffm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_upk0g")
+one_way_collision = true

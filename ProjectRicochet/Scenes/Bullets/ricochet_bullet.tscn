@@ -140,6 +140,7 @@ frame_progress = 1.0
 volume_db = -15.0
 pitch_scale = 0.6
 max_polyphony = 5
+bus = &"SoundEffects"
 
 [node name="WallCheck" type="Area2D" parent="."]
 

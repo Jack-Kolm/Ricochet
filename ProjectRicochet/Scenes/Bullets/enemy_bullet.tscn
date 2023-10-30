@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://kjclso7aii3r"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy_bullet.gd" id="1_c7sl8"]
-[ext_resource type="Texture2D" uid="uid://divf7yaajnwpk" path="res://Sprites/Bullets/enemy_bullet3.png" id="2_7ckrj"]
+[ext_resource type="Texture2D" uid="uid://brvpmy0c0jwsi" path="res://Sprites/Bullets/enemy_bullet4.png" id="2_r82oe"]
 [ext_resource type="Texture2D" uid="uid://bvbdowigv2yk1" path="res://Sprites/Light/light1.png" id="3_1hw4u"]
 [ext_resource type="Texture2D" uid="uid://dl03ttlb24ada" path="res://Sprites/Explosion/explosion1.png" id="9_wstov"]
 [ext_resource type="Texture2D" uid="uid://dt4xoaxgrgijr" path="res://Sprites/Explosion/explosion2.png" id="10_5n1g4"]
@@ -17,7 +17,7 @@ radius = 15.2861
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_7ckrj")
+"texture": ExtResource("2_r82oe")
 }],
 "loop": true,
 "name": &"default",
@@ -74,15 +74,16 @@ animations = [{
 radius = 15.6257
 
 [node name="EnemyBullet" type="CharacterBody2D" groups=["bullets"]]
+scale = Vector2(0.7, 0.7)
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_c7sl8")
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(2.19345e-05, -0.19981)
 shape = SubResource("CircleShape2D_7xgle")
 
 [node name="BulletCast" type="RayCast2D" parent="."]
@@ -94,12 +95,14 @@ collide_with_areas = true
 [node name="BulletSprite" type="AnimatedSprite2D" parent="."]
 light_mask = 2
 rotation = 1.57079
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_xhhqd")
 
 [node name="PointLight2D" type="PointLight2D" parent="BulletSprite"]
-color = Color(1, 0, 0, 0.282353)
+color = Color(0.701961, 0, 0, 1)
+energy = 20.0
 texture = ExtResource("3_1hw4u")
-texture_scale = 0.25
+texture_scale = 0.3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -107,6 +110,7 @@ libraries = {
 }
 
 [node name="ExplosionSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 modulate = Color(0, 0, 0, 0.176471)
 position = Vector2(0.694444, -0.704225)
 scale = Vector2(0.679669, 0.674258)
@@ -116,8 +120,10 @@ sprite_frames = SubResource("SpriteFrames_pfxgj")
 volume_db = -15.0
 pitch_scale = 0.6
 max_polyphony = 5
+bus = &"SoundEffects"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(2.19345e-05, -0.19981)
 shape = SubResource("CircleShape2D_tvsam")
 

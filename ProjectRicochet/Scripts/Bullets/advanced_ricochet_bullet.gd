@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const SPEED = 1000
+const SPEED = 1400
 const MAX_BOUNCES = 6
-const BASE_DAMAGE = 1000
+const BASE_DAMAGE = 100
 const KNOCKBACK_FACTOR = 100
 
 @onready var bullet_sprite = $BulletSprite
@@ -14,13 +14,25 @@ const KNOCKBACK_FACTOR = 100
 @onready var destruction_delay_timer = $DestructionDelayTimer
 @onready var hitbox = $Hitbox
 var direction = Vector2(0, 0)
-var bounces = 0
+var bounces = 1
 var should_bounce = false
 var damage = BASE_DAMAGE
 var destroyed = false
 
+var hitstop_flag = false
+var hitstop_time = 0
 
 var rng = RandomNumberGenerator.new()
+
+var trace_colors = [Color(0.7, 0.7, 0.7), 
+				Color(0.7, 0.7, 1),
+				Color(0.4, 0.6, 1),
+				Color(0.3, 0.0, 0.7),
+				Color(0.6, 0.0, 1.0),
+				Color(0.75, 0, 1.0),
+				Color(1.0, 0, 1.0),
+				Color(1.0, 0.0, 0.8),]
+
 var impact1 = preload("res://Sounds/Impact/metal_solid_impact_bullet1.wav")
 var impact2 = preload("res://Sounds/Impact/metal_solid_impact_bullet2.wav")
 var impact3 = preload("res://Sounds/Impact/metal_solid_impact_bullet3.wav")
@@ -36,7 +48,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	delta = delta * Global.delta_factor
+	$Trace.default_color = trace_colors[bounces]
+	if hitstop_flag:
+		hitstop_time += delta
+		if hitstop_time > 0.03:
+			hitstop_flag = false
+			Engine.time_scale = 1
 	if destroyed:
 		return
 	direction = velocity.normalized()
@@ -63,24 +80,34 @@ func ricochet(normal):
 		play_ricochet_sound()
 		#ricochet_timer.start()
 
+
 func play_ricochet_sound():
 	var index = rng.randi_range(0, 3)
 	sound_player.stream = impact_sounds[index]
 	sound_player.play()
-	sound_player.volume_db += 3
+	#sound_player.volume_db += 3
 	sound_player.pitch_scale += 0.3
+
 
 func check_enemy(body):
 	if body.is_in_group("enemies"):
+		if body.destroyed:
+			return
 		if bounces > 0:
 			var enemy = body
+			print(enemy.name)
 			enemy.apply_damage(damage)
 			enemy.apply_knockback(KNOCKBACK_FACTOR*bounces, direction)
 			var hit_effect = HitEffect.instantiate()
-			
-
 			hit_effect.global_position = global_position
 			get_tree().get_root().add_child.call_deferred(hit_effect)
+			#Global.delta_factor = 0.01
+			hitstop_flag = true
+			Engine.time_scale = 0.1
+			$HitSoundPlayer2D.play()
+			#$HitstopTimer.start()
+		else:
+			$BadHitSoundPlayer2D.play()
 		destroy()
 
 
@@ -91,6 +118,7 @@ func prepare(start_direction):
 
 func destroy():
 	destroyed = true
+	#$Trace.visible = false
 	hitbox.set_collision_layer_value(2, false)
 	hitbox.set_collision_mask_value(3, false)
 	set_collision_layer_value(2, false)
@@ -102,11 +130,6 @@ func destroy():
 
 func get_direction():
 	return direction
-
-
-func get_damage():
-	return damage
-
 
 func get_bounces():
 	return bounces
@@ -128,3 +151,7 @@ func _on_hitbox_area_entered(area):
 func _on_destruction_delay_timer_timeout():
 	queue_free()
 
+
+
+func _on_hitstop_timer_timeout():
+	Engine.time_scale = 1

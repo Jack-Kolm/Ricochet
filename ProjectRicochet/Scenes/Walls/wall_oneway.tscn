@@ -1,21 +1,20 @@
 [gd_scene load_steps=3 format=3 uid="uid://dv4yhnqu81mq8"]
 
-[ext_resource type="Texture2D" uid="uid://dyahsdnwtv4pa" path="res://Sprites/Tiles/Tile.png" id="1_nbxau"]
+[ext_resource type="Texture2D" uid="uid://duf10siq7liv7" path="res://Sprites/Wall/Wall_UP.png" id="1_uqkko"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjhsa"]
-size = Vector2(128, 128)
+size = Vector2(128, 16)
 
-[node name="WallOneway" type="StaticBody2D"]
-modulate = Color(0.529412, 1, 0.537255, 1)
-position = Vector2(488, -240)
-scale = Vector2(1.50603, 0.131096)
-collision_layer = 7
-collision_mask = 7
+[node name="WallOneway" type="StaticBody2D" groups=["terrain"]]
+z_index = -1
+collision_layer = 15
+collision_mask = 15
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(7.97027, 7.95892)
-texture = ExtResource("1_nbxau")
+position = Vector2(4.57764e-05, 0)
+texture = ExtResource("1_uqkko")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_pjhsa")
 one_way_collision = true

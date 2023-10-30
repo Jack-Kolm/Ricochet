@@ -2,7 +2,7 @@ extends Node2D
 
 const FADEOUT_DELTA = 1.5
 
-enum EnemyTypes {CHARGER, TURRET, BAT}
+enum EnemyTypes {CHARGER, SHIELD_CHARGER, TURRET, BAT}
 @export var enemy_type : EnemyTypes
 
 @onready var Turret = preload("res://Scenes/Enemies/flying_enemy_turret.tscn")
@@ -31,17 +31,27 @@ func spawn():
 		EnemyTypes.TURRET:
 			new_enemy = Turret.instantiate()
 			new_enemy.aggro_start = true
+		EnemyTypes.SHIELD_CHARGER:
+			new_enemy = ShieldCharger.instantiate()
+			new_enemy.aggro()
+			var x_axis = sign(global_position.direction_to(player.global_position).x)
+			if x_axis < 0:
+				new_enemy.face_right_at_start = false
+			new_enemy.has_shield = true
 		EnemyTypes.CHARGER:
 			new_enemy = ShieldCharger.instantiate()
 			new_enemy.aggro()
 			var x_axis = sign(global_position.direction_to(player.global_position).x)
 			if x_axis < 0:
 				new_enemy.face_right_at_start = false
+		EnemyTypes.BAT:
+			new_enemy = Bat.instantiate()
+			new_enemy.aggro_start = true
 		_:
 			new_enemy = Bat.instantiate()
-	visible = true
+	$SpawnSprite.visible = true
 	new_enemy.spawner = self.spawner
-	new_enemy.add_to_group("enemies")
+	#new_enemy.add_to_group("enemies")
 	new_enemy.global_position = global_position
 	get_tree().get_root().add_child.call_deferred(new_enemy)
 	$SpawnSprite.play()

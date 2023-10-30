@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgayyhrip247t"]
+
+[ext_resource type="Texture2D" uid="uid://6pc50r0471ee" path="res://Sprites/Wall/Wall_NORMAL.png" id="1_dvrh4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1vg0a"]
+size = Vector2(128, 16)
+
+[node name="EnemyBoundaryWall" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 32
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_dvrh4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1vg0a")

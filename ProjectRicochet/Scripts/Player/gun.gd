@@ -2,9 +2,12 @@ extends StaticBody2D
 
 class_name Gun
 
-const RECOIL_DELTA = 1.5
+const RECOIL_DELTA = 2
+
+var angle_offset = PI/2
 
 @onready var raycast = $GunRayCast
+@onready var aimcast = $AimCast
 @onready var tip_box = $GunTipBox
 
 @onready var AdvancedBullet = preload("res://Scenes/Bullets/advanced_ricochet_bullet.tscn")
@@ -16,12 +19,26 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	delta = delta * Global.delta_factor
-	self.position = lerp(self.position, Vector2(0.0, -8.0), delta*RECOIL_DELTA)
-	look_at(get_global_mouse_position())
-	self.rotation = self.rotation - (PI/2)
-	#raycast.rotation = self.rotation
+	var laser : Line2D = $LaserLine
+	laser.set_point_position(0, $GunTipBox.position)
 
+	if aimcast.is_colliding():
+		if aimcast.get_collider().is_in_group("terrain"):
+			var point = aimcast.get_collision_point()
+			laser.set_point_position(1, to_local(point))
+			$LaserLight.visible = true
+			$LaserLight.global_position = point
+	else:
+		$LaserLight.visible = false
+		laser.set_point_position(1, aimcast.target_position)
+
+
+	self.position = lerp(self.position, Vector2(0.0, -10.0), delta*RECOIL_DELTA)
+	look_at(get_global_mouse_position())
+	self.rotation = self.rotation - angle_offset
+	#raycast.rotation = self.rotation
+	
+	
 func get_raycast():
 	return raycast
 
@@ -35,14 +52,16 @@ func get_tip_global_position():
 	return tip_box.global_position
 
 func shoot():
-	if not $GunRayCast.is_tip_colliding() and get_parent().shoot_timer.is_stopped():
-		var direction = (get_global_mouse_position() - global_position).normalized()
+	if $GunRayCast.is_tip_colliding() and $GunRayCast.get_collider().is_in_group("terrain"):
+		return
+	elif get_parent().shoot_timer.is_stopped():
+		var direction = (get_global_mouse_position() - $GunTipBox.global_position)
 		var new_bullet = AdvancedBullet.instantiate()
 		new_bullet.prepare(direction)
-		new_bullet.global_position = $Laser.global_position
+		new_bullet.global_position = $GunTipBox.global_position
 		get_tree().get_root().add_child(new_bullet)
 		get_parent().gun_sound_player.play()
 		get_parent().shoot_timer.start()
 
 func recoil(direction):
-	self.position = self.position - direction * 10
+	self.position = self.position - direction * 3

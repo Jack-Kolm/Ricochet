@@ -108,7 +108,7 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kdqwi"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nu0fw"]
 height = 80.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ndgb0"]
@@ -163,7 +163,7 @@ scale = Vector2(0.580037, 0.536284)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield/ShieldArea"]
+[node name="Shape" type="CollisionShape2D" parent="Shield/ShieldArea"]
 position = Vector2(-1.90735e-06, 0)
 scale = Vector2(0.697079, 1.44349)
 shape = SubResource("RectangleShape2D_gss8k")
@@ -222,7 +222,7 @@ collision_mask = 0
 
 [node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
 scale = Vector2(0.640001, 1)
-shape = SubResource("CapsuleShape2D_kdqwi")
+shape = SubResource("CapsuleShape2D_nu0fw")
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
@@ -283,7 +283,6 @@ shape = SubResource("CapsuleShape2D_m43r0")
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
 [connection signal="timeout" from="TurnToPlayerTimer" to="." method="_on_turn_to_player_timer_timeout"]
 [connection signal="timeout" from="ChargeDuration" to="." method="_on_charge_duration_timeout"]
-[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="WallCheck" to="." method="_on_wall_check_body_entered"]
 [connection signal="body_entered" from="PlayerCheck" to="." method="_on_player_check_body_entered"]

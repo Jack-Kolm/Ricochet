@@ -6,6 +6,8 @@ class_name BatSpawner
 
 var SPAWN_COUNT = 5
 
+@export var player : Player
+
 func _ready():
 	var rng = RandomNumberGenerator.new()
 	var group = []
@@ -17,11 +19,7 @@ func _ready():
 		new_bat.add_to_group("avoid_bullet")
 		new_bat.add_to_group("enemies")
 		new_bat.global_position = self.global_position + Vector2(r1, r2)
-		
-		var root_node = get_tree().get_root().get_child(0)
-		if weakref(root_node).get_ref():
-			if weakref(root_node.player).get_ref():
-				new_bat.set_player(root_node.player)
+		new_bat.set_player(player)
 		group.append(new_bat)
 	for bat in group:
 		bat.set_group(group)

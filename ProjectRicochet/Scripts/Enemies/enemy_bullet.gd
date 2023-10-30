@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
+const SPEED = 200.0
 const BASE_DAMAGE = 100
 
 var damage = BASE_DAMAGE
@@ -44,7 +44,7 @@ func _on_destruction_timer_timeout():
 func _on_hitbox_area_entered(area):
 	if area.get_owner().name == "Player":
 		var player = area.get_owner()
-		player.apply_damage(damage)
 		player.apply_knockback(direction)
+		player.apply_damage(damage)
 		self.destroy()
 

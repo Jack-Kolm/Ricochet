@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dife8c100ltp8"]
+
+[ext_resource type="Script" path="res://Scripts/end.gd" id="1_j7eb2"]
+[ext_resource type="Texture2D" uid="uid://6pc50r0471ee" path="res://Sprites/Wall/Wall_NORMAL.png" id="1_yasoe"]
+
+[node name="end" type="Node2D"]
+script = ExtResource("1_j7eb2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(960, 512)
+scale = Vector2(5558.62, 261.234)
+texture = ExtResource("1_yasoe")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 936.0
+offset_top = 576.0
+offset_right = 1030.0
+offset_bottom = 602.0
+text = "Well played."

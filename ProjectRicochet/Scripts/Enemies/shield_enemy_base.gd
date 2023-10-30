@@ -2,39 +2,42 @@ extends "res://Scripts/Enemies/base_enemy.gd"
 
 class_name ShieldEnemyBase
 
-const SPEED = 200.0
-const CHARGE_SPEED = 500.0
-const JUMP_VELOCITY = -600.0
+const SPEED = 50.0
+const CHARGE_SPEED = 400.0
+const JUMP_VELOCITY = -200.0
 const LEDGE_VELOCITY = 100
-const CHARGE_VELOCITY = 1000
+const CHARGE_VELOCITY = 800
 const STOP_FACTOR = 1
-const MOVE_FACTOR = 1
-const CHARGE_FACTOR = 3
-const KNOCKBACK_DELTA = 500
+const MOVE_FACTOR = 2
+const CHARGE_FACTOR = 4
+const KNOCKBACK_DELTA = 400
 const DAMAGE_MODULATE_FACTOR = 2
 
 
-const STOP_CHASE_X = 1200
+const STOP_CHASE_X = 2000
 const STOP_CHASE_Y = 600
 
-const SELF_KNOCKBACK_X = 300
-const SELF_KNOCKBACK_Y = 300
-const KNOCKBACK_PLAYER_FORCE = 500
+const SELF_KNOCKBACK_X = 100
+const SELF_KNOCKBACK_Y = 100
+const KNOCKBACK_PLAYER_FORCE = 300
 
-const SPRITE_SCALE = 1
+const SPRITE_SCALE = 1.2
+const REGULAR_MODULATE = Color(255,177,177)
+const DEATH_MODULATE = Color(1,0.2,0.2)
 
 @export var stationary = false
 
-@export var size_scale = 2.0
-@export var detect_player_x = 800
-@export var chase_target_scale = 1
-@export var toward_target_distance = 300
-@export var away_target_distance = 400
+@export var size_scale : float = 1.3
+var detect_player_x = 800
+var chase_target_scale = 1
+var toward_target_distance = 100
+var away_target_distance = 150
 @export var face_right_at_start = true
+@export var has_shield : bool = false
 
 var detect_player_y = 400
 
-enum States {ROAM, CHASE, HURT}
+enum States {ROAM, CHASE, HURT, DESTROYED}
 
 var current_state = States.ROAM
 var previous_state = null
@@ -46,7 +49,8 @@ var should_stop = false
 var charging = false
 var movement_x_axis = 1
 var facing_x_axis = movement_x_axis
-var player_x_axis = null
+var player_x_axis = 1
+
 
 @onready var shield = $Shield
 @onready var wall_check = $WallCheck
@@ -58,13 +62,18 @@ var player_x_axis = null
 @onready var attack_timer = $AttackTimer
 @onready var knockback_timer = $KnockbackTimer
 @onready var turn_to_player_timer = $TurnToPlayerTimer
-@onready var hitbox = $Hitbox
 @onready var player_check_shape = $PlayerCheck/Shape
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()
-	
+	if has_shield:
+		$Shield/ShieldArea.monitoring = true
+		$Shield/ShieldArea/Shape.disabled = false
+		$Shield.visible = true
+		health = 100
+	else:
+		health = 200
 	if weakref(player).get_ref():
 		navigation_agent.set_target_position(player.global_position)
 	self.scale.x = size_scale
@@ -83,8 +92,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	super(delta)
-	if destroyed:
-		return
+	if destroyed and current_state != States.DESTROYED:
+		enter_state(States.DESTROYED)
 	match current_state:
 		States.ROAM:
 			roam_step(delta)
@@ -92,12 +101,14 @@ func _physics_process(delta):
 			chase_step(delta)
 		States.HURT:
 			hurt_step(delta)
+		States.DESTROYED:
+			death_step(delta)
 	move_and_slide()
 
 
 # Called no matter state
 func general_step(delta):
-	sprite.set_modulate(lerp(sprite.get_modulate(), Color(2,1,1), delta*DAMAGE_MODULATE_FACTOR))
+	super(delta)
 	if weakref(player).get_ref():
 		player_x_axis = sign(global_position.direction_to(player.global_position).x)
 	if not is_on_floor():
@@ -107,15 +118,18 @@ func general_step(delta):
 		sprite.animation = "jump"
 	else:
 		if velocity.x == 0:
+			$WalkSound.stop()
 			sprite.animation = "idle"
 		else:
+			if $WalkSound.playing == false:
+				$WalkSound.play()
 			sprite.animation = "walk"
 	if facing_x_axis:
 		shield.scale.x = facing_x_axis
 		wall_check.scale.x = facing_x_axis
 		player_check.scale.x = facing_x_axis
 		sprite.scale.x = facing_x_axis
-		hitbox.scale.x = facing_x_axis
+
 
 
 func roam_step(delta):
@@ -123,15 +137,22 @@ func roam_step(delta):
 	general_step(delta)
 	if is_on_floor():
 		if should_stop or stationary:
-			velocity.x = lerp(velocity.x, 0.0, delta*STOP_FACTOR)
+			#velocity.x = lerp(velocity.x, 0.0, delta*STOP_FACTOR)
+			velocity.x = 0
 		else:
-			velocity.x =  move_toward(velocity.x, movement_x_axis * SPEED, delta * MOVE_FACTOR)
-
+			#velocity.x =  move_toward(velocity.x, movement_x_axis * SPEED, delta * MOVE_FACTOR)
+			velocity.x  = movement_x_axis * SPEED
 
 func hurt_step(delta):
 	general_step(delta)
 	velocity.x = move_toward(velocity.x, 0.0, delta*KNOCKBACK_DELTA)
 
+func death_step(delta):
+	super(delta)
+	if not exploding:
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		velocity.x = lerp(velocity.x, 0.0, delta*death_delta)
 
 func chase_step(delta):
 	pass
@@ -143,6 +164,9 @@ func enter_state(state):
 		States.CHASE:
 			facing_x_axis = player_x_axis
 			stationary = false
+		States.DESTROYED:
+			sprite.play("death")
+			sprite.modulate = DEATH_MODULATE
 	current_state = state
 
 
@@ -170,16 +194,15 @@ func turn_around():
 
 
 func apply_damage(damage):
-	sprite.set_modulate(Color(40, 0.5, 0.5))
-	health -= damage
-	if health <= 0:
-		destroy()
+	super(damage)
+	enter_state(States.HURT)
+	
 
 
 func apply_knockback(force, direction):
-	enter_state(States.HURT)
 	knockback_timer.start()
 	velocity = Vector2(SELF_KNOCKBACK_X*sign(direction.x), -SELF_KNOCKBACK_Y)
+	
 
 
 func destroy():
@@ -187,9 +210,10 @@ func destroy():
 	#hit_sound_player.play()
 	super()
 	shield.visible = false
+	set_collision_mask_value(3, true)
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
-
+	$Hitbox.monitoring = false
 
 
 
@@ -198,6 +222,10 @@ func jump():
 
 
 func _on_wall_check_body_entered(body):
+	#if body.is_in_group("enemies"):
+	#	var dir_switch = sign(global_position.direction_to(body.global_position).x)
+	#	self.velocity.x = LEDGE_VELOCITY * -dir_switch
+	#else:
 	movement_x_axis *= -1
 
 
@@ -229,11 +257,6 @@ func _on_shield_area_body_entered(body):
 		enter_state(States.CHASE)
 
 
-func _on_hurtbox_body_entered(body):
-	if body.is_in_group("ricochet_bullets"):
-		enter_state(States.CHASE)
-		apply_damage(body.get_damage())
-		apply_knockback(200, body.get_direction())
 
 
 func _on_knockback_timer_timeout():
@@ -258,23 +281,33 @@ func _on_ledge_check_body_exited(body):
 
 
 func _on_ledge_check_left_body_exited(body):
+	if $LedgeCheckLeft.has_overlapping_bodies():
+		return
 	match current_state:
 		States.ROAM:
 			velocity.x = LEDGE_VELOCITY
 			turn_around()
 		States.CHASE:
-			velocity.x = LEDGE_VELOCITY
+			self.velocity.y = -200
+			self.velocity.x = LEDGE_VELOCITY
+			#movement_x_axis *= -1
+			charging = false
 
 
 
 func _on_ledge_check_right_body_exited(body):
+	if $LedgeCheckRight.has_overlapping_bodies():
+		return
 	match current_state:
 		States.ROAM:
-			velocity.x = -LEDGE_VELOCITY
+			self.velocity.x = -LEDGE_VELOCITY
 			movement_x_axis *= -1
 		States.CHASE:
-			velocity.x = -LEDGE_VELOCITY
-
+			print("RIGHT EXIT")
+			self.velocity.y = -200
+			self.velocity.x = -LEDGE_VELOCITY
+			#movement_x_axis *= -1
+			charging = false
 
 func _on_chase_area_body_exited(body):
 	if body.is_in_group("player"):
@@ -284,8 +317,9 @@ func _on_chase_area_body_exited(body):
 func _on_hitbox_body_entered(body):
 	if body.is_in_group("player"):
 		var player = body
-		player.apply_damage(damage)
 		player.apply_knockback(Vector2(player_x_axis, 0), KNOCKBACK_PLAYER_FORCE)
+		player.apply_damage(damage)
+		charging = false
 
 
 func _on_charge_duration_timeout():

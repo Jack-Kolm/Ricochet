@@ -1,8 +1,8 @@
-[gd_scene load_steps=69 format=3 uid="uid://oicjjw82y2vb"]
+[gd_scene load_steps=95 format=3 uid="uid://oicjjw82y2vb"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_0oquj"]
+[ext_resource type="Shader" path="res://Scenes/Player/player.gdshader" id="1_pm0xl"]
 [ext_resource type="Script" path="res://Scripts/Player/gun.gd" id="2_n2pkr"]
-[ext_resource type="Texture2D" uid="uid://cxfi5waq4gbuu" path="res://Sprites/Player/Cannon.png" id="3_bltv5"]
 [ext_resource type="Texture2D" uid="uid://b606ix5vt7h6a" path="res://Sprites/Player/maleBase/base/char1.png" id="3_fryf3"]
 [ext_resource type="Texture2D" uid="uid://chkbpg3aylfqh" path="res://Sprites/Tiles/Tile3.png" id="4_506fg"]
 [ext_resource type="Texture2D" uid="uid://dr8fvxm582nds" path="res://Sprites/Player/maleBase/base/base_dark8.png" id="4_icuj3"]
@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://cdihgtxj33d5x" path="res://Sprites/Player/maleBase/base/char7.png" id="9_fc5ws"]
 [ext_resource type="Texture2D" uid="uid://rw61ggynusn7" path="res://Sprites/Player/maleBase/base/char6.png" id="10_hn1rj"]
 [ext_resource type="Texture2D" uid="uid://bkqrqvlrxwlys" path="res://Sprites/Player/maleBase/base/base_dark2.png" id="11_k104k"]
-[ext_resource type="AudioStream" uid="uid://bh0732a8dwx22" path="res://Sounds/hitHurtPlayer.wav" id="12_0bt7h"]
 [ext_resource type="AudioStream" uid="uid://cikbrt1kyvtwb" path="res://Sounds/Player Shooting Sounds/368735__leszek_szary__shoot-6.wav" id="12_dto3d"]
 [ext_resource type="Texture2D" uid="uid://bj2v5f6kuwt" path="res://Sprites/Player/maleBase/base/base_dark3.png" id="12_m21ax"]
 [ext_resource type="AudioStream" uid="uid://b43ivldqwfjgi" path="res://Sounds/Player Shooting Sounds/574818__wesleyextreme_gamer__gunshot.ogg" id="12_x4i6c"]
@@ -25,15 +24,39 @@
 [ext_resource type="Texture2D" uid="uid://dhe5x42e6hhtt" path="res://Sprites/Player/maleBase/base/base_dark5.png" id="14_a3snf"]
 [ext_resource type="Texture2D" uid="uid://btv23fvy8ioy0" path="res://Sprites/Player/maleBase/base/base_dark7.png" id="15_4loak"]
 [ext_resource type="Texture2D" uid="uid://xxgo4e3me60v" path="res://Sprites/Player/maleBase/base/base_dark6.png" id="16_j5fhy"]
-[ext_resource type="Texture2D" uid="uid://n036444strh" path="res://Sprites/Player/platformer_sprites_pixelized_0.png" id="23_iun65"]
+[ext_resource type="Texture2D" uid="uid://64qhkt4xxxt5" path="res://Sprites/Player/FINALPLAYER/player_crouch.png" id="21_sawqd"]
+[ext_resource type="Texture2D" uid="uid://bbaas3fcls8yr" path="res://Sprites/Player/FINALPLAYER/player_idle.png" id="22_1xvv4"]
+[ext_resource type="Texture2D" uid="uid://dqal6maomlgb2" path="res://Sprites/Player/player_new22_sheet.png" id="22_ptltd"]
+[ext_resource type="Texture2D" uid="uid://c0c1lxr88dd3n" path="res://Sprites/Player/FINALPLAYER/player_fall.png" id="22_pw0hw"]
+[ext_resource type="Texture2D" uid="uid://b63h3hpgpto1" path="res://Sprites/Player/FINALPLAYER/player_jump.png" id="24_u6ei0"]
+[ext_resource type="Texture2D" uid="uid://compx650ycuui" path="res://Sprites/Player/FINALPLAYER/player_run.png" id="25_v6ppu"]
+[ext_resource type="Texture2D" uid="uid://dfeycgwwn6ov8" path="res://Sprites/Player/FINALPLAYER/player_walk.png" id="26_p2dq5"]
 [ext_resource type="Texture2D" uid="uid://buodxi47dnrum" path="res://Sprites/Bullets/Bullet1.png" id="27_uyajr"]
+[ext_resource type="Shader" path="res://Scenes/Player/color.gdshader" id="27_y3ogx"]
 [ext_resource type="Texture2D" uid="uid://gofaabkc1fye" path="res://Sprites/Bullets/Bullet4.png" id="28_5gm7l"]
+[ext_resource type="Texture2D" uid="uid://sg4xpkfn5fdw" path="res://Sprites/Player/gunarm2 - Copy.png" id="28_gw84u"]
 [ext_resource type="Texture2D" uid="uid://cqgotutnbentn" path="res://Sprites/Bullets/Bullet7.png" id="29_jgtwb"]
 [ext_resource type="Texture2D" uid="uid://x3loedkebb1w" path="res://Sprites/Tiles/Outer.png" id="30_4kjf4"]
+[ext_resource type="Texture2D" uid="uid://bvbdowigv2yk1" path="res://Sprites/Light/light1.png" id="30_wu22n"]
 [ext_resource type="Texture2D" uid="uid://cg5t7d4tusorq" path="res://Sprites/Tiles/inner.png" id="31_yy8x0"]
 [ext_resource type="Texture2D" uid="uid://cv4gx8xpbhreg" path="res://Sprites/Tiles/Innerinner.png" id="32_h6kr4"]
+[ext_resource type="Script" path="res://Scenes/Player/ShaderTest.gd" id="33_iv20v"]
+[ext_resource type="AudioStream" uid="uid://bv5q044glwf78" path="res://Sounds/Walk/steps_platform2.ogg" id="35_8pmc7"]
+[ext_resource type="AudioStream" uid="uid://knxtrgalwnhe" path="res://Sounds/Hit Sounds/hitHurtPlayer.wav" id="37_b3xr0"]
+[ext_resource type="AudioStream" uid="uid://b5kfefnboex2a" path="res://Sounds/Explosions/explosion(3).wav" id="40_02hsf"]
+[ext_resource type="AudioStream" uid="uid://220usnxh4agt" path="res://Sounds/Walk/steps_platform-[AudioTrimmer.com].ogg" id="40_f6djt"]
+[ext_resource type="Texture2D" uid="uid://6pc50r0471ee" path="res://Sprites/Wall/Wall_NORMAL.png" id="40_uf7jj"]
+[ext_resource type="AudioStream" uid="uid://dyvt8hdyvf3y3" path="res://Sounds/Walk/steps_platform2-[AudioTrimmer.com].ogg" id="41_5fvvb"]
+[ext_resource type="Texture2D" uid="uid://d02wfoxgst8pi" path="res://Sprites/Wall/Wall_BOUNCE.png" id="41_yoisc"]
+[ext_resource type="AudioStream" uid="uid://blvfqu67iyiyv" path="res://Sounds/Walk/jump.wav" id="42_aj2vj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgtmy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oykvv"]
+shader = ExtResource("1_pm0xl")
+shader_parameter/color = Color(0.9, 0.7, 1, 1)
+shader_parameter/width = 0.65
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fy1hp"]
 animations = [{
@@ -122,147 +145,190 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0k4wk"]
-atlas = ExtResource("23_iun65")
-region = Rect2(128, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ilb1a"]
-atlas = ExtResource("23_iun65")
-region = Rect2(0, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dfva7"]
-atlas = ExtResource("23_iun65")
-region = Rect2(64, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0gebh"]
-atlas = ExtResource("23_iun65")
-region = Rect2(320, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f83a1"]
-atlas = ExtResource("23_iun65")
-region = Rect2(384, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vhida"]
-atlas = ExtResource("23_iun65")
-region = Rect2(448, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i12u8"]
-atlas = ExtResource("23_iun65")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dlofj"]
-atlas = ExtResource("23_iun65")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_711lx"]
-atlas = ExtResource("23_iun65")
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqm6g"]
+atlas = ExtResource("21_sawqd")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gy834"]
-atlas = ExtResource("23_iun65")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sirt"]
+atlas = ExtResource("21_sawqd")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbjha"]
+atlas = ExtResource("21_sawqd")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ux2p"]
+atlas = ExtResource("22_ptltd")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k26fe"]
+atlas = ExtResource("22_ptltd")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_od440"]
+atlas = ExtResource("22_ptltd")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u8gy"]
+atlas = ExtResource("22_ptltd")
+region = Rect2(576, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqipr"]
+atlas = ExtResource("22_ptltd")
+region = Rect2(640, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bu1c"]
+atlas = ExtResource("22_ptltd")
+region = Rect2(704, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6e5e"]
+atlas = ExtResource("22_pw0hw")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uv5fa"]
+atlas = ExtResource("22_pw0hw")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba3vk"]
+atlas = ExtResource("22_pw0hw")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fpy0"]
+atlas = ExtResource("22_1xvv4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apihk"]
+atlas = ExtResource("22_1xvv4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhya0"]
+atlas = ExtResource("22_1xvv4")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4skdt"]
+atlas = ExtResource("24_u6ei0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akm8l"]
+atlas = ExtResource("24_u6ei0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1j21"]
+atlas = ExtResource("24_u6ei0")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gknmw"]
+atlas = ExtResource("25_v6ppu")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kdjx"]
+atlas = ExtResource("25_v6ppu")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hgld"]
+atlas = ExtResource("25_v6ppu")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2pde"]
+atlas = ExtResource("25_v6ppu")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p6ijr"]
-atlas = ExtResource("23_iun65")
-region = Rect2(128, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l4kof"]
-atlas = ExtResource("23_iun65")
-region = Rect2(192, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v434o"]
-atlas = ExtResource("23_iun65")
-region = Rect2(256, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_npl0c"]
-atlas = ExtResource("23_iun65")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxpnk"]
+atlas = ExtResource("25_v6ppu")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jh1r8"]
-atlas = ExtResource("23_iun65")
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxfiu"]
+atlas = ExtResource("25_v6ppu")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2whrh"]
-atlas = ExtResource("23_iun65")
+[sub_resource type="AtlasTexture" id="AtlasTexture_it7eh"]
+atlas = ExtResource("25_v6ppu")
 region = Rect2(384, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lvqox"]
-atlas = ExtResource("23_iun65")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rp534"]
+atlas = ExtResource("25_v6ppu")
 region = Rect2(448, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wh4td"]
-atlas = ExtResource("23_iun65")
-region = Rect2(0, 64, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmpyv"]
+atlas = ExtResource("26_p2dq5")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b7ejf"]
-atlas = ExtResource("23_iun65")
-region = Rect2(64, 64, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpgym"]
+atlas = ExtResource("26_p2dq5")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k7xpb"]
-atlas = ExtResource("23_iun65")
-region = Rect2(128, 64, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8af0"]
+atlas = ExtResource("26_p2dq5")
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dqvci"]
-atlas = ExtResource("23_iun65")
-region = Rect2(192, 64, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qdpp"]
+atlas = ExtResource("26_p2dq5")
+region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nvedv"]
-atlas = ExtResource("23_iun65")
-region = Rect2(0, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_n37jw"]
+atlas = ExtResource("26_p2dq5")
+region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_11nei"]
-atlas = ExtResource("23_iun65")
-region = Rect2(64, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_w035s"]
+atlas = ExtResource("26_p2dq5")
+region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_muc3n"]
-atlas = ExtResource("23_iun65")
-region = Rect2(128, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvu70"]
+atlas = ExtResource("26_p2dq5")
+region = Rect2(384, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l5rqf"]
-atlas = ExtResource("23_iun65")
-region = Rect2(192, 256, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_855mf"]
-atlas = ExtResource("23_iun65")
-region = Rect2(256, 256, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_182ci"]
-atlas = ExtResource("23_iun65")
-region = Rect2(320, 256, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o8k3j"]
-atlas = ExtResource("23_iun65")
-region = Rect2(384, 256, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yerye"]
-atlas = ExtResource("23_iun65")
-region = Rect2(448, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_td6in"]
+atlas = ExtResource("26_p2dq5")
+region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m3sn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0k4wk")
+"texture": SubResource("AtlasTexture_aqm6g")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ilb1a")
+"texture": SubResource("AtlasTexture_3sirt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dfva7")
+"texture": SubResource("AtlasTexture_nbjha")
 }],
 "loop": false,
 "name": &"crouch",
-"speed": 8.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0gebh")
+"texture": SubResource("AtlasTexture_0ux2p")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f83a1")
+"texture": SubResource("AtlasTexture_k26fe")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vhida")
+"texture": SubResource("AtlasTexture_od440")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3u8gy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqipr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bu1c")
+}],
+"loop": false,
+"name": &"death",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6e5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uv5fa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ba3vk")
 }],
 "loop": false,
 "name": &"fall",
@@ -270,106 +336,119 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i12u8")
+"texture": SubResource("AtlasTexture_3fpy0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dlofj")
+"texture": SubResource("AtlasTexture_apihk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_711lx")
+"texture": SubResource("AtlasTexture_jhya0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gy834")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_711lx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dlofj")
+"texture": SubResource("AtlasTexture_apihk")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 10.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p6ijr")
+"texture": SubResource("AtlasTexture_4skdt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l4kof")
+"texture": SubResource("AtlasTexture_akm8l")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v434o")
+"texture": SubResource("AtlasTexture_e1j21")
 }],
 "loop": false,
 "name": &"jump",
-"speed": 10.0
+"speed": 11.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_npl0c")
+"texture": SubResource("AtlasTexture_gknmw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jh1r8")
+"texture": SubResource("AtlasTexture_8kdjx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2whrh")
+"texture": SubResource("AtlasTexture_5hgld")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lvqox")
+"texture": SubResource("AtlasTexture_y2pde")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wh4td")
+"texture": SubResource("AtlasTexture_kxpnk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b7ejf")
+"texture": SubResource("AtlasTexture_lxfiu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k7xpb")
+"texture": SubResource("AtlasTexture_it7eh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dqvci")
+"texture": SubResource("AtlasTexture_rp534")
 }],
 "loop": true,
 "name": &"run",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nvedv")
+"texture": SubResource("AtlasTexture_lmpyv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_11nei")
+"texture": SubResource("AtlasTexture_lpgym")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_muc3n")
+"texture": SubResource("AtlasTexture_f8af0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l5rqf")
+"texture": SubResource("AtlasTexture_7qdpp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_855mf")
+"texture": SubResource("AtlasTexture_n37jw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_182ci")
+"texture": SubResource("AtlasTexture_w035s")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o8k3j")
+"texture": SubResource("AtlasTexture_rvu70")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yerye")
+"texture": SubResource("AtlasTexture_td6in")
 }],
 "loop": true,
 "name": &"walk",
 "speed": 10.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3u0c"]
+shader = ExtResource("27_y3ogx")
+shader_parameter/active = true
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgtmy"]
+size = Vector2(13.5714, 18.3333)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jk4k"]
+height = 38.6364
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e1tmr"]
+radius = 6.88712
+height = 18.7275
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qvtm"]
-size = Vector2(2.46291, 34.8332)
+size = Vector2(12, 38)
+
+[sub_resource type="OggPacketSequence" id="OggPacketSequence_vp8gq"]
+packet_data = Array[Array]([[PackedByteArray(1, 118, 111, 114, 98, 105, 115, 0, 0, 0, 0, 1, 68, 172, 0, 0, 255, 255, 255, 255, 0, 238, 2, 0, 255, 255, 255, 255, 184, 1)], [PackedByteArray(3, 118, 111, 114, 98, 105, 115, 13, 0, 0, 0, 76, 97, 118, 102, 53, 56, 46, 55, 54, 46, 49, 48, 48, 1, 0, 0, 0, 32, 0, 0, 0, 101, 110, 99, 111, 100, 101, 114, 61, 76, 97, 118, 99, 53, 56, 46, 49, 51, 52, 46, 49, 48, 48, 32, 108, 105, 98, 118, 111, 114, 98, 105, 115, 1), PackedByteArray(5, 118, 111, 114, 98, 105, 115, 43, 66, 67, 86, 1, 0, 8, 0, 0, 0, 49, 76, 32, 197, 128, 208, 144, 85, 0, 0, 16, 0, 0, 96, 36, 41, 14, 147, 102, 73, 41, 165, 148, 161, 40, 121, 152, 148, 72, 73, 41, 165, 148, 197, 48, 137, 152, 148, 137, 197, 24, 99, 140, 49, 198, 24, 99, 140, 49, 198, 24, 99, 140, 32, 52, 100, 21, 0, 0, 4, 0, 128, 40, 9, 142, 163, 230, 73, 106, 206, 57, 103, 24, 39, 142, 114, 160, 57, 105, 78, 56, 167, 32, 7, 138, 81, 224, 57, 9, 194, 245, 38, 99, 110, 166, 180, 166, 107, 110, 206, 41, 37, 8, 13, 89, 5, 0, 0, 2, 0, 64, 72, 33, 133, 20, 82, 72, 33, 133, 20, 98, 136, 33, 134, 24, 98, 136, 33, 135, 28, 114, 200, 33, 167, 156, 114, 10, 42, 168, 160, 130, 10, 50, 200, 32, 131, 76, 50, 233, 164, 147, 78, 58, 233, 168, 163, 142, 58, 234, 40, 180, 208, 66, 11, 45, 180, 210, 74, 76, 49, 213, 86, 99, 174, 189, 6, 93, 124, 115, 206, 57, 231, 156, 115, 206, 57, 231, 156, 115, 206, 9, 66, 67, 86, 1, 0, 32, 0, 0, 4, 66, 6, 25, 100, 16, 66, 8, 33, 133, 20, 82, 136, 41, 166, 152, 114, 10, 50, 200, 128, 208, 144, 85, 0, 0, 32, 0, 128, 0, 0, 0, 0, 71, 145, 20, 73, 177, 20, 203, 177, 28, 205, 209, 36, 79, 242, 44, 81, 19, 53, 209, 51, 69, 83, 84, 77, 85, 85, 85, 85, 117, 93, 87, 118, 101, 215, 118, 117, 215, 118, 125, 89, 152, 133, 91, 184, 125, 89, 184, 133, 91, 216, 133, 93, 247, 133, 97, 24, 134, 97, 24, 134, 97, 24, 134, 97, 248, 125, 223, 247, 125, 223, 247, 125, 32, 52, 100, 21, 0, 32, 1, 0, 160, 35, 57, 150, 227, 41, 162, 34, 26, 162, 226, 57, 162, 3, 132, 134, 172, 2, 0, 100, 0, 0, 4, 0, 32, 9, 146, 34, 41, 146, 163, 73, 166, 102, 106, 174, 105, 155, 182, 104, 171, 182, 109, 203, 178, 44, 203, 178, 12, 132, 134, 172, 2, 0, 0, 1, 0, 4, 0, 0, 0, 0, 0, 160, 105, 154, 166, 105, 154, 166, 105, 154, 166, 105, 154, 166, 105, 154, 166, 105, 154, 166, 105, 154, 102, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 64, 104, 200, 42, 0, 64, 2, 0, 64, 199, 113, 28, 199, 113, 36, 69, 82, 36, 199, 114, 44, 7, 8, 13, 89, 5, 0, 200, 0, 0, 8, 0, 64, 82, 44, 197, 114, 52, 71, 115, 52, 199, 115, 60, 199, 115, 60, 71, 116, 68, 201, 148, 76, 205, 244, 76, 15, 8, 13, 89, 5, 0, 0, 2, 0, 8, 0, 0, 0, 0, 0, 64, 49, 28, 197, 113, 28, 201, 209, 36, 79, 82, 45, 211, 114, 53, 87, 115, 61, 215, 115, 77, 215, 117, 93, 87, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 129, 208, 144, 85, 0, 0, 4, 0, 0, 33, 157, 102, 150, 106, 128, 8, 51, 144, 97, 32, 52, 100, 21, 0, 128, 0, 0, 0, 24, 161, 8, 67, 12, 8, 13, 89, 5, 0, 0, 4, 0, 0, 136, 161, 228, 32, 154, 208, 154, 243, 205, 57, 14, 154, 229, 160, 169, 20, 155, 211, 193, 137, 84, 155, 39, 185, 169, 152, 155, 115, 206, 57, 231, 156, 108, 206, 25, 227, 156, 115, 206, 41, 202, 153, 197, 160, 153, 208, 154, 115, 206, 73, 12, 154, 165, 160, 153, 208, 154, 115, 206, 121, 18, 155, 7, 173, 169, 210, 154, 115, 206, 25, 231, 156, 14, 198, 25, 97, 156, 115, 206, 105, 210, 154, 7, 169, 217, 88, 155, 115, 206, 89, 208, 154, 230, 168, 185, 20, 155, 115, 206, 137, 148, 155, 39, 181, 185, 84, 155, 115, 206, 57, 231, 156, 115, 206, 57, 231, 156, 115, 206, 169, 94, 156, 206, 193, 57, 225, 156, 115, 206, 137, 218, 155, 107, 185, 9, 93, 156, 115, 206, 249, 100, 156, 238, 205, 9, 225, 156, 115, 206, 57, 231, 156, 115, 206, 57, 231, 156, 115, 206, 9, 66, 67, 86, 1, 0, 64, 0, 0, 4, 97, 216, 24, 198, 157, 130, 32, 125, 142, 6, 98, 20, 33, 166, 33, 147, 30, 116, 143, 14, 147, 160, 49, 200, 41, 164, 30, 141, 142, 70, 74, 169, 131, 80, 82, 25, 39, 165, 116, 130, 208, 144, 85, 0, 0, 32, 0, 0, 132, 16, 82, 72, 33, 133, 20, 82, 72, 33, 133, 20, 82, 72, 33, 134, 24, 98, 136, 33, 167, 156, 114, 10, 42, 168, 164, 146, 138, 42, 202, 40, 179, 204, 50, 203, 44, 179, 204, 50, 203, 172, 195, 206, 58, 235, 176, 195, 16, 67, 12, 49, 180, 210, 74, 44, 53, 213, 86, 99, 141, 181, 230, 158, 115, 174, 57, 72, 107, 165, 181, 214, 90, 43, 165, 148, 82, 74, 41, 165, 32, 52, 100, 21, 0, 0, 2, 0, 64, 32, 100, 144, 65, 6, 25, 133, 20, 82, 72, 33, 134, 152, 114, 202, 41, 167, 160, 130, 10, 8, 13, 89, 5, 0, 0, 2, 0, 8, 0, 0, 0, 240, 36, 207, 17, 29, 209, 17, 29, 209, 17, 29, 209, 17, 29, 209, 17, 29, 207, 241, 28, 81, 18, 37, 81, 18, 37, 209, 50, 45, 83, 51, 61, 85, 84, 85, 87, 118, 109, 89, 151, 117, 219, 183, 133, 93, 216, 117, 223, 215, 125, 223, 215, 141, 95, 23, 134, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 89, 150, 101, 9, 66, 67, 86, 1, 0, 32, 0, 0, 0, 66, 8, 33, 132, 20, 82, 72, 33, 133, 148, 98, 140, 49, 199, 156, 131, 78, 66, 9, 129, 208, 144, 85, 0, 0, 32, 0, 128, 0, 0, 0, 0, 71, 113, 20, 199, 145, 28, 201, 145, 36, 75, 178, 36, 77, 210, 44, 205, 242, 52, 79, 243, 52, 209, 19, 69, 81, 52, 77, 83, 21, 93, 209, 21, 117, 211, 22, 101, 83, 54, 93, 211, 53, 101, 211, 85, 101, 213, 118, 101, 217, 182, 101, 91, 183, 125, 89, 182, 125, 223, 247, 125, 223, 247, 125, 223, 247, 125, 223, 247, 125, 223, 215, 117, 32, 52, 100, 21, 0, 32, 1, 0, 160, 35, 57, 146, 34, 41, 146, 34, 57, 142, 227, 72, 146, 4, 132, 134, 172, 2, 0, 100, 0, 0, 4, 0, 160, 40, 142, 226, 56, 142, 35, 73, 146, 36, 89, 146, 38, 121, 150, 103, 137, 154, 169, 153, 158, 233, 169, 162, 10, 132, 134, 172, 2, 0, 0, 1, 0, 4, 0, 0, 0, 0, 0, 160, 104, 138, 167, 152, 138, 167, 136, 138, 231, 136, 142, 40, 137, 150, 105, 137, 154, 170, 185, 162, 108, 202, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 174, 235, 186, 64, 104, 200, 42, 0, 64, 2, 0, 64, 71, 114, 36, 71, 114, 36, 69, 82, 36, 69, 114, 36, 7, 8, 13, 89, 5, 0, 200, 0, 0, 8, 0, 192, 49, 28, 67, 82, 36, 199, 178, 44, 77, 243, 52, 79, 243, 52, 209, 19, 61, 209, 51, 61, 85, 116, 69, 23, 8, 13, 89, 5, 0, 0, 2, 0, 8, 0, 0, 0, 0, 0, 192, 144, 12, 75, 177, 28, 205, 209, 36, 81, 82, 45, 213, 82, 53, 213, 82, 45, 85, 84, 61, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 213, 52, 77, 211, 52, 129, 208, 144, 149, 0, 0, 25, 0, 0, 232, 197, 8, 33, 132, 16, 146, 163, 150, 90, 16, 190, 87, 202, 57, 40, 53, 247, 94, 49, 102, 20, 196, 222, 123, 165, 152, 65, 142, 114, 240, 153, 98, 74, 57, 40, 181, 167, 206, 49, 165, 136, 145, 92, 91, 43, 145, 34, 196, 97, 14, 58, 85, 78, 41, 168, 65, 231, 214, 73, 8, 45, 7, 66, 67, 86, 4, 0, 81, 0, 0, 0, 66, 136, 49, 196, 24, 98, 140, 65, 200, 32, 68, 140, 49, 8, 25, 132, 136, 49, 6, 33, 131, 208, 65, 8, 37, 133, 148, 50, 8, 33, 149, 144, 82, 196, 24, 131, 208, 65, 201, 32, 132, 148, 66, 73, 25, 148, 144, 82, 72, 165, 0, 0, 128, 0, 7, 0, 128, 0, 11, 161, 208, 144, 21, 1, 64, 156, 0, 0, 130, 144, 115, 136, 49, 8, 21, 99, 16, 58, 8, 169, 116, 16, 82, 170, 24, 131, 144, 57, 39, 37, 115, 14, 74, 40, 37, 165, 16, 74, 74, 21, 99, 16, 50, 231, 36, 100, 206, 73, 9, 37, 164, 20, 74, 73, 169, 131, 144, 82, 40, 165, 165, 80, 74, 106, 41, 165, 24, 83, 74, 45, 118, 16, 82, 10, 165, 164, 20, 74, 105, 41, 181, 20, 91, 74, 45, 198, 138, 49, 8, 153, 115, 82, 50, 231, 164, 132, 82, 90, 10, 165, 164, 150, 57, 39, 165, 131, 144, 82, 7, 161, 148, 146, 82, 107, 165, 164, 214, 50, 231, 164, 116, 208, 73, 233, 32, 148, 82, 82, 105, 169, 148, 212, 90, 40, 37, 181, 146, 82, 107, 37, 149, 214, 90, 107, 49, 166, 214, 98, 12, 165, 164, 20, 74, 105, 173, 164, 212, 98, 106, 41, 182, 214, 90, 172, 21, 99, 16, 50, 231, 164, 100, 206, 73, 9, 165, 164, 20, 74, 73, 45, 115, 78, 74, 7, 33, 149, 206, 65, 41, 37, 149, 214, 74, 73, 169, 101, 206, 73, 233, 32, 148, 210, 65, 40, 165, 164, 210, 90, 73, 165, 181, 80, 74, 75, 37, 165, 214, 66, 41, 173, 181, 214, 98, 76, 169, 181, 26, 74, 73, 173, 164, 212, 90, 73, 169, 181, 212, 90, 173, 173, 181, 24, 59, 8, 41, 133, 82, 90, 10, 165, 180, 150, 90, 138, 49, 165, 22, 99, 40, 165, 181, 146, 82, 107, 37, 165, 214, 90, 107, 181, 182, 214, 98, 12, 165, 180, 84, 82, 105, 173, 164, 212, 90, 106, 173, 198, 214, 90, 172, 169, 165, 24, 83, 107, 49, 182, 214, 106, 141, 49, 198, 28, 99, 205, 57, 165, 20, 99, 106, 41, 198, 212, 90, 140, 45, 182, 28, 99, 172, 53, 119, 16, 82, 10, 165, 164, 22, 74, 73, 45, 181, 20, 99, 106, 45, 198, 80, 74, 106, 37, 149, 214, 74, 73, 45, 182, 214, 106, 76, 173, 197, 26, 74, 105, 173, 164, 212, 90, 73, 169, 181, 214, 90, 141, 173, 181, 26, 83, 74, 49, 166, 214, 106, 76, 169, 197, 24, 99, 204, 181, 181, 24, 115, 106, 45, 198, 214, 90, 172, 169, 181, 24, 99, 172, 53, 199, 24, 107, 45, 0, 0, 96, 192, 1, 0, 32, 192, 132, 50, 80, 104, 200, 74, 0, 32, 10, 0, 0, 49, 6, 33, 198, 156, 51, 8, 41, 197, 24, 132, 198, 32, 165, 24, 131, 16, 41, 197, 152, 115, 16, 34, 165, 24, 115, 14, 66, 198, 152, 115, 16, 74, 201, 24, 115, 14, 66, 41, 29, 132, 18, 74, 73, 169, 131, 16, 74, 41, 41, 21, 0, 0, 80, 224, 0, 0, 16, 96, 131, 166, 196, 226, 0, 133, 134, 172, 4, 0, 66, 2, 0, 24, 132, 148, 98, 204, 57, 231, 32, 148, 146, 82, 132, 144, 82, 140, 57, 231, 28, 132, 82, 82, 138, 16, 82, 138, 49, 231, 156, 131, 80, 74, 74, 149, 82, 76, 49, 230, 28, 132, 82, 82, 106, 169, 82, 74, 49, 198, 156, 131, 80, 74, 74, 169, 101, 140, 49, 230, 28, 132, 16, 74, 73, 169, 181, 140, 49, 198, 156, 131, 16, 66, 41, 41, 181, 214, 57, 231, 28, 116, 18, 74, 73, 165, 165, 216, 58, 231, 156, 131, 16, 74, 41, 37, 165, 214, 90, 231, 28, 132, 16, 74, 73, 165, 165, 214, 98, 235, 156, 131, 16, 66, 41, 37, 165, 212, 90, 139, 33, 132, 82, 74, 73, 37, 165, 150, 98, 139, 49, 132, 82, 74, 41, 37, 165, 148, 90, 139, 49, 150, 84, 82, 74, 169, 165, 214, 98, 139, 177, 198, 82, 74, 74, 41, 165, 214, 90, 139, 49, 198, 154, 82, 106, 169, 181, 214, 98, 140, 177, 198, 90, 83, 74, 169, 181, 214, 90, 139, 49, 198, 90, 107, 1, 0, 0, 7, 14, 0, 0, 1, 70, 208, 73, 70, 149, 69, 216, 104, 194, 133, 7, 160, 208, 144, 21, 1, 64, 20, 0, 0, 96, 12, 98, 12, 49, 134, 156, 115, 16, 50, 8, 145, 115, 12, 66, 7, 33, 114, 206, 73, 233, 164, 100, 82, 66, 105, 33, 165, 76, 74, 72, 37, 164, 22, 57, 231, 164, 116, 82, 50, 41, 161, 165, 80, 82, 38, 37, 164, 84, 90, 41, 0, 0, 236, 192, 1, 0, 236, 192, 66, 40, 52, 100, 37, 0, 144, 7, 0, 0, 33, 164, 20, 99, 140, 49, 134, 148, 82, 138, 49, 198, 28, 67, 74, 41, 197, 24, 99, 140, 41, 165, 24, 99, 140, 49, 231, 148, 82, 140, 49, 198, 152, 115, 140, 49, 198, 28, 115, 206, 57, 198, 24, 99, 204, 57, 231, 28, 99, 204, 49, 231, 156, 115, 142, 49, 198, 156, 115, 206, 57, 199, 28, 115, 206, 57, 231, 156, 99, 206, 57, 231, 156, 115, 206, 9, 0, 0, 42, 112, 0, 0, 8, 176, 81, 100, 115, 130, 145, 160, 66, 67, 86, 2, 0, 169, 0, 0, 132, 49, 74, 49, 230, 28, 132, 82, 26, 133, 24, 115, 206, 57, 8, 165, 52, 72, 49, 230, 156, 115, 16, 74, 169, 24, 115, 206, 57, 8, 165, 148, 82, 49, 230, 156, 115, 16, 74, 41, 37, 115, 206, 57, 8, 33, 148, 146, 82, 230, 156, 115, 16, 66, 40, 37, 165, 206, 57, 8, 33, 132, 82, 74, 74, 157, 115, 16, 66, 40, 161, 148, 148, 66, 8, 165, 148, 82, 82, 74, 169, 133, 16, 74, 41, 165, 148, 84, 90, 42, 165, 148, 146, 82, 74, 169, 181, 86, 74, 41, 37, 165, 148, 90, 106, 173, 0, 0, 240, 4, 7, 0, 160, 2, 27, 86, 71, 56, 41, 26, 11, 44, 52, 100, 37, 0, 144, 1, 0, 192, 24, 131, 144, 65, 6, 33, 99, 16, 66, 8, 33, 132, 16, 66, 8, 9, 0, 0, 24, 112, 0, 0, 8, 48, 161, 12, 20, 26, 178, 18, 0, 72, 5, 0, 0, 12, 82, 138, 49, 7, 165, 164, 20, 41, 197, 152, 115, 16, 74, 73, 41, 82, 138, 49, 231, 32, 148, 146, 82, 197, 152, 115, 16, 74, 73, 169, 181, 138, 49, 231, 32, 148, 146, 82, 107, 157, 115, 16, 74, 73, 169, 181, 24, 59, 231, 32, 148, 146, 82, 107, 49, 134, 16, 74, 73, 169, 181, 24, 99, 12, 33, 148, 146, 82, 107, 49, 214, 90, 74, 73, 169, 181, 24, 107, 204, 181, 148, 146, 82, 107, 49, 214, 90, 107, 74, 173, 181, 24, 107, 173, 53, 231, 148, 90, 107, 49, 214, 90, 115, 206, 5, 0, 32, 52, 56, 0, 128, 29, 216, 176, 58, 194, 73, 209, 88, 96, 161, 33, 43, 1, 128, 60, 0, 0, 72, 41, 198, 24, 99, 140, 49, 165, 20, 99, 140, 49, 198, 152, 82, 138, 49, 198, 24, 99, 140, 49, 198, 24, 99, 140, 49, 166, 24, 99, 140, 49, 198, 24, 99, 140, 49, 198, 24, 99, 140, 49, 198, 24, 99, 140, 49, 198, 24, 99, 140, 49, 230, 24, 99, 140, 49, 198, 24, 99, 204, 57, 198, 24, 99, 140, 57, 230, 28, 99, 140, 49, 198, 156, 115, 78, 0, 0, 80, 129, 3, 0, 64, 128, 141, 34, 155, 19, 140, 4, 21, 26, 178, 18, 0, 8, 7, 0, 0, 140, 97, 204, 57, 231, 32, 148, 144, 74, 163, 148, 115, 16, 66, 40, 37, 149, 86, 26, 165, 156, 131, 18, 66, 41, 41, 181, 150, 57, 39, 37, 165, 82, 82, 106, 45, 182, 204, 57, 41, 41, 149, 146, 82, 107, 45, 118, 18, 82, 106, 45, 165, 214, 98, 172, 177, 131, 144, 82, 107, 169, 181, 22, 99, 141, 29, 132, 82, 90, 138, 45, 198, 26, 115, 237, 32, 148, 146, 90, 107, 49, 198, 90, 107, 40, 165, 165, 216, 98, 172, 177, 214, 154, 67, 41, 169, 181, 22, 99, 173, 53, 231, 92, 82, 106, 45, 198, 90, 107, 205, 181, 231, 146, 82, 107, 49, 198, 90, 107, 173, 185, 167, 214, 98, 172, 177, 214, 92, 115, 239, 61, 181, 22, 99, 141, 181, 230, 156, 123, 206, 5, 0, 152, 60, 56, 0, 64, 37, 216, 56, 195, 74, 210, 89, 225, 104, 112, 161, 33, 43, 1, 128, 220, 0, 0, 70, 41, 198, 156, 115, 14, 66, 8, 33, 132, 16, 66, 8, 149, 82, 140, 57, 231, 28, 132, 16, 66, 8, 33, 132, 16, 42, 165, 24, 115, 206, 57, 8, 33, 132, 16, 66, 8, 33, 100, 140, 57, 231, 28, 116, 16, 66, 8, 33, 132, 16, 66, 200, 24, 115, 206, 57, 8, 33, 132, 16, 66, 8, 33, 132, 208, 57, 231, 28, 132, 16, 66, 8, 33, 132, 80, 66, 41, 165, 115, 206, 57, 7, 33, 132, 16, 66, 8, 33, 132, 80, 74, 231, 28, 132, 16, 66, 8, 33, 132, 18, 74, 40, 165, 148, 206, 57, 8, 33, 132, 16, 66, 8, 165, 132, 82, 74, 41, 33, 132, 16, 66, 8, 33, 132, 18, 74, 41, 165, 148, 82, 58, 8, 33, 132, 16, 66, 8, 165, 148, 82, 74, 41, 165, 132, 16, 66, 8, 33, 132, 16, 74, 41, 165, 148, 82, 74, 9, 33, 132, 16, 66, 8, 33, 148, 82, 74, 41, 165, 148, 18, 66, 8, 33, 132, 18, 74, 41, 165, 148, 82, 74, 41, 37, 132, 16, 66, 8, 161, 148, 82, 74, 41, 165, 148, 82, 74, 8, 33, 132, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 16, 66, 40, 33, 148, 82, 74, 41, 165, 148, 82, 74, 41, 33, 132, 18, 74, 40, 165, 148, 82, 74, 41, 165, 148, 82, 66, 8, 37, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 132, 16, 66, 40, 165, 148, 82, 74, 41, 165, 148, 82, 74, 9, 33, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 0, 0, 208, 129, 3, 0, 64, 128, 17, 149, 22, 98, 167, 25, 87, 30, 129, 35, 10, 25, 38, 160, 66, 67, 86, 2, 0, 225, 0, 0, 0, 33, 148, 82, 74, 41, 165, 148, 82, 106, 36, 165, 148, 82, 74, 41, 165, 148, 82, 35, 37, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 148, 82, 74, 41, 165, 0, 168, 203, 12, 7, 192, 232, 9, 27, 103, 88, 73, 58, 43, 28, 13, 46, 52, 100, 37, 0, 144, 22, 0, 0, 24, 195, 152, 99, 142, 65, 39, 161, 148, 148, 90, 107, 152, 130, 80, 66, 232, 164, 164, 210, 74, 108, 177, 53, 74, 65, 8, 33, 132, 82, 82, 74, 173, 181, 214, 50, 232, 168, 148, 146, 74, 74, 173, 197, 22, 99, 140, 153, 131, 82, 82, 42, 37, 165, 212, 98, 140, 177, 214, 14, 66, 74, 45, 181, 22, 91, 139, 177, 230, 90, 107, 7, 161, 164, 148, 90, 139, 45, 198, 90, 107, 174, 189, 131, 144, 74, 107, 173, 229, 24, 99, 176, 57, 231, 218, 65, 40, 41, 181, 216, 98, 140, 53, 215, 90, 123, 14, 169, 180, 22, 99, 140, 181, 246, 92, 107, 205, 57, 136, 82, 82, 138, 49, 214, 26, 115, 205, 53, 247, 220, 75, 74, 173, 197, 154, 107, 174, 53, 7, 159, 115, 16, 166, 165, 216, 106, 141, 53, 231, 156, 123, 16, 58, 248, 212, 90, 141, 185, 230, 30, 116, 208, 65, 231, 30, 116, 74, 173, 214, 90, 107, 206, 61, 7, 33, 124, 240, 185, 181, 88, 107, 205, 53, 231, 222, 131, 15, 58, 8, 223, 106, 171, 53, 231, 92, 107, 239, 61, 247, 158, 131, 110, 49, 214, 92, 115, 208, 193, 7, 33, 124, 240, 65, 184, 24, 107, 207, 57, 247, 28, 132, 14, 58, 248, 30, 12, 0, 200, 141, 112, 0, 64, 92, 48, 146, 144, 58, 203, 176, 210, 136, 27, 79, 192, 16, 129, 20, 26, 178, 10, 0, 136, 1, 0, 32, 140, 65, 6, 33, 132, 148, 82, 74, 41, 165, 148, 98, 138, 41, 198, 24, 99, 140, 49, 198, 24, 99, 140, 49, 198, 24, 99, 140, 49, 198, 4, 0, 0, 38, 56, 0, 0, 4, 88, 193, 174, 204, 210, 170, 141, 226, 166, 78, 242, 162, 15, 2, 159, 208, 17, 155, 145, 33, 151, 82, 49, 147, 19, 65, 143, 212, 80, 139, 149, 96, 135, 86, 112, 131, 23, 128, 133, 134, 172, 4, 0, 200, 0, 0, 16, 136, 177, 230, 90, 115, 142, 16, 148, 214, 98, 237, 185, 84, 74, 57, 106, 177, 231, 148, 33, 130, 156, 180, 156, 75, 201, 12, 65, 78, 90, 107, 45, 100, 200, 40, 39, 49, 182, 20, 50, 132, 20, 180, 218, 90, 233, 148, 82, 140, 98, 171, 177, 116, 140, 49, 73, 169, 197, 150, 74, 231, 32, 0, 0, 0, 130, 0, 0, 3, 17, 50, 19, 8, 20, 64, 129, 129, 12, 0, 56, 64, 72, 144, 2, 0, 10, 11, 12, 29, 195, 69, 64, 64, 46, 33, 163, 192, 160, 112, 76, 56, 39, 157, 54, 0, 0, 65, 136, 204, 16, 137, 136, 197, 32, 49, 161, 26, 40, 42, 166, 3, 128, 197, 5, 134, 124, 0, 200, 208, 216, 72, 187, 184, 128, 46, 3, 92, 208, 197, 93, 7, 66, 8, 66, 16, 130, 88, 28, 64, 1, 9, 56, 56, 225, 134, 39, 222, 240, 132, 27, 156, 160, 83, 84, 234, 32, 0, 0, 0, 0, 0, 16, 0, 224, 1, 0, 32, 217, 0, 34, 162, 153, 153, 227, 232, 240, 248, 0, 9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 9, 0, 0, 0, 0, 0, 32, 0, 248, 0, 0, 72, 86, 128, 136, 104, 102, 230, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 2, 0, 0, 0, 0, 0, 0, 0, 0, 128, 128, 128, 0, 0, 0, 0, 0, 64, 0, 0, 0, 128, 128)], [PackedByteArray(180, 229, 142, 12, 4, 145, 46, 220, 197, 15, 227, 77, 183, 83, 11, 203, 113, 189, 78, 157, 235, 219, 223, 242, 220, 143, 237, 227, 244, 210, 50, 252, 224, 193, 28, 220, 8, 125, 255, 131, 183, 127, 180, 145, 226, 114, 211, 95, 31, 60, 176, 119, 236, 150, 39, 86, 56, 111, 225, 146, 233, 41, 20, 154, 254, 246, 122, 37, 99, 186, 59, 245, 43, 132, 105, 255, 143, 223, 141, 221, 71, 56, 119, 118, 94, 41, 109, 230, 180, 11, 80, 170, 203, 161, 3, 153, 158, 192, 8, 3), PackedByteArray(236, 213, 110, 74, 55, 127, 38, 77, 217, 169, 18, 246, 163, 11, 195, 60, 69, 23, 182, 250, 224, 185, 121, 137, 229, 223, 174, 70, 103, 86, 255, 8, 55, 255, 138, 135, 217, 154, 77, 215, 214, 193, 142, 249, 246, 5, 223, 159, 142, 238, 44, 70, 237, 240, 103, 67, 245, 121, 167, 43, 134, 250, 88, 232, 232, 189, 194, 53, 169, 155, 102, 32, 193, 48, 190, 240, 54, 35, 199, 87, 81, 175, 126, 12, 165, 253, 9, 208, 29, 252, 99, 125, 99, 236, 228, 249, 121, 24, 7, 0), PackedByteArray(146, 167, 187, 206, 53, 181, 67, 240, 211, 65, 247, 190, 247, 56, 152, 166, 152, 166, 234, 66, 161, 186, 112, 27, 105, 245, 231, 229, 135, 33, 141, 120, 72, 139, 190, 209, 57, 205, 154, 45, 89, 28, 118, 140, 229, 86, 251, 105, 12, 14, 185, 181, 25, 222, 199, 246, 195, 202, 126, 99, 170, 12, 59, 234, 152, 193, 216, 229, 193, 31, 154, 193, 147, 220, 64, 163, 221, 102, 219, 156, 88, 193, 123, 238, 65, 120, 48, 25, 215, 158, 238, 116, 144, 116, 42, 118, 18, 47, 190, 178, 254, 75, 3, 147, 245, 27, 31, 151, 92, 131, 96, 210, 60, 122, 114, 220, 190, 60, 111, 18, 82, 163, 101, 101, 43, 184, 118, 216, 234, 117, 203, 213, 253, 81, 101, 222, 12, 254, 182, 143, 105, 105, 224, 233, 237, 186, 110, 83, 167, 142, 215, 254, 110, 86, 173, 231, 155, 193, 111, 27, 116, 43, 239, 7, 62, 212, 87, 191, 190, 197, 31, 100, 94, 32, 155, 106, 8, 32, 30, 244, 67, 14, 134, 70, 187, 236, 240, 120, 46, 190, 162, 81, 173, 235, 18, 238, 7, 91, 163, 149, 222, 124, 240, 171, 15, 230, 122, 41, 101, 53, 197, 232, 36, 43, 116, 94, 75, 28, 224, 83, 115, 22, 170, 220, 188, 141, 254, 77, 11, 167, 209, 196, 235, 68, 30, 92, 98, 177, 30, 72, 37, 151, 3, 230, 78, 235, 218, 251, 62, 30, 182, 238, 75, 175, 254, 169, 14, 249, 57, 179, 90, 31, 73, 255, 41, 243, 232, 243, 171, 94, 240, 237, 219, 0, 191, 27, 53, 6, 236, 241, 187, 228, 216, 122, 121, 127, 190, 193, 107, 91, 207, 67, 188, 214, 228, 17, 63, 39, 191, 104, 110, 47, 118, 65, 205, 6, 124, 87, 7, 99, 85, 249, 125, 240, 119, 165, 215, 95, 141, 128, 236, 182, 109, 76, 166, 223, 118, 247, 108, 89, 149, 193, 166, 130, 205, 162, 93, 39, 251, 104, 54, 160, 108, 108, 185, 252, 133, 29, 126, 199, 236, 250, 103, 199, 223, 103, 245, 69, 109, 227, 67, 249, 67, 33, 9, 164, 215, 56, 126, 231, 7, 214, 171, 81, 235, 222, 202, 29, 156, 29, 183, 152, 49, 146, 85, 254, 7, 73, 92, 51, 207, 99, 105, 87, 6, 251, 31, 231, 231, 193, 174, 255, 81, 102, 45, 12, 58, 67, 11, 242, 93, 143, 126, 54, 219, 255, 236, 143, 227, 141, 4, 14, 163, 82, 191, 222, 225, 232, 6, 88, 91, 241, 117, 206, 187, 72, 166, 193, 88, 199, 89, 42, 33, 217, 190, 28, 85, 202, 239, 68, 89, 36, 51, 2, 168, 78, 46, 255, 39, 217, 234, 237, 249, 242, 138, 127, 159, 105, 94, 136, 231, 190, 27, 173, 56, 51, 251, 197, 208, 55, 144, 106, 183, 80, 162, 15, 246, 7, 227, 193, 171, 147, 29, 255, 124, 214, 34, 127, 11, 166, 249, 143, 113, 250, 149, 250, 238, 10, 254, 30, 49, 61, 180, 117, 86, 246, 171, 210, 51, 31, 71, 111, 115, 41, 134, 56, 75, 116, 189, 245, 30, 106, 24, 136, 45, 195, 70, 152, 32, 0, 226, 32, 49, 70, 61, 40, 203, 57, 143, 244, 113, 126, 128, 45, 2, 0, 0), PackedByteArray(244, 205, 102, 114, 216, 241, 204, 40, 126, 183, 241, 200, 122, 193, 204, 60, 159, 183, 157, 102, 159, 26, 133, 221, 100, 57, 103, 136, 84, 60, 189, 83, 221, 56, 29, 167, 158, 63, 239, 243, 179, 3, 10, 110, 162, 210, 8, 70, 42, 16, 130, 214, 143, 192, 141, 182, 239, 142, 74, 211, 145, 208, 30, 83, 103, 23, 221, 222, 69, 240, 41, 179, 53, 0), PackedByteArray(188, 201, 2, 7, 175, 156, 170, 236, 60, 54, 190, 36, 16, 214, 190, 197, 188, 254, 181, 186, 153, 59, 2, 187, 122, 255, 207, 61, 206, 104, 51, 12, 75, 17, 115, 251, 125, 227, 184, 116, 239, 214, 111, 128, 119, 51, 61, 45, 106, 90, 187, 126, 86, 249, 230, 147, 160, 98, 12, 19, 34, 186, 114, 87, 189, 209, 198, 76, 251, 243, 80, 166, 1), PackedByteArray(180, 205, 50, 1, 11, 116, 100, 26, 54, 62, 158, 122, 33, 118, 70, 227, 141, 86, 153, 189, 84, 207, 53, 209, 177, 96, 83, 95, 130, 9, 65, 200, 103, 136, 194, 68, 36, 102, 235, 183, 156, 135, 205, 26, 119, 210, 237, 241, 126, 233, 213, 124, 195, 255, 255, 66, 223, 182, 227, 74, 92, 18, 52, 23, 200, 63, 155, 120, 81, 115, 102, 103, 0, 0), PackedByteArray(180, 209, 34, 81, 77, 167, 114, 161, 227, 187, 13, 2, 148, 89, 189, 49, 111, 247, 81, 85, 97, 85, 5, 80, 172, 153, 178, 217, 34, 58, 51, 91, 134, 39, 194, 207, 254, 97, 235, 179, 84, 28, 150, 69, 150, 149, 69, 47, 90, 199, 127, 58, 60, 157, 249, 93, 12, 6, 121, 182, 190, 78, 166, 240, 2, 157, 159, 76, 24, 108, 121, 163, 182, 81, 46, 105, 9, 0), PackedByteArray(4, 218, 106, 20, 91, 200, 122, 227, 59, 228, 223, 177, 119, 185, 61, 221, 92, 79, 111, 186, 217, 245, 205, 245, 101, 101, 94, 165, 159, 141, 159, 244, 185, 255, 111, 151, 219, 125, 191, 109, 89, 252, 55, 47, 189, 52, 118, 163, 107, 146, 77, 82, 115, 59, 231, 222, 172, 218, 138, 252, 187, 206, 247, 57, 118, 233, 111, 2, 189, 157, 42, 192, 232, 173, 88, 121, 146, 239, 159, 243, 120, 193, 204, 174, 73, 13, 243, 231, 247, 49, 149, 14, 30, 91, 219, 248, 246, 18, 0, 0, 0), PackedByteArray(180, 38, 55, 203, 130, 75, 127, 200, 120, 218, 191, 251, 229, 199, 231, 212, 222, 189, 99, 191, 153, 166, 119, 47, 127, 247, 211, 182, 163, 253, 99, 103, 185, 127, 125, 197, 38, 69, 106, 107, 107, 127, 222, 247, 244, 231, 39, 237, 59, 198, 113, 30, 155, 184, 222, 54, 135, 27, 118, 0, 91, 192, 88, 200, 219, 152, 134, 172, 157, 151, 149, 120, 249, 231, 215, 56, 176, 232, 94, 145, 216, 229, 30, 9, 49, 198, 167, 189, 166, 93, 93, 183, 184, 35, 65, 16, 46, 48, 0, 0), PackedByteArray(204, 50, 95, 6, 189, 166, 110, 47, 184, 76, 255, 104, 170, 80, 155, 207, 46, 236, 206, 31, 106, 244, 20, 251, 171, 189, 22, 199, 38, 159, 226, 100, 220, 213, 194, 110, 99, 228, 186, 127, 117, 72, 72, 190, 105, 61, 164, 151, 37, 105, 45, 216, 117, 238, 87, 223, 40, 57, 237, 247, 181, 96, 92, 41, 124, 255, 201, 205, 225, 121, 166, 163, 101, 5, 82, 209, 179, 171, 105, 245, 66, 91, 69, 39, 208, 228, 202, 239, 101, 214, 15, 38, 225, 222, 248, 16, 0, 0), PackedByteArray(26, 232, 187, 218, 49, 40, 129, 132, 49, 131, 239, 115, 80, 56, 141, 12, 211, 244, 146, 47, 62, 56, 152, 166, 203, 47, 159, 126, 223, 242, 220, 254, 179, 15, 251, 159, 155, 180, 76, 46, 47, 167, 167, 9, 199, 162, 53, 183, 210, 21, 126, 179, 213, 235, 48, 24, 11, 255, 18, 216, 150, 6, 35, 253, 200, 111, 198, 245, 67, 60, 116, 226, 85, 120, 151, 237, 48, 6, 35, 81, 171, 193, 120, 102, 140, 255, 106, 120, 199, 173, 189, 215, 229, 200, 190, 101, 105, 255, 228, 214, 142, 113, 103, 11, 187, 95, 228, 164, 96, 143, 57, 214, 54, 84, 247, 55, 251, 232, 104, 97, 241, 113, 19, 133, 201, 116, 52, 82, 131, 186, 210, 97, 120, 43, 108, 70, 79, 116, 182, 60, 144, 69, 155, 238, 145, 86, 99, 70, 213, 116, 78, 24, 165, 49, 195, 225, 61, 232, 249, 134, 201, 234, 15, 163, 246, 245, 141, 93, 84, 29, 156, 159, 245, 56, 200, 243, 70, 231, 141, 14, 206, 59, 255, 216, 231, 141, 198, 220, 12, 158, 165, 70, 236, 108, 102, 27, 196, 4, 254, 82, 181, 208, 52, 255, 253, 51, 42, 36, 73, 112, 111, 114, 179, 70, 88, 209, 124, 117, 91, 190, 84, 58, 124, 13, 183, 225, 1, 60, 26, 121, 93, 60, 227, 9, 254, 195, 120, 124, 111, 10, 171, 90, 207, 186, 115, 126, 12, 22, 39, 102, 63, 100, 216, 10, 163, 105, 199, 170, 227, 143, 154, 46, 208, 94, 177, 250, 101, 74, 81, 19, 220, 72, 248, 221, 42, 14, 232, 100, 237, 79, 206, 205, 198, 223, 101, 129, 84, 91, 122, 205, 31, 189, 60, 175, 181, 138, 254, 52, 76, 129, 126, 201, 254, 187, 26, 211, 186, 155, 119, 106, 81, 164, 222, 191, 23, 117, 182, 49, 165, 172, 110, 132, 199, 146, 95, 123, 248, 237, 92, 72, 254, 230, 19, 45, 239, 151, 166, 191, 90, 174, 153, 223, 82, 225, 181, 57, 185, 71, 194, 169, 220, 82, 143, 127, 218, 62, 112, 48, 73, 198, 250, 125, 226, 234, 243, 180, 102, 25, 68, 82, 160, 21, 11, 210, 229, 79, 142, 42, 141, 255, 101, 239, 231, 4, 53, 186, 86, 160, 204, 171, 126, 119, 94, 37, 74, 95, 255, 119, 31, 6, 125, 177, 111, 236, 109, 199, 201, 111, 191, 246, 29, 115, 56, 134, 127, 156, 90, 193, 226, 189, 174, 175, 229, 9, 186, 51, 222, 255, 138, 95, 170, 254, 158, 142, 50, 7, 135, 127, 34, 169, 235, 218, 14, 166, 210, 237, 249, 203, 245, 248, 60, 252, 28, 135, 238, 125, 239, 26, 109, 185, 234, 39, 80, 110, 149, 40, 227, 105, 131, 35, 127, 63, 99, 22, 247, 75, 243, 218, 106, 147, 146, 5, 109, 132, 248, 183, 168, 204, 145, 72, 157, 214, 158, 27, 231, 4, 54, 230, 180, 121, 59, 5, 61, 154, 10, 3, 53, 11, 252, 219, 127, 65, 104, 122, 113, 150, 192, 124, 254, 198, 87, 193, 106, 227, 70, 13, 187, 244, 251, 85, 219, 255, 121, 160, 73, 69, 96, 240, 0), PackedByteArray(94, 153, 123, 1, 15, 90, 47, 146, 47, 174, 132, 196, 255, 154, 142, 213, 26, 9, 119, 44, 115, 69, 140, 164, 205, 17, 61, 67, 173, 105, 136, 169, 170, 227, 180, 45, 25, 242, 162, 134, 130, 228, 193, 180, 198, 182, 226, 33, 52, 28, 211, 156, 189, 18, 103, 203, 159, 95, 45, 159, 197, 86, 152, 236, 37, 66, 121, 115, 52, 125, 98, 94, 27, 227, 193, 154, 190, 236, 67, 179, 182, 64, 210, 149, 155, 182, 251, 109, 101, 134, 155, 60, 186, 213, 53, 207, 182, 187, 230, 236, 235, 164, 55, 233, 185, 145, 190, 49, 217, 180, 183, 54, 81, 115, 114, 127, 147, 237, 63, 183, 70, 117, 161, 252, 72, 59, 126, 83, 31, 154, 87, 95, 233, 247, 31, 218, 47, 7, 99, 43, 6, 226, 216, 155, 45, 3, 50, 211, 223, 0, 230, 73, 175, 73, 129, 156, 11, 85, 74, 4, 200, 139, 65, 120, 199, 142, 192, 238, 132, 211, 241, 51, 75, 14, 63, 75, 152, 122, 124, 248, 197, 63, 19, 115, 245, 99, 227, 197, 152, 170, 116, 190, 169, 29, 157, 119, 159, 218, 16, 212, 119, 193, 150, 118, 65, 85, 156, 187, 131, 22, 250, 177, 43, 24, 198, 8, 32, 122, 89, 88, 22, 127, 90, 133, 215, 157, 163, 126, 129, 67, 87, 63, 240, 87, 190, 118, 240, 161, 249, 7, 200, 130, 73, 243, 151, 177, 82, 134, 243, 191, 246, 113, 159, 247, 164, 105, 152, 186, 56, 191, 59, 189, 142, 195, 249, 73, 48, 137, 7, 169, 225, 251, 214, 53, 178, 72, 78, 54, 202, 180, 113, 112, 86, 239, 20, 67, 164, 198, 35, 247, 77, 94, 175, 234, 114, 81, 172, 164, 250, 41, 29, 117, 39, 90, 38, 31, 202, 2, 121, 40, 59, 137, 217, 120, 219, 237, 64, 99, 127, 43, 55, 167, 111, 184, 91, 62, 108, 178, 224, 184, 236, 211, 127, 151, 242, 21, 188, 102, 7, 107, 18, 126, 53, 120, 160, 222, 209, 37, 26, 140, 76, 91, 168, 179, 54, 242, 144, 95, 165, 39, 175, 143, 209, 192, 102, 68, 210, 44, 191, 142, 30, 82, 20, 17, 47, 209, 183, 244, 43, 214, 17, 123, 109, 148, 125, 108, 1, 111, 201, 178, 33, 203, 108, 48, 228, 203, 160, 193, 216, 30, 62, 171, 163, 142, 251, 159, 124, 162, 110, 135, 196, 185, 41, 132, 94, 87, 14, 232, 194, 216, 236, 249, 171, 0, 116, 105, 168, 225, 198, 175, 171, 29, 4, 166, 174, 148, 99, 143, 198, 115, 194, 123, 87, 245, 98, 32, 252, 86, 125, 58, 72, 30, 195, 76, 184, 147, 165, 223, 176, 68, 68, 148, 16, 213, 197, 24, 217, 0, 178, 251, 166, 31, 71, 213, 33, 90, 208, 143, 38, 7, 15, 198, 65, 56, 130, 84, 147, 110, 213, 230, 242, 201, 74, 156, 37, 193, 150, 36, 213, 85, 85, 192, 37, 5, 43, 251, 1, 0), PackedByteArray(150, 151, 187, 82, 145, 20, 16, 252, 1, 223, 247, 114, 251, 116, 186, 247, 191, 55, 213, 103, 221, 61, 12, 235, 110, 141, 215, 52, 142, 199, 75, 161, 141, 113, 46, 175, 180, 98, 31, 131, 201, 83, 230, 173, 19, 187, 102, 19, 219, 54, 102, 227, 250, 121, 155, 81, 231, 56, 55, 19, 171, 207, 195, 86, 108, 172, 131, 74, 143, 103, 45, 210, 31, 79, 58, 223, 118, 108, 156, 218, 237, 14, 204, 188, 30, 28, 155, 169, 222, 29, 78, 219, 182, 66, 214, 93, 27, 155, 187, 195, 110, 214, 222, 215, 195, 250, 96, 48, 37, 104, 5, 71, 125, 58, 205, 171, 11, 126, 118, 247, 233, 192, 186, 222, 110, 44, 15, 165, 185, 222, 170, 227, 67, 217, 221, 62, 186, 73, 141, 239, 132, 175, 55, 158, 54, 60, 142, 73, 79, 110, 107, 98, 40, 36, 150, 57, 151, 37, 221, 228, 109, 142, 164, 181, 244, 77, 19, 93, 251, 234, 115, 171, 86, 10, 209, 99, 140, 50, 138, 61, 175, 252, 58, 112, 191, 176, 251, 28, 180, 28, 112, 162, 109, 19, 162, 173, 129, 89, 223, 191, 218, 7, 198, 95, 230, 59, 17, 239, 44, 93, 5, 23, 79, 222, 229, 150, 26, 245, 156, 164, 132, 79, 38, 134, 198, 211, 176, 211, 249, 237, 192, 47, 157, 165, 221, 150, 126, 107, 117, 89, 163, 175, 219, 84, 139, 246, 109, 229, 113, 116, 33, 198, 219, 125, 182, 204, 72, 88, 107, 126, 233, 174, 125, 80, 63, 149, 35, 139, 237, 38, 194, 174, 164, 22, 189, 134, 67, 151, 49, 227, 142, 211, 55, 236, 9, 181, 49, 127, 172, 116, 217, 74, 200, 86, 70, 178, 122, 218, 165, 226, 248, 112, 199, 250, 234, 250, 6, 187, 127, 120, 235, 77, 75, 184, 197, 206, 225, 79, 52, 75, 197, 45, 153, 230, 90, 225, 118, 103, 150, 9, 223, 145, 130, 173, 172, 191, 167, 155, 113, 238, 190, 163, 199, 175, 183, 231, 255, 152, 15, 25, 82, 58, 22, 119, 188, 147, 63, 107, 162, 32, 30, 251, 223, 249, 249, 56, 57, 44, 30, 2, 171, 236, 251, 241, 233, 154, 225, 16, 99, 245, 101, 140, 164, 125, 107, 101, 255, 91, 183, 74, 160, 87, 156, 163, 45, 236, 127, 10, 117, 53, 175, 138, 140, 7, 250, 209, 6, 249, 65, 88, 44, 71, 168, 76, 254, 26, 45, 133, 181, 19, 147, 244, 220, 96, 173, 212, 215, 126, 116, 65, 109, 188, 170, 208, 71, 199, 67, 176, 127, 148, 246, 139, 181, 104, 47, 98, 130, 46, 222, 191, 83, 107, 61, 14, 174, 243, 28, 139, 131, 237, 125, 121, 83, 149, 135, 177, 170, 254, 211, 235, 120, 190, 57, 159, 15, 252, 63, 52, 94, 154, 236, 161, 93, 169, 198, 191, 69, 217, 250, 80, 160, 159, 68, 233, 11, 147, 124, 180, 249, 149, 193, 145, 159, 60, 21, 116, 254, 87, 118, 120, 43, 66, 155, 92, 38, 153, 65, 21, 104, 16, 65, 75, 117, 69, 176, 140, 212, 191, 85, 44, 17, 60, 64, 57, 125, 5, 253, 184, 137, 241, 17, 168, 176, 14, 246, 60, 201, 255, 210, 0, 192, 60, 0, 0), PackedByteArray(252, 197, 38, 168, 136, 219, 30, 159, 16, 107, 110, 201, 106, 118, 199, 164, 77, 61, 126, 99, 30, 181, 251, 174, 48, 208, 169, 237, 246, 208, 220, 31, 137, 249, 234, 45, 19, 98, 150, 238, 208, 237, 224, 246, 18, 19, 19, 176, 119, 39, 86, 51, 250, 249, 60, 94, 98, 243, 205, 59, 62, 158, 183, 254, 202, 24, 126, 103, 231, 49, 127, 80, 104, 203, 49, 1), PackedByteArray(4, 194, 22, 76, 219, 177, 251, 185, 1, 114, 32, 238, 213, 141, 148, 165, 161, 94, 89, 59, 147, 103, 11, 155, 33, 165, 11, 133, 253, 248, 141, 149, 41, 214, 246, 56, 248, 112, 126, 125, 81, 55, 28, 65, 135, 53, 191, 254, 148, 211, 116, 190, 177, 175, 23, 249, 115, 233, 70, 105, 76, 94, 65, 253, 250, 172, 155, 56, 85, 168, 196, 99, 98, 25, 188, 72, 2), PackedByteArray(244, 189, 38, 72, 218, 203, 142, 30, 12, 209, 125, 235, 22, 133, 36, 133, 140, 228, 205, 20, 185, 222, 240, 52, 176, 101, 85, 137, 222, 212, 9, 141, 215, 113, 252, 59, 230, 244, 146, 180, 189, 171, 218, 223, 82, 180, 22, 58, 84, 251, 105, 129, 166, 120, 149, 165, 132, 155, 207, 205, 155, 70, 131, 195, 61, 118, 141, 218, 61, 42, 156, 2, 0), PackedByteArray(212, 213, 46, 76, 108, 199, 131, 11, 146, 127, 159, 163, 123, 115, 186, 61, 202, 231, 207, 95, 79, 240, 97, 251, 239, 76, 15, 89, 83, 235, 149, 143, 77, 71, 19, 62, 176, 223, 118, 236, 201, 171, 227, 200, 156, 223, 233, 237, 119, 44, 90, 219, 211, 225, 80, 206, 27, 227, 87, 146, 131, 23, 150, 49, 14, 212, 252, 40, 59, 232, 204, 55, 249, 142, 49, 100, 253, 122, 126, 219, 139, 85, 76, 21, 59, 166, 57, 112, 5, 231, 245, 114, 142, 144, 193, 211, 52), PackedByteArray(220, 205, 238, 128, 142, 213, 243, 93, 102, 210, 255, 86, 179, 250, 213, 248, 62, 109, 113, 167, 225, 251, 255, 187, 179, 190, 191, 203, 220, 254, 247, 245, 135, 113, 211, 95, 186, 232, 219, 250, 150, 159, 238, 126, 204, 229, 23, 201, 22, 191, 245, 176, 235, 105, 202, 118, 172, 30, 58, 179, 205, 63, 186, 128, 87, 252, 15, 20, 153, 23, 245, 119, 106, 248, 129, 228, 221, 102, 182, 169, 234, 220, 107, 238, 102, 234, 221, 91, 78, 97, 220, 143, 255, 185, 47, 107, 186, 229, 244, 224, 246, 0, 3), PackedByteArray(20, 214, 158, 17, 224, 118, 237, 136, 230, 150, 63, 15, 219, 127, 199, 47, 187, 209, 191, 218, 95, 46, 236, 223, 140, 186, 131, 95, 118, 245, 88, 207, 110, 194, 212, 254, 158, 248, 197, 233, 122, 46, 26, 251, 147, 175, 187, 39, 119, 230, 7, 77, 122, 223, 59, 203, 19, 176, 82, 23, 206, 151, 33, 217, 166, 119, 56, 133, 31, 160, 172, 193, 122, 198, 107, 130, 7, 111, 206, 127, 235, 84, 189, 239, 55, 250, 143, 193, 254, 98, 16, 104, 174, 254, 248, 212, 243, 106, 153, 188, 33, 4), PackedByteArray(44, 198, 110, 26, 54, 105, 107, 149, 18, 22, 247, 127, 230, 206, 165, 70, 248, 104, 182, 98, 158, 205, 216, 10, 99, 12, 20, 99, 115, 203, 202, 21, 209, 206, 67, 1, 199, 200, 234, 244, 115, 18, 252, 146, 187, 35, 249, 134, 207, 14, 159, 237, 223, 91, 237, 211, 139, 5, 101, 122, 146, 179, 125, 246, 201, 141, 212, 26, 106, 85, 207, 233, 244, 244, 74, 0), PackedByteArray(204, 189, 86, 141, 217, 169, 167, 18, 4, 169, 49, 198, 150, 203, 138, 150, 188, 177, 178, 110, 151, 143, 14, 87, 88, 103, 169, 180, 61, 245, 117, 10, 183, 155, 101, 106, 83, 185, 147, 189, 176, 37, 169, 246, 19, 218, 91, 215, 122, 197, 184, 112, 247, 220, 118, 16, 210, 155, 172, 207, 189, 187, 47, 73, 250, 138, 54, 62, 107, 200, 111, 103, 122, 180, 71, 2), PackedByteArray(172, 189, 2, 106, 108, 199, 96, 93, 100, 146, 54, 149, 126, 31, 105, 136, 154, 166, 236, 164, 73, 229, 217, 241, 167, 48, 228, 232, 65, 138, 82, 250, 111, 239, 167, 206, 135, 220, 150, 200, 99, 135, 171, 189, 50, 54, 207, 15, 62, 249, 104, 248, 245, 103, 207, 154, 143, 44, 158, 208, 223, 229, 104, 43, 9, 32, 81, 206, 30, 226, 34, 231, 16, 143, 32), PackedByteArray(228, 209, 46, 4, 184, 148, 28, 211, 61, 246, 239, 41, 175, 115, 206, 115, 182, 75, 211, 252, 253, 101, 158, 221, 124, 241, 118, 190, 114, 121, 190, 206, 75, 123, 213, 44, 196, 72, 74, 112, 226, 56, 222, 180, 115, 10, 254, 46, 60, 76, 52, 221, 205, 217, 207, 243, 39, 48, 130, 43, 239, 252, 163, 252, 136, 90, 47, 76, 20, 114, 43, 92, 236, 114, 68, 219, 247, 200, 210, 107, 40, 207, 218, 136, 239, 180, 133, 183, 21, 211, 239, 124, 20, 73, 27, 29, 144, 0), PackedByteArray(220, 213, 14, 198, 152, 163, 153, 42, 109, 250, 192, 255, 80, 113, 239, 137, 221, 218, 115, 94, 246, 179, 187, 109, 87, 188, 228, 236, 254, 173, 251, 61, 207, 86, 158, 110, 44, 97, 25, 249, 229, 182, 125, 214, 46, 217, 213, 44, 126, 245, 238, 175, 30, 29, 236, 105, 119, 249, 113, 176, 140, 6, 58, 120, 216, 183, 138, 138, 196, 198, 248, 51, 180, 118, 182, 241, 254, 186, 228, 176, 158, 101, 247, 103, 237, 53, 243, 135, 233, 20, 24, 206, 37, 226, 21, 22, 191, 82, 27, 163, 52, 11, 26), PackedByteArray(164, 213, 54, 34, 55, 193, 178, 144, 128, 83, 255, 70, 105, 223, 212, 10, 103, 241, 121, 189, 120, 251, 50, 237, 238, 216, 109, 235, 78, 119, 251, 251, 93, 246, 230, 206, 207, 146, 67, 187, 109, 200, 216, 186, 205, 187, 88, 177, 238, 154, 222, 239, 195, 249, 3, 216, 253, 244, 202, 203, 205, 87, 181, 7, 87, 129, 25, 153, 21, 174, 219, 181, 225, 42, 211, 222, 72, 161, 217, 84, 173, 48, 122, 226, 175, 38, 222, 28, 128, 149, 45, 180, 81, 248, 149, 77, 203, 244, 45, 6), PackedByteArray(212, 193, 246, 34, 181, 9, 4, 104, 141, 71, 75, 58, 224, 238, 50, 26, 48, 135, 90, 89, 164, 176, 215, 27, 227, 229, 59, 143, 16, 23, 15, 177, 13, 215, 123, 222, 121, 255, 99, 203, 209, 13, 130, 99, 227, 87, 135, 95, 88, 250, 11, 250, 16, 131, 239, 180, 237, 195, 123, 191, 233, 175, 187, 245, 59, 68, 101, 200, 46, 126, 221, 85, 95, 143, 9), PackedByteArray(252, 237, 126, 33, 122, 42, 10, 167, 128, 101, 63, 206, 178, 89, 245, 20, 62, 125, 61, 46, 174, 63, 150, 103, 217, 181, 235, 216, 124, 56, 155, 220, 165, 97, 203, 30, 227, 246, 132, 201, 154, 118, 155, 221, 139, 201, 211, 216, 188, 31, 221, 184, 153, 181, 108, 205, 192, 177, 218, 201, 237, 137, 207, 202, 51, 77, 218, 76, 213, 240, 192, 226, 123, 149, 94, 117, 83, 42, 186, 178, 37, 248, 170, 187, 49, 90, 13, 148, 23, 161, 236, 186, 253, 114, 240, 113, 41, 5, 0), PackedByteArray(20, 226, 254, 75, 137, 178, 49, 187, 185, 113, 239, 255, 27, 47, 139, 169, 187, 176, 215, 124, 38, 149, 103, 187, 254, 58, 255, 121, 152, 248, 197, 151, 247, 129, 221, 163, 157, 69, 248, 185, 55, 101, 93, 189, 26, 133, 238, 186, 182, 170, 195, 196, 120, 222, 133, 240, 139, 32, 229, 211, 222, 147, 199, 55, 9, 194, 246, 247, 180, 113, 43, 117, 213, 191, 237, 72, 43, 175, 116, 85, 207, 92, 192, 96, 15, 91, 232, 137, 167, 175, 140, 126, 19, 124, 79, 3, 223, 152, 6, 0), PackedByteArray(178, 150, 251, 165, 201, 228, 23, 16, 0, 222, 115, 248, 135, 242, 155, 43, 207, 39, 58, 248, 164, 7, 15, 230, 113, 21, 187, 207, 249, 217, 135, 232, 199, 110, 215, 29, 163, 31, 81, 207, 28, 152, 135, 57, 161, 25, 25, 134, 119, 84, 231, 245, 61, 165, 26, 232, 53, 250, 160, 109, 106, 222, 12, 134, 193, 25, 187, 243, 216, 69, 234, 190, 71, 33, 59, 54, 146, 214, 102, 213, 241, 248, 91, 227, 230, 116, 82, 130, 97, 230, 67, 121, 166, 63, 253, 122, 58, 193, 18, 218, 28, 45, 25, 39, 57, 237, 162, 250, 72, 176, 24, 27, 81, 208, 77, 239, 131, 224, 228, 135, 137, 193, 180, 54, 131, 134, 121, 209, 105, 214, 161, 143, 196, 126, 54, 218, 211, 3, 143, 225, 235, 134, 198, 61, 211, 199, 139, 62, 194, 128, 94, 72, 167, 139, 229, 194, 104, 109, 225, 243, 110, 208, 150, 184, 248, 86, 80, 19, 167, 57, 198, 119, 112, 104, 55, 183, 201, 178, 190, 48, 107, 159, 67, 223, 200, 55, 99, 214, 220, 191, 217, 163, 188, 26, 107, 125, 206, 20, 45, 203, 154, 250, 98, 2, 213, 77, 183, 142, 26, 8, 236, 180, 154, 21, 13, 173, 97, 89, 71, 206, 183, 70, 200, 134, 166, 250, 43, 202, 110, 149, 109, 119, 207, 99, 205, 210, 249, 79, 61, 111, 21, 229, 114, 74, 83, 135, 235, 70, 153, 179, 212, 15, 117, 9, 200, 97, 243, 189, 171, 80, 31, 55, 155, 46, 135, 86, 105, 7, 11, 6, 40, 164, 121, 95, 245, 198, 248, 152, 109, 103, 97, 92, 20, 223, 128, 88, 57, 102, 214, 89, 210, 221, 214, 218, 253, 235, 77, 59, 61, 136, 30, 49, 96, 68, 144, 15, 127, 235, 227, 255, 238, 194, 199, 241, 49, 103, 5, 198, 247, 175, 213, 89, 137, 229, 62, 211, 242, 51, 203, 248, 200, 99, 161, 149, 244, 176, 170, 69, 105, 126, 80, 151, 19, 163, 190, 87, 237, 49, 54, 226, 248, 225, 50, 113, 25, 202, 203, 179, 173, 138, 145, 141, 71, 219, 219, 142, 238, 28, 55, 229, 55, 35, 107, 143, 61, 62, 11, 150, 71, 87, 94, 92, 199, 88, 9, 56, 227, 68, 233, 237, 236, 168, 187, 111, 13, 200, 44, 141, 187, 196, 54, 151, 188, 120, 120, 63, 9, 181, 204, 43, 210, 229, 222, 95, 235, 169, 152, 76, 186, 243, 159, 42, 225, 104, 78, 214, 160, 224, 255, 197, 78, 199, 22, 51, 121, 141, 157, 203, 107, 87, 246, 111, 66, 240, 160, 154, 234, 62, 73, 45, 147, 235, 6, 113, 41, 39, 37, 238, 233, 76, 212, 88, 80, 103, 106, 174, 217, 249, 102, 239, 224, 27, 169, 15, 182, 223, 151, 61, 23, 122, 75, 82, 195, 153, 47, 48, 208, 39, 99, 145, 103, 158, 180, 71, 191, 8, 218, 191, 223, 243, 229, 187, 197, 36, 88, 199, 72, 232, 245, 203, 241, 63, 226, 75, 148, 192, 106, 48, 137, 181, 94, 147, 249, 238, 144, 254, 113, 103, 240, 89, 97, 253, 181, 65, 212, 98, 190, 239, 205, 114, 92, 95, 46, 193, 155, 193, 203, 40, 191, 218, 38, 1, 0, 0, 0), PackedByteArray(44, 197, 172, 168, 136, 209, 206, 243, 121, 90, 227, 184, 110, 106, 184, 57, 55, 166, 121, 51, 143, 40, 180, 59, 47, 239, 223, 246, 140, 51, 47, 31, 253, 42, 63, 29, 140, 181, 121, 182, 201, 56, 233, 138, 154, 228, 91, 191, 201, 209, 132, 244, 142, 36, 197, 251, 166, 147, 165, 214, 87, 111, 180, 47, 159, 248, 26, 165, 27, 92, 6, 211, 19, 7, 0, 109, 0), PackedByteArray(140, 197, 102, 61, 195, 198, 146, 145, 130, 42, 141, 227, 152, 231, 96, 61, 22, 221, 154, 181, 131, 229, 86, 212, 67, 186, 219, 241, 86, 52, 116, 125, 201, 248, 8, 124, 217, 34, 141, 31, 242, 215, 176, 128, 37, 175, 142, 242, 58, 121, 99, 32, 154, 102, 59, 239, 235, 161, 126, 157, 135, 70, 172, 198, 12, 253, 112, 76, 105, 232, 239, 248, 30, 25, 8, 6, 0, 0, 0), PackedByteArray(76, 193, 146, 78, 106, 77, 243, 120, 8, 20, 247, 185, 88, 156, 147, 106, 33, 6, 23, 120, 35, 63, 177, 111, 182, 98, 53, 27, 206, 194, 255, 205, 107, 243, 146, 130, 217, 191, 178, 151, 85, 183, 45, 229, 163, 7, 57, 123, 108, 253, 103, 176, 80, 47, 116, 80, 78, 246, 175, 253, 123, 63, 19, 15, 225, 105, 229, 141, 193, 141, 51, 1, 114, 1, 0), PackedByteArray(188, 217, 62, 4, 130, 39, 176, 224, 168, 255, 70, 199, 99, 214, 75, 219, 253, 178, 158, 95, 62, 171, 124, 42, 181, 251, 197, 162, 187, 190, 47, 228, 46, 182, 163, 79, 198, 183, 132, 146, 122, 72, 50, 249, 101, 189, 123, 199, 117, 71, 158, 60, 49, 112, 139, 200, 255, 61, 31, 65, 252, 63, 12, 111, 52, 244, 62, 85, 155, 55, 28, 191, 237, 102, 232, 63, 35, 161, 28, 138, 208, 229, 113, 22, 166, 30, 94, 62, 166, 13, 52, 208, 206, 223, 170, 79, 4, 0), PackedByteArray(124, 209, 152, 35, 179, 146, 219, 162, 80, 131, 191, 43, 139, 231, 29, 29, 119, 108, 37, 124, 239, 226, 161, 243, 252, 189, 45, 230, 55, 203, 151, 69, 204, 23, 251, 63, 27, 150, 174, 150, 213, 211, 143, 55, 105, 180, 181, 250, 197, 116, 188, 78, 235, 181, 57, 78, 48, 86, 34, 89, 219, 239, 125, 53, 5, 236, 182, 157, 202, 126, 224, 167, 152, 195, 144, 224, 56, 42, 100, 37, 172, 62, 213, 73, 208, 242, 170, 94, 195, 14, 172, 179, 175, 108, 135, 101, 64, 150, 29, 90, 30, 19, 0, 0, 0), PackedByteArray(196, 58, 47, 129, 92, 219, 117, 236, 214, 246, 254, 227, 85, 122, 110, 236, 223, 125, 185, 159, 110, 174, 175, 155, 230, 102, 182, 221, 203, 193, 108, 234, 181, 148, 27, 171, 186, 166, 72, 233, 226, 56, 117, 197, 126, 187, 217, 22, 253, 157, 199, 91, 118, 39, 182, 69, 199, 116, 82, 201, 255, 253, 222, 217, 210, 160, 216, 247, 218, 3, 94, 180, 130, 8, 126, 241, 217, 183, 227, 90, 194, 241, 24, 181, 146, 211, 162, 202, 137, 67, 92, 198, 14, 31, 247, 168, 2, 0, 0), PackedByteArray(188, 54, 63, 18, 147, 219, 152, 194, 241, 246, 105, 79, 207, 167, 181, 46, 111, 239, 254, 102, 220, 217, 167, 237, 31, 122, 118, 77, 55, 203, 211, 151, 27, 97, 231, 200, 152, 111, 94, 108, 141, 84, 247, 247, 199, 107, 60, 56, 219, 213, 217, 157, 158, 18, 44, 248, 135, 125, 8, 174, 65, 183, 185, 223, 184, 213, 3, 255, 31, 227, 45, 116, 200, 231, 67, 192, 83, 250, 203, 16, 192, 71, 100, 230, 108, 193, 43, 148, 212, 249, 48, 128, 195, 0), PackedByteArray(90, 184, 123, 17, 50, 98, 75, 180, 168, 67, 14, 243, 190, 220, 220, 196, 69, 198, 92, 135, 243, 62, 13, 167, 99, 209, 19, 187, 131, 221, 93, 183, 109, 15, 182, 163, 78, 211, 116, 78, 206, 166, 247, 79, 166, 45, 237, 65, 19, 158, 110, 46, 234, 99, 96, 190, 9, 212, 88, 110, 220, 236, 187, 120, 18, 19, 195, 103, 122, 210, 143, 196, 171, 126, 203, 95, 145, 163, 237, 102, 49, 58, 172, 4, 179, 78, 47, 6, 23, 45, 185, 158, 190, 12, 239, 155, 29, 139, 96, 206, 190, 56, 178, 136, 120, 106, 16, 250, 176, 54, 87, 102, 30, 12, 29, 83, 171, 127, 24, 36, 6, 31, 242, 229, 136, 111, 197, 5, 91, 102, 111, 219, 41, 252, 231, 174, 196, 96, 44, 180, 85, 146, 62, 150, 167, 203, 82, 70, 229, 116, 92, 201, 57, 20, 195, 35, 10, 26, 179, 199, 161, 181, 198, 190, 200, 211, 153, 231, 150, 99, 178, 167, 150, 107, 113, 255, 28, 51, 24, 123, 175, 185, 9, 228, 51, 182, 195, 121, 207, 215, 125, 27, 145, 67, 76, 100, 27, 196, 3, 227, 255, 175, 124, 170, 135, 103, 94, 237, 33, 247, 173, 17, 21, 183, 253, 54, 205, 253, 138, 241, 163, 173, 191, 244, 200, 3, 170, 166, 254, 15, 128, 212, 248, 103, 12, 206, 171, 94, 56, 160, 87, 183, 27, 56, 28, 162, 250, 231, 106, 9, 3, 247, 245, 41, 103, 171, 248, 138, 43, 175, 190, 197, 117, 69, 148, 189, 125, 197, 59, 229, 183, 248, 160, 28, 200, 120, 203, 7, 190, 144, 239, 195, 50, 126, 191, 98, 194, 181, 7, 52, 209, 82, 182, 56, 235, 104, 48, 173, 38, 224, 55, 175, 116, 103, 46, 182, 41, 147, 167, 240, 254, 197, 142, 120, 231, 56, 234, 105, 249, 152, 147, 63, 148, 227, 236, 213, 123, 187, 126, 188, 197, 53, 153, 182, 31, 217, 193, 9, 112, 239, 108, 221, 217, 232, 85, 105, 35, 190, 76, 206, 13, 190, 239, 86, 74, 79, 109, 133, 152, 158, 195, 102, 35, 255, 19, 69, 196, 224, 202, 215, 207, 2, 211, 18, 231, 69, 122, 66, 226, 33, 40, 172, 83, 246, 228, 148, 196, 220, 128, 202, 228, 254, 195, 206, 186, 84, 184, 73, 163, 245, 160, 108, 122, 126, 219, 86, 156, 186, 231, 119, 23, 19, 88, 4, 64, 237, 70, 164, 131, 27, 137, 204, 243, 233, 122, 185, 189, 56, 62, 170, 237, 21, 251, 185, 70, 255, 29, 189, 255, 30, 116, 104, 15, 9, 202, 160, 21, 143, 242, 189, 15, 157, 137, 163, 32, 10, 253, 242, 229, 24, 213, 38, 191, 85, 135, 179, 151, 170, 247, 244, 129, 159, 116, 60, 204, 80, 133, 207, 104, 240, 12, 98, 109, 241, 232, 248, 162, 135, 138, 156, 38, 120, 251, 107, 253, 31, 107, 108, 126, 18, 47, 110, 96, 181, 177, 163, 129, 178, 100, 249, 178, 37, 131, 59, 65, 189, 200, 229, 135, 75, 141, 136, 10, 234, 31, 231, 31, 7, 37, 199, 99, 211, 213, 192, 222, 96, 78, 5, 109, 185, 142, 253, 158, 135, 49, 128, 60), PackedByteArray(214, 151, 59, 169, 107, 15, 16, 27, 224, 251, 138, 211, 217, 244, 18, 133, 195, 211, 179, 221, 152, 14, 115, 209, 188, 182, 103, 207, 205, 116, 188, 75, 73, 59, 166, 163, 167, 75, 139, 87, 54, 189, 124, 157, 155, 196, 147, 65, 216, 28, 25, 75, 56, 158, 94, 244, 247, 242, 180, 230, 132, 15, 181, 231, 218, 105, 141, 178, 246, 213, 250, 232, 88, 219, 113, 250, 244, 190, 101, 185, 56, 29, 181, 95, 180, 214, 142, 88, 151, 219, 30, 99, 78, 79, 120, 158, 132, 186, 30, 223, 75, 210, 232, 216, 197, 85, 82, 219, 179, 102, 203, 109, 219, 14, 190, 214, 162, 103, 22, 186, 61, 75, 48, 239, 64, 107, 64, 173, 111, 204, 192, 19, 194, 173, 176, 121, 10, 213, 234, 192, 250, 247, 60, 28, 106, 58, 178, 152, 141, 112, 216, 23, 39, 18, 208, 68, 109, 77, 163, 78, 239, 149, 89, 194, 200, 217, 76, 3, 73, 86, 145, 110, 49, 252, 204, 92, 82, 112, 152, 74, 54, 170, 209, 238, 132, 160, 15, 205, 33, 124, 186, 237, 71, 195, 6, 88, 175, 210, 182, 6, 128, 80, 158, 205, 238, 107, 50, 164, 132, 167, 237, 131, 57, 13, 216, 22, 54, 151, 1, 189, 116, 109, 24, 24, 253, 60, 55, 108, 223, 117, 190, 182, 241, 146, 159, 137, 249, 187, 248, 227, 132, 100, 92, 209, 28, 232, 210, 89, 40, 159, 61, 105, 215, 110, 133, 211, 225, 249, 56, 252, 132, 253, 149, 145, 56, 93, 145, 27, 138, 96, 251, 209, 40, 63, 110, 95, 207, 61, 243, 183, 124, 151, 162, 220, 186, 134, 30, 158, 177, 182, 255, 236, 156, 223, 129, 188, 171, 89, 79, 156, 66, 233, 24, 117, 152, 198, 147, 122, 122, 64, 112, 139, 237, 99, 97, 157, 183, 130, 216, 169, 41, 38, 20, 171, 233, 230, 116, 195, 183, 94, 205, 181, 162, 77, 150, 60, 6, 236, 171, 208, 105, 84, 142, 176, 241, 122, 176, 67, 88, 111, 122, 49, 118, 165, 182, 218, 183, 142, 228, 217, 225, 119, 169, 22, 133, 245, 246, 157, 185, 207, 52, 43, 205, 189, 29, 31, 21, 151, 27, 195, 231, 195, 199, 125, 50, 50, 190, 237, 47, 146, 227, 255, 155, 253, 218, 62, 246, 240, 220, 93, 100, 51, 48, 47, 125, 242, 5, 180, 215, 146, 246, 240, 84, 44, 30, 12, 58, 137, 125, 247, 154, 102, 32, 235, 188, 85, 78, 214, 205, 153, 39, 249, 140, 107, 251, 149, 155, 227, 75, 85, 187, 196, 28, 58, 209, 146, 52, 90, 246, 163, 203, 56, 69, 108, 43, 189, 85, 168, 235, 135, 140, 151, 234, 197, 255, 144, 21, 240, 166, 174, 245, 121, 187, 253, 63, 158, 180, 231, 63, 245, 248, 66, 161, 127, 42, 64, 179, 163, 83, 145, 193, 163, 251, 85, 36, 162, 132, 14, 188, 156, 69, 36, 82, 29, 62, 253, 83, 238, 225, 210, 181, 7, 193, 132, 73, 38, 76, 254, 174, 131, 49, 126, 70, 244, 94, 231, 88, 187, 209, 140, 7, 177, 188, 241, 50, 232, 219, 160, 63, 246, 213, 33, 98, 203, 148, 181, 188, 151, 80, 85, 25, 243, 36, 137, 110, 255, 100, 11, 232, 74, 152, 3, 0, 0), PackedByteArray(60, 230, 86, 233, 157, 16, 249, 192, 41, 254, 142, 85, 75, 242, 242, 227, 98, 101, 237, 196, 250, 77, 247, 243, 203, 219, 237, 214, 239, 175, 246, 106, 26, 127, 56, 167, 63, 118, 47, 82, 19, 250, 98, 245, 173, 246, 132, 214, 196, 196, 209, 141, 77, 250, 255, 101, 155, 95, 18, 120, 149, 13, 171, 119, 24, 198, 205, 36, 169, 98, 174, 76, 153, 193, 226, 226, 190, 151, 253, 139, 175, 206, 175, 182, 114, 237, 254, 149, 39, 22, 125, 160, 189, 158, 117, 240, 46, 177, 19, 21, 0), PackedByteArray(252, 205, 42, 179, 230, 178, 151, 179, 175, 213, 85, 63, 230, 96, 140, 46, 153, 111, 219, 109, 219, 95, 247, 146, 253, 161, 255, 120, 68, 140, 168, 37, 46, 243, 52, 178, 242, 187, 230, 159, 119, 247, 252, 202, 54, 141, 187, 84, 88, 222, 114, 118, 2, 222, 26, 194, 247, 18, 167, 96, 187, 59, 23, 85, 5, 251, 97, 115, 145, 145, 119, 167, 248, 251, 170, 254, 39, 58, 169, 119, 73, 45, 161, 249, 185, 27, 111, 90, 97, 246, 120, 20, 173, 79, 182, 207, 28, 163, 211, 57, 0), PackedByteArray(36, 186, 2, 115, 101, 65, 2, 182, 176, 184, 127, 62, 222, 136, 134, 149, 189, 252, 209, 156, 22, 154, 105, 6, 48, 109, 79, 50, 93, 233, 192, 86, 211, 151, 233, 72, 106, 173, 50, 248, 139, 221, 246, 213, 58, 161, 73, 181, 200, 14, 136, 220, 121, 222, 62, 252, 56, 222, 119, 25, 221, 200, 251, 33, 73, 13, 207, 46, 206, 93, 220, 126, 34, 61, 17), PackedByteArray(20, 198, 164, 117, 227, 64, 193, 119, 63, 199, 174, 92, 29, 66, 37, 23, 241, 86, 175, 73, 227, 51, 5, 50, 16, 131, 17, 111, 202, 208, 10, 200, 78, 84, 136, 15, 228, 88, 201, 106, 255, 158, 56, 8, 127, 24, 141, 24, 125, 45, 186, 62, 167, 175, 40, 218, 58, 24, 179, 108, 53, 51, 85, 194, 80, 109, 187, 168, 80, 255, 114, 14), PackedByteArray(68, 214, 186, 116, 106, 5, 1, 163, 251, 153, 195, 22, 162, 21, 213, 97, 215, 221, 155, 67, 109, 48, 21, 88, 211, 117, 185, 56, 254, 184, 240, 31, 219, 95, 73, 78, 46, 26, 105, 105, 154, 196, 82, 0, 163, 251, 34, 35, 9, 117, 188, 103, 29, 159, 211, 227, 194, 151, 191, 225, 78, 179, 219, 101, 252, 196, 103, 123, 62, 100, 60, 5), PackedByteArray(12, 198, 26, 212, 189, 240, 211, 193, 115, 151, 127, 148, 211, 8, 115, 173, 212, 55, 111, 155, 237, 77, 40, 80, 55, 191, 193, 220, 44, 176, 231, 251, 155, 67, 101, 105, 93, 202, 83, 222, 193, 185, 85, 188, 46, 152, 31, 55, 196, 238, 235, 83, 124, 216, 121, 5, 229, 93, 202, 9, 25, 184, 246, 76, 237, 139, 98, 202, 101, 165, 71, 1), PackedByteArray(228, 193, 184, 209, 187, 18, 50, 32, 110, 221, 207, 228, 165, 68, 77, 163, 15, 182, 165, 249, 175, 58, 41, 144, 243, 108, 199, 208, 52, 63, 61, 1, 160, 118, 79, 250, 94, 235, 58, 126, 146, 55, 169, 220, 58, 250, 239, 0, 237, 170, 155, 246, 188, 235, 250, 237, 255, 173, 70, 39, 4, 117, 218, 188, 237, 173, 180, 238, 172, 253, 147, 21, 1), PackedByteArray(68, 190, 186, 244, 122, 151, 232, 13, 66, 227, 121, 121, 221, 88, 63, 191, 123, 74, 97, 113, 190, 207, 126, 247, 98, 91, 177, 93, 115, 155, 207, 135, 215, 126, 130, 166, 125, 181, 167, 251, 220, 107, 230, 251, 235, 179, 150, 199, 71, 25, 125, 23, 141, 91, 158, 251, 70, 217, 59, 61, 210, 188, 124, 127, 88, 60, 97, 62, 236, 46, 221, 18, 147, 166, 100), PackedByteArray(12, 210, 102, 227, 245, 174, 113, 122, 177, 91, 171, 175, 218, 219, 211, 109, 59, 208, 89, 220, 237, 30, 93, 23, 235, 221, 59, 98, 124, 177, 250, 132, 155, 47, 22, 225, 99, 115, 220, 34, 157, 156, 239, 51, 58, 180, 39, 20, 246, 87, 211, 191, 82, 63, 79, 176, 182, 223, 108, 248, 215, 21, 222, 236, 145, 136, 24, 76, 104, 220, 87, 218, 192, 64, 79, 59, 190, 209, 158, 245, 165, 72, 212, 80, 241, 154, 210, 21, 244, 102, 83, 243, 55, 174, 246, 158, 174, 30, 212, 243, 204, 227, 1), PackedByteArray(60, 222, 166, 228, 63, 3, 156, 14, 243, 63, 225, 87, 231, 120, 25, 61, 221, 184, 158, 119, 169, 215, 88, 172, 83, 44, 60, 100, 41, 27, 115, 219, 120, 111, 223, 178, 59, 214, 86, 55, 154, 42, 75, 215, 62, 117, 249, 192, 217, 118, 162, 193, 95, 212, 155, 195, 165, 215, 8, 91, 115, 253, 36, 19, 27, 251, 25, 208, 29, 232, 177, 221, 47, 240, 174, 226, 74, 15, 231, 222, 224, 234, 12, 214, 220, 240, 76, 159, 237, 124, 160, 51, 50, 166, 116, 253, 108, 57, 200, 12), PackedByteArray(180, 221, 130, 114, 101, 201, 243, 93, 59, 45, 250, 74, 29, 29, 68, 93, 152, 231, 226, 118, 21, 61, 251, 199, 37, 187, 79, 38, 151, 105, 101, 107, 226, 27, 57, 89, 26, 230, 54, 125, 53, 26, 238, 19, 247, 124, 59, 39, 181, 146, 238, 151, 13, 254, 208, 159, 120, 189, 186, 155, 223, 179, 156, 167, 240, 246, 147, 10, 35, 169, 190, 126, 2, 7, 139, 173, 66, 224, 25, 31, 215, 214, 236, 12, 21, 153, 0, 143, 78, 66, 215, 190, 193, 97, 14, 220, 157, 51, 204, 4), PackedByteArray(4, 190, 2, 151, 133, 130, 232, 65, 113, 87, 121, 89, 86, 211, 24, 167, 57, 102, 133, 215, 191, 101, 64, 176, 128, 74, 148, 56, 182, 51, 177, 77, 238, 28, 235, 207, 184, 163, 86, 42, 39, 156, 79, 143, 165, 48, 27, 27, 182, 62, 156, 183, 22, 159, 174, 1, 175, 107, 131, 149, 16, 207, 31, 87, 254, 120, 246, 120, 250, 34, 3, 73, 18), PackedByteArray(204, 193, 96, 37, 34, 75, 66, 86, 18, 53, 220, 186, 235, 95, 117, 83, 149, 34, 42, 43, 120, 111, 191, 102, 236, 183, 21, 120, 167, 249, 207, 37, 154, 139, 91, 8, 30, 20, 234, 194, 82, 185, 173, 177, 86, 50, 117, 35, 36, 155, 31, 156, 124, 221, 107, 239, 183, 246, 64, 153, 83, 86, 5, 188, 122, 113, 112, 73, 168, 125, 213, 119, 232, 144, 188, 149, 7), PackedByteArray(212, 193, 140, 117, 187, 145, 209, 14, 166, 173, 80, 53, 66, 194, 251, 187, 31, 29, 79, 20, 120, 197, 89, 46, 158, 170, 77, 81, 168, 46, 178, 132, 242, 198, 3, 137, 251, 252, 141, 151, 200, 147, 186, 241, 76, 39, 214, 254, 131, 243, 250, 35, 99, 212, 246, 254, 36, 48, 171, 180, 126, 88, 200, 173, 149, 65, 47, 166, 84, 50, 80, 241, 15, 42), PackedByteArray(188, 201, 130, 116, 178, 97, 0, 199, 109, 16, 224, 244, 6, 55, 175, 108, 239, 95, 203, 41, 108, 201, 6, 232, 159, 189, 234, 146, 15, 9, 113, 88, 110, 76, 44, 145, 106, 243, 98, 101, 213, 188, 251, 154, 197, 174, 206, 243, 195, 222, 198, 76, 243, 161, 20, 41, 235, 7, 223, 126, 123, 32, 203, 176, 186, 176, 251, 90, 81, 167, 252, 150, 177, 209, 249, 48, 1, 0), PackedByteArray(244, 201, 146, 149, 87, 215, 124, 74, 16, 239, 63, 244, 246, 245, 117, 187, 190, 125, 160, 227, 205, 226, 218, 222, 99, 217, 107, 52, 125, 252, 242, 115, 30, 172, 189, 189, 107, 182, 126, 253, 172, 21, 127, 107, 109, 200, 70, 78, 255, 123, 70, 186, 119, 175, 93, 171, 75, 198, 234, 245, 97, 90, 173, 183, 180, 7, 55, 88, 241, 82, 95, 151, 100, 134, 94, 79, 255, 30, 123, 187, 114, 77, 245, 217, 220, 239, 101, 186, 174, 245, 31, 101, 249, 147, 197, 158, 241, 63, 78, 105, 114, 242, 113, 3, 0, 0), PackedByteArray(4, 218, 30, 92, 199, 64, 222, 120, 167, 255, 234, 179, 123, 198, 85, 115, 176, 125, 116, 112, 76, 79, 63, 255, 86, 63, 253, 187, 191, 247, 33, 227, 154, 147, 101, 99, 235, 182, 93, 187, 198, 142, 158, 203, 115, 103, 151, 131, 157, 219, 246, 152, 119, 63, 124, 54, 237, 59, 183, 141, 225, 215, 179, 43, 175, 147, 214, 247, 179, 63, 125, 142, 28, 161, 214, 239, 170, 53, 74, 175, 223, 163, 107, 119, 152, 125, 227, 75, 73, 246, 117, 94, 25, 20, 129, 191, 249, 255, 158, 77, 217, 30, 147, 54, 21, 0)]])
+granule_positions = PackedInt64Array(0, 0, 13171)
+sampling_rate = 44100.0
+
+[sub_resource type="AudioStreamOggVorbis" id="AudioStreamOggVorbis_2xoe7"]
+packet_sequence = SubResource("OggPacketSequence_vp8gq")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_04hsf"]
 animations = [{
@@ -389,6 +468,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" groups=["avoid_bullet", "player"]]
+material = SubResource("ShaderMaterial_oykvv")
 position = Vector2(176, -120)
 collision_layer = 17
 collision_mask = 17
@@ -399,46 +479,10 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
-
-[node name="Gun" type="StaticBody2D" parent="."]
-position = Vector2(0, -8)
-scale = Vector2(0.540252, 0.437986)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("2_n2pkr")
-
-[node name="GunSprite" type="Sprite2D" parent="Gun"]
-position = Vector2(0, 47.9199)
-rotation = 1.57079
-scale = Vector2(7.64359, -4.17328)
-texture = ExtResource("3_bltv5")
-
-[node name="GunRayCast" type="RayCast2D" parent="Gun"]
-position = Vector2(0, 86.2559)
-scale = Vector2(1.86901, 0.375132)
-collision_mask = 2
-hit_from_inside = true
-
-[node name="GunTipBox" type="CollisionShape2D" parent="Gun"]
-position = Vector2(0, 95.8398)
-shape = SubResource("RectangleShape2D_cgtmy")
-disabled = true
-
-[node name="AimCast" type="RayCast2D" parent="Gun"]
-scale = Vector2(1, 16.5803)
-collision_mask = 2
-collide_with_areas = true
-
-[node name="ShootTimer" type="Timer" parent="Gun"]
-wait_time = 0.5
-one_shot = true
-
-[node name="Laser" type="Sprite2D" parent="Gun"]
-modulate = Color(4.14118, 0.294118, 0, 0.439216)
-position = Vector2(-0.000976563, 105.026)
-scale = Vector2(0.0347695, 40.5133)
-texture = ExtResource("4_506fg")
-offset = Vector2(0.0146484, 23.6434)
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1
 
 [node name="PlayerSpriteBackup" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -448,30 +492,105 @@ animation = &"run"
 autoplay = "walk"
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 16)
-scale = Vector2(1.3, 1.5)
+use_parent_material = true
+position = Vector2(0, 1)
+scale = Vector2(0.7, 0.75)
 sprite_frames = SubResource("SpriteFrames_0m3sn")
-animation = &"crouch"
+animation = &"death"
 autoplay = "walk"
+frame = 5
+frame_progress = 1.0
+
+[node name="HurtSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_x3u0c")
+position = Vector2(0, 1)
+scale = Vector2(0.7, 0.75)
+sprite_frames = SubResource("SpriteFrames_0m3sn")
+animation = &"run"
+autoplay = "walk"
+
+[node name="Gun" type="StaticBody2D" parent="."]
+use_parent_material = true
+position = Vector2(0, -11)
+scale = Vector2(0.28, 0.240001)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("2_n2pkr")
+
+[node name="LaserLine" type="Line2D" parent="Gun"]
+points = PackedVector2Array(0, 0, 0, 599.997)
+width = 2.0
+default_color = Color(0.745098, 0.690196, 0.941176, 0.572549)
+
+[node name="GunSprite" type="Sprite2D" parent="Gun"]
+position = Vector2(0.00152588, 45.9206)
+rotation = 1.57079
+scale = Vector2(3.5, 2.5)
+texture = ExtResource("28_gw84u")
+
+[node name="GunOutlineSprite" type="Sprite2D" parent="Gun"]
+z_index = -1
+use_parent_material = true
+position = Vector2(0.0610352, 45.8317)
+rotation = 1.57079
+scale = Vector2(3.5, 2.5)
+texture = ExtResource("28_gw84u")
+
+[node name="GunRayCast" type="RayCast2D" parent="Gun"]
+visible = false
+position = Vector2(0.734314, 79.8511)
+scale = Vector2(1.86901, 0.375132)
+collision_mask = 8
+hit_from_inside = true
+
+[node name="GunTipBox" type="CollisionShape2D" parent="Gun"]
+visible = false
+position = Vector2(0.734311, 79.8512)
+shape = SubResource("RectangleShape2D_cgtmy")
+disabled = true
+
+[node name="AimCast" type="RayCast2D" parent="Gun"]
+position = Vector2(0.73425, 0.684814)
+target_position = Vector2(0, 5000)
+collision_mask = 8
+
+[node name="ShootTimer" type="Timer" parent="Gun"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Laser" type="Sprite2D" parent="Gun"]
+visible = false
+modulate = Color(4.14118, 0.294118, 0, 0.439216)
+position = Vector2(0.730469, 100.685)
+scale = Vector2(0.0347695, 40.5133)
+texture = ExtResource("4_506fg")
+offset = Vector2(0.0146484, 23.6434)
+
+[node name="LaserLight" type="PointLight2D" parent="Gun"]
+color = Color(0.643137, 0.239216, 1, 1)
+texture = ExtResource("30_wu22n")
+texture_scale = 0.2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="HurtboxArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, 20)
 scale = Vector2(0.559998, 0.879999)
 
 [node name="StandHurtbox" type="CollisionShape2D" parent="HurtboxArea"]
-scale = Vector2(0.908302, -2.50796)
+position = Vector2(0, -15.9091)
 shape = SubResource("CapsuleShape2D_3jk4k")
 
 [node name="CrouchHurtbox" type="CollisionShape2D" parent="HurtboxArea"]
-position = Vector2(1.78571, 17.0455)
+position = Vector2(0, -6.81821)
 scale = Vector2(1.81499, -1.21358)
 shape = SubResource("CapsuleShape2D_e1tmr")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 24.5)
-scale = Vector2(6.49639, -2.26795)
+visible = false
+position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_7qvtm")
 
 [node name="Sounds" type="Node" parent="."]
@@ -488,17 +607,64 @@ position = Vector2(176, -120)
 stream = ExtResource("12_dto3d")
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("12_0bt7h")
+stream = ExtResource("37_b3xr0")
 
-[node name="MovementSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
+[node name="WalkSound2" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(176, -120)
+stream = ExtResource("35_8pmc7")
+volume_db = -10.0
+max_polyphony = 2
+
+[node name="RunSound2" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(176, -120)
+stream = SubResource("AudioStreamOggVorbis_2xoe7")
+volume_db = 10.0
+pitch_scale = 0.5
+
+[node name="RunSound3" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(176, -120)
+stream = ExtResource("41_5fvvb")
+max_polyphony = 2
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(176, -120)
+stream = ExtResource("42_aj2vj")
+volume_db = -12.0
+pitch_scale = 0.8
+
+[node name="RunSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("41_5fvvb")
+volume_db = -20.0
+
+[node name="WalkSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("40_f6djt")
+volume_db = -25.0
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("40_02hsf")
 
 [node name="HitTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 0.8
 one_shot = true
 
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Blackscreen1" type="Sprite2D" parent="."]
+visible = false
+light_mask = 2
+visibility_layer = 2
+scale = Vector2(33.125, 175)
+texture = ExtResource("40_uf7jj")
+
+[node name="Blackscreen2" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 1)
+light_mask = 2
+visibility_layer = 2
+scale = Vector2(33.125, 175)
+texture = ExtResource("41_yoisc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -533,21 +699,21 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Rings" type="Node2D" parent="CanvasLayer/Control"]
-position = Vector2(576, 512)
+position = Vector2(979, 920)
 scale = Vector2(0.7, 0.7)
+
+[node name="Inner" type="Sprite2D" parent="CanvasLayer/Control/Rings"]
+modulate = Color(0.623529, 0.270588, 1, 0.87451)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("31_yy8x0")
 
 [node name="Outer" type="Sprite2D" parent="CanvasLayer/Control/Rings"]
 modulate = Color(1, 1, 1, 0.941176)
 rotation = 1.5708
 texture = ExtResource("30_4kjf4")
 
-[node name="Inner" type="Sprite2D" parent="CanvasLayer/Control/Rings"]
-modulate = Color(1, 1, 1, 0.501961)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("31_yy8x0")
-
 [node name="InnerInner" type="Sprite2D" parent="CanvasLayer/Control/Rings"]
-modulate = Color(1, 1, 1, 0.576471)
+modulate = Color(0, 0, 0, 0.588235)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("32_h6kr4")
 
@@ -556,6 +722,11 @@ texture = ExtResource("32_h6kr4")
 [node name="PlayerIdle" type="Node" parent="StateMachine"]
 
 [node name="PlayerCrouch" type="Node" parent="StateMachine"]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("33_iv20v")
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="HurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

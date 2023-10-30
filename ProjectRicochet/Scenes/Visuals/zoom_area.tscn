@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cis4dur84vje8"]
+
+[ext_resource type="Script" path="res://Scenes/Visuals/zoom_area.gd" id="1_4q85j"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_tmc4q"]
+b = Vector2(0, 500)
+
+[node name="ZoomChanger" type="Node2D"]
+script = ExtResource("1_4q85j")
+
+[node name="ZoomArea" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="ZoomArea"]
+shape = SubResource("SegmentShape2D_tmc4q")
+
+[connection signal="body_exited" from="ZoomArea" to="." method="_on_zoom_area_body_exited"]
