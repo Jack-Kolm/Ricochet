@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 1400
+const SPEED = 1220
 const MAX_BOUNCES = 6
 const BASE_DAMAGE = 100
 const KNOCKBACK_FACTOR = 100
@@ -14,7 +14,7 @@ const KNOCKBACK_FACTOR = 100
 @onready var destruction_delay_timer = $DestructionDelayTimer
 @onready var hitbox = $Hitbox
 var direction = Vector2(0, 0)
-var bounces = 1
+var bounces = 0
 var should_bounce = false
 var damage = BASE_DAMAGE
 var destroyed = false

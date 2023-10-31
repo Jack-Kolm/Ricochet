@@ -1,6 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://cgshgrem1j5uk"]
 
 [ext_resource type="Script" path="res://Scripts/Bullets/advanced_ricochet_bullet.gd" id="1_ug471"]
+[ext_resource type="Script" path="res://Scripts/bullet_trace.gd" id="2_3iyki"]
 [ext_resource type="Texture2D" uid="uid://cup88ux63f0si" path="res://Sprites/Bullets/NewBullets/XNewerBullet1.png" id="2_v84vs"]
 [ext_resource type="Texture2D" uid="uid://cys1ri8b2lnup" path="res://Sprites/Bullets/NewBullets/XNewerBullet2.png" id="3_im536"]
 [ext_resource type="Texture2D" uid="uid://6sl66ghfc0yb" path="res://Sprites/Bullets/NewBullets/XNewerBullet3.png" id="4_t0pul"]
@@ -16,13 +17,12 @@
 [ext_resource type="Texture2D" uid="uid://bodebyb4vgk07" path="res://Sprites/Explosion/explosion4.png" id="12_6go1u"]
 [ext_resource type="Texture2D" uid="uid://biskv30bbbw7q" path="res://Sprites/Explosion/explosion5.png" id="13_3mo0f"]
 [ext_resource type="Texture2D" uid="uid://cb2clutnd13pb" path="res://Sprites/Explosion/explosion6.png" id="14_5mpy7"]
-[ext_resource type="Script" path="res://Scripts/BulletTrace.gd" id="17_xnfoe"]
 [ext_resource type="AudioStream" uid="uid://kln5iq4wunqx" path="res://Sounds/Hit Sounds/hitHurtEnemy.wav" id="18_np4gy"]
 [ext_resource type="AudioStream" uid="uid://dexal3sakhmia" path="res://Sounds/Hit Sounds/hitHurtBad.wav" id="19_mcy82"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nv1bt"]
-radius = 3.61098
-height = 7.22196
+radius = 1.99998
+height = 6.39962
 
 [sub_resource type="Curve" id="Curve_klgkr"]
 _data = [Vector2(0.190722, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.473684), 1.63368, 0.0, 0, 0]
@@ -109,20 +109,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5m1w"]
 size = Vector2(4, 6)
 
-[node name="AdvancedRicochetBullet" type="CharacterBody2D"]
+[node name="AdvancedRicochetBullet" type="CharacterBody2D" groups=["player_bullets"]]
 collision_layer = 2
 collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_ug471")
 
 [node name="Hitbox" type="Area2D" parent="." groups=["ricochet_bullets"]]
-visible = false
 collision_layer = 2
 collision_mask = 4
 
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(2.19345e-05, -0.19981)
-scale = Vector2(0.880001, 1.44)
 shape = SubResource("CapsuleShape2D_nv1bt")
 
 [node name="BulletCast" type="RayCast2D" parent="."]
@@ -140,7 +138,7 @@ autostart = true
 width = 3.0
 width_curve = SubResource("Curve_klgkr")
 default_color = Color(0.3, 0, 0.7, 1)
-script = ExtResource("17_xnfoe")
+script = ExtResource("2_3iyki")
 
 [node name="BulletSprite" type="AnimatedSprite2D" parent="."]
 rotation = 1.57079
@@ -190,6 +188,9 @@ wait_time = 4.0
 [node name="HitstopTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 6.0
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="DestructionTimer" to="." method="_on_destruction_timer_timeout"]

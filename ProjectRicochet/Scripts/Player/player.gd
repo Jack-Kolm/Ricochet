@@ -42,7 +42,7 @@ enum States {STANDARD, CROUCHING, DEATH}
 var current_state = States.STANDARD
 var previous_state = States.STANDARD
 var direction = 0.0
-var health = 100.0
+var health = 1000.0
 var friction_factor = NORMAL_FRICTION
 var second_jump = false
 
@@ -257,7 +257,7 @@ func death_state(delta):
 		blackscreen2.modulate.a = lerp(blackscreen2.modulate.a, 1.0, delta*FADE_DELTA)
 		if blackscreen2.modulate.a >= 0.99:
 			print(get_parent())
-			get_parent().goto_restart_menu()
+			SceneSwitcher.switch_scene(SceneSwitcher.Scenes.RESTART)
 
 
 func _input(event):
@@ -286,8 +286,8 @@ func enter_state(state):
 			blackscreen1.visible = true
 			blackscreen2.visible = true
 			change_camera_zoom(5, 1)
-			AudioServer.set_bus_mute(1, true)
-			AudioServer.set_bus_mute(2, true)
+			#AudioServer.set_bus_mute(1, true)
+			#AudioServer.set_bus_mute(2, true)
 			$Sounds/DeathSound.play()
 
 

@@ -1,6 +1,6 @@
 extends LevelInit
 
-const TOTAL_BOSS_HEALTH = 1200
+const TOTAL_BOSS_HEALTH = 1000
 const FADE_DELTA = 1
 var show_boss_bar = false
 @onready var boss_bar = $CanvasLayer/BossBar
@@ -15,7 +15,7 @@ var end_flag = false
 func _ready():
 	boss_bar.modulate.a = 0.0
 	blackscreen.modulate.a = 0.0
-	player.change_camera_zoom(5, 2)
+	player.change_camera_zoom(1.5, 2)
 	pass # Replace with function body.
 
 
@@ -27,7 +27,7 @@ func _process(delta):
 		boss_bar.modulate.a = lerp(boss_bar.modulate.a, 0.0, delta)
 	if show_boss_bar:
 		boss_bar.modulate.a = lerp(boss_bar.modulate.a, 1.0, delta)
-	boss_health_bar.scale.x = (boss_health / total_health)
+	boss_health_bar.scale.x = (boss_health / TOTAL_BOSS_HEALTH)
 
 func engage_boss():
 	total_health = boss_health
@@ -35,9 +35,19 @@ func engage_boss():
 
 
 func _on_spawner_completed():
-	end_flag = true
+	#end_flag = true
+	$TileMap2.visible = true
 
 func _on_end_timer_timeout():
 	var node_children = get_tree().get_root().get_children()
 	goto_end(node_children)
 
+
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity):
+	pass # Replace with function body.
+
+
+func _on_spawner_2_completed():
+	end_flag = true
+	pass # Replace with function body.

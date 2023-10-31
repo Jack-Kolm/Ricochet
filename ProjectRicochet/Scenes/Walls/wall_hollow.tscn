@@ -6,10 +6,11 @@
 size = Vector2(128, 16)
 
 [node name="HollowWall" type="StaticBody2D"]
+collision_layer = 9
+collision_mask = 9
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_88ffm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_upk0g")
-one_way_collision = true

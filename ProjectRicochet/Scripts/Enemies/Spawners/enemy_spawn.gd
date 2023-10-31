@@ -2,12 +2,13 @@ extends Node2D
 
 const FADEOUT_DELTA = 1.5
 
-enum EnemyTypes {CHARGER, SHIELD_CHARGER, TURRET, BAT}
+enum EnemyTypes {CHARGER, SHIELD_CHARGER, TURRET, BAT, BOSS}
 @export var enemy_type : EnemyTypes
 
 @onready var Turret = preload("res://Scenes/Enemies/flying_enemy_turret.tscn")
 @onready var ShieldCharger = preload("res://Scenes/Enemies/shield_enemy_charger.tscn")
 @onready var Bat = preload("res://Scenes/Enemies/bat_enemy.tscn")
+@onready var Boss = preload("res://nav_char.tscn")
 
 var fadeout = false
 var player : Player
@@ -47,6 +48,9 @@ func spawn():
 		EnemyTypes.BAT:
 			new_enemy = Bat.instantiate()
 			new_enemy.aggro_start = true
+		EnemyTypes.BOSS:
+			new_enemy = Boss.instantiate()
+			new_enemy.player = player
 		_:
 			new_enemy = Bat.instantiate()
 	$SpawnSprite.visible = true

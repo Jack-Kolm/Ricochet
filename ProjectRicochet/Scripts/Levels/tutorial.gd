@@ -8,6 +8,7 @@ var timer_count = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player.change_camera_zoom(2.2, 4)
 	$SecondText.visible = false
 	pass # Replace with function body.
 

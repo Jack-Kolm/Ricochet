@@ -36,14 +36,14 @@ func _on_hurtbox_area_shape_entered(area_rid, area, area_shape_index, local_shap
 func _on_hurtbox_body_entered(body):
 	var root_node = get_tree().get_root().get_child(0)
 	if body.is_in_group("ricochet_bullets"):
-		var count = root_node.button_count
+		var count = get_parent().button_count
 		match count:
 			0:
-				root_node.first_hit()
+				get_parent().first_hit()
 			1:
 				if body.get_bounces() > 0:
-					root_node.second_hit()
+					get_parent().second_hit()
 					body.destroy()
 				else:
-					root_node.warn_player()
+					get_parent().warn_player()
 

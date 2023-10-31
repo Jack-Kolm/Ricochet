@@ -54,9 +54,8 @@ func _on_game_area_body_exited(body):
 
 
 func goto_restart_menu():
-	var node_children = get_tree().get_root().get_children()
-	"""for child in node_children:
-		child.queue_free()"""
+	"""var node_children = get_tree().get_root().get_children()
+
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var bullets = get_tree().get_nodes_in_group("bullets")
 	for enemy in enemies:
@@ -64,8 +63,9 @@ func goto_restart_menu():
 	for bullet in bullets:
 		bullet.queue_free()
 	Global.current_level_name = get_tree().current_scene.name
-	get_tree().change_scene_to_packed(restart_scene)
-
+	get_tree().change_scene_to_packed(restart_scene)"""
+	#SceneSwitcher.switch_scene("res://Scenes/Menus/restart_menu.tscn")
+	pass
 
 func boss_door_activate():
 	var node_children = get_tree().get_root().get_children()

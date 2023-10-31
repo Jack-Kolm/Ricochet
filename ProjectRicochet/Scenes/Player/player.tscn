@@ -496,10 +496,8 @@ use_parent_material = true
 position = Vector2(0, 1)
 scale = Vector2(0.7, 0.75)
 sprite_frames = SubResource("SpriteFrames_0m3sn")
-animation = &"death"
+animation = &"idle"
 autoplay = "walk"
-frame = 5
-frame_progress = 1.0
 
 [node name="HurtSprite" type="AnimatedSprite2D" parent="."]
 visible = false

@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://cck2pyixg4232"]
+[gd_scene load_steps=5 format=3 uid="uid://cck2pyixg4232"]
+
+[ext_resource type="PackedScene" uid="uid://dg8j7r6cg2bli" path="res://Scenes/Levels/init_main.tscn" id="1_5bvam"]
+[ext_resource type="PackedScene" uid="uid://c3jpqctqncljx" path="res://Scenes/Levels/tutorial.tscn" id="2_irvsp"]
+[ext_resource type="PackedScene" uid="uid://pstxfjuujuba" path="res://Scenes/Menus/main_menu.tscn" id="3_ik5va"]
+[ext_resource type="PackedScene" uid="uid://b1xb1kngoyjgw" path="res://Scenes/Menus/restart_menu.tscn" id="4_5ywyw"]
 
 [node name="level_master" type="Node2D"]
+
+[node name="InitMain" parent="." instance=ExtResource("1_5bvam")]
+
+[node name="tutorial" parent="." instance=ExtResource("2_irvsp")]
+
+[node name="MainMenu" parent="." instance=ExtResource("3_ik5va")]
+
+[node name="RestartMenu" parent="." instance=ExtResource("4_5ywyw")]

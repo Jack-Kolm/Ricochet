@@ -96,10 +96,10 @@
 [ext_resource type="Texture2D" uid="uid://d0lflvuqwdemj" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10090.png" id="103_xpf6h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xmtb7"]
-size = Vector2(17.8333, 37.8333)
+size = Vector2(15.5556, 34.6667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gss8k"]
-size = Vector2(52.0191, 54.2551)
+size = Vector2(50.3702, 44.782)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bj3xm"]
 
@@ -506,7 +506,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kdqwi"]
-height = 80.0
+radius = 8.33332
+height = 34.6667
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ndgb0"]
 radius = 5.26316
@@ -544,7 +545,7 @@ collision_mask = 33
 script = ExtResource("1_7d0i4")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-position = Vector2(2.01667, 10.9167)
+position = Vector2(4.26326e-14, 4.66667)
 scale = Vector2(0.6, 1)
 shape = SubResource("RectangleShape2D_xmtb7")
 
@@ -555,16 +556,8 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Shield"]
-position = Vector2(16, -1.66667)
-scale = Vector2(1.2, 1.2)
+position = Vector2(12.6667, -5)
 texture = ExtResource("2_jhvvq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
-visible = false
-position = Vector2(18.9485, -1.13333)
-scale = Vector2(0.377079, 0.782559)
-shape = SubResource("RectangleShape2D_gss8k")
-disabled = true
 
 [node name="ShieldArea" type="Area2D" parent="Shield"]
 position = Vector2(17.1467, -1.13333)
@@ -575,7 +568,7 @@ monitoring = false
 monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Shield/ShieldArea"]
-position = Vector2(6.32753, -1.61606)
+position = Vector2(5.75281, -8.45323)
 scale = Vector2(0.697079, 1.44349)
 shape = SubResource("RectangleShape2D_gss8k")
 disabled = true
@@ -583,8 +576,6 @@ disabled = true
 [node name="EnemySprite" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.8, 1, 1, 0.74)
 material = SubResource("ShaderMaterial_bj3xm")
-position = Vector2(0, 3)
-scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_y0vh7")
 animation = &"death"
 autoplay = "walk"
@@ -630,12 +621,12 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
-position = Vector2(-1.19209e-07, 11)
-scale = Vector2(0.6, 0.56)
+position = Vector2(0, 3.33333)
 collision_layer = 4
 collision_mask = 0
 
 [node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 1.33333)
 scale = Vector2(0.640001, 1)
 shape = SubResource("CapsuleShape2D_kdqwi")
 
@@ -643,7 +634,7 @@ shape = SubResource("CapsuleShape2D_kdqwi")
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(6, 11)
+position = Vector2(9.53674e-07, -4.76837e-07)
 scale = Vector2(2.51538, 1.04)
 shape = SubResource("CapsuleShape2D_ndgb0")
 
@@ -700,18 +691,15 @@ one_shot = true
 [node name="DespawnSound2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_niow8")
 volume_db = -0.1
-bus = &"SoundEffects"
 
 [node name="HitSoundPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamWAV_goj61")
-bus = &"SoundEffects"
 
 [node name="WalkSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(176, -120)
 stream = SubResource("AudioStreamOggVorbis_v7m3a")
 volume_db = -17.0
 pitch_scale = 0.7
-bus = &"SoundEffects"
 
 [node name="SeparationNode" type="Node2D" parent="."]
 

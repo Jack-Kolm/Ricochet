@@ -49,6 +49,8 @@ func _on_activate_spawn_area_body_exited(body):
 			if bat_boss_flag:
 				total_health += enemy.health
 				enemy.boss_scene = get_parent()
+				enemy.jump_spots = get_tree().get_root().get_node("BossLevel").get_node("JumpSpots")
+				#enemy.jump_points = $../JumpPoints
 			await get_tree().create_timer(spawn_delay).timeout
 		if bat_boss_flag:
 			get_parent().boss_health = float(total_health)

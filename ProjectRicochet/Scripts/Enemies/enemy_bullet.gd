@@ -1,17 +1,20 @@
 extends CharacterBody2D
 
 
-const SPEED = 200.0
+
 const BASE_DAMAGE = 100
 
 var damage = BASE_DAMAGE
 var direction = Vector2(0,0)
+var speed = 200.0
 
 @onready var bullet_sprite = $BulletSprite
 @onready var timer = $DestructionTimer
 @onready var explosion_sprite = $ExplosionSprite
 @onready var animation_player = $AnimationPlayer
 
+func _ready():
+	pass
 
 func _physics_process(delta):
 	delta = delta * Global.delta_factor
@@ -23,7 +26,7 @@ func _physics_process(delta):
 
 func prepare(start_direction):
 	self.direction = start_direction
-	self.velocity = start_direction * SPEED
+	self.velocity = start_direction * speed
 
 func destroy():
 	queue_free()

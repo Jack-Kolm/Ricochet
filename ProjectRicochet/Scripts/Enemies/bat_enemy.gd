@@ -16,7 +16,7 @@ var is_bat=true
 var angle = 0
 
 var boss_scene = null
-
+var jump_spots = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -79,11 +79,11 @@ func _ready():
 	self.scale.x = size_scale
 	self.scale.y = size_scale
 	if face_right_at_start:
-		movement_x_axis = 1
 		facing_x_axis = 1
+		movement_x_axis = 1
 	else:
-		movement_x_axis = -1
 		facing_x_axis = -1
+		movement_x_axis = -1
 	$ChaseArea.scale = Vector2(chase_target_scale, chase_target_scale)
 
 
