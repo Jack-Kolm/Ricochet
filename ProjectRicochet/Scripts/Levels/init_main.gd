@@ -138,5 +138,4 @@ func _on_spawner_2_completed():
 
 func _on_fall_area_body_entered(body):
 	if body.is_in_group("player"):
-		var node_children = get_tree().get_root().get_children()
-		goto_menu(node_children)
+		body.detroy()

@@ -4,6 +4,7 @@ extends Node
 var delta_factor = 1
 var bad_bitch = "bad bitch"
 var current_level_name : String
+var boss_level_flag = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

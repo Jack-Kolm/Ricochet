@@ -685,15 +685,18 @@ size_flags_vertical = 3
 layout_mode = 2
 offset_right = 24.0
 offset_bottom = 26.0
+scale = Vector2(2, 2)
 
 [node name="HealthLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="GunChargeLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="JumpChargeLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Rings" type="Node2D" parent="CanvasLayer/Control"]

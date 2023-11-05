@@ -473,7 +473,7 @@ radius = 32.9848
 radius = 296.0
 
 [node name="BatEnemy" type="CharacterBody2D"]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.45, 0.45)
 collision_layer = 2
 collision_mask = 0
 motion_mode = 1
@@ -499,6 +499,13 @@ position = Vector2(1.52588e-05, 12)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_so0cu")
 
+[node name="ExplosionSprite2" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 0.866667)
+position = Vector2(1.52588e-05, 12)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_so0cu")
+
 [node name="Hitbox" type="Area2D" parent="." groups=["enemies"]]
 monitorable = false
 
@@ -507,11 +514,9 @@ shape = SubResource("CircleShape2D_1wc1d")
 
 [node name="HitSoundPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamWAV_goj61")
-bus = &"SoundEffects"
 
 [node name="DespawnSound2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("103_pkb7s")
-bus = &"SoundEffects"
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
@@ -550,6 +555,7 @@ shape = SubResource("CircleShape2D_glpa1")
 one_shot = true
 
 [connection signal="animation_finished" from="ExplosionSprite" to="." method="_on_explosion_sprite_animation_finished"]
+[connection signal="animation_finished" from="ExplosionSprite2" to="." method="_on_explosion_sprite_animation_finished"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

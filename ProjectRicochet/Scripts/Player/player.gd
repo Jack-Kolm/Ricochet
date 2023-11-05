@@ -59,6 +59,8 @@ var jump_check = 1
 
 var is_jumping = false
 
+var boss_flag = false
+
 @onready var position_is_position = Vector2(0,0)
 @onready var gun = $Gun
 @onready var aimcast = $Gun/AimCast
@@ -116,7 +118,7 @@ func _physics_process(delta):
 func general_step(delta):
 	$HurtSprite.material.set_shader_parameter("tint", lerp($HurtSprite.material.get_shader_parameter("tint"), Color.BLACK, delta))
 	camera.zoom = lerp(camera.zoom, target_zoom, delta*zoom_delta)
-	gun_bar.set_modulate(Color(0.5,0.5,0.5))
+	#gun_bar.set_modulate(Color(0.5,0.5,0.5))
 	if Input.is_action_just_released("Shoot"):
 		#if gun_charge >= MIN_GUN_CHARGE:
 		var inner_ring_offset = 0.05
@@ -155,9 +157,9 @@ func general_step(delta):
 		gun.angle_offset = 3*(PI/2)
 		player_sprite.scale.x = -SPRITE_X_SCALE
 	
-	health_bar.text = "HP: "+str(health)
-	gun_bar.text = "GUN: "+str(gun_charge)
-	jump_bar.text = "JUMP: "+str(outer_ring.scale.x)
+	health_bar.text = "Player health: "+str(health)
+	#gun_bar.text = "GUN: "+str(gun_charge)
+	#jump_bar.text = "JUMP: "+str(outer_ring.scale.x)
 	
 	#if direction:
 	#	player_sprite.scale.x = SPRITE_X_SCALE * direction
@@ -256,7 +258,7 @@ func death_state(delta):
 	if blackscreen1.modulate.a >= 0.99:
 		blackscreen2.modulate.a = lerp(blackscreen2.modulate.a, 1.0, delta*FADE_DELTA)
 		if blackscreen2.modulate.a >= 0.99:
-			print(get_parent())
+
 			SceneSwitcher.switch_scene(SceneSwitcher.Scenes.RESTART)
 
 
@@ -282,6 +284,9 @@ func enter_state(state):
 		States.DEATH:
 			#player_sprite.animation = "walk"
 			#player_sprite.stop()
+			blackscreen1.z_index = 7
+			player_sprite.z_index = 8
+			blackscreen2.z_index = 9
 			player_sprite.play("death")
 			blackscreen1.visible = true
 			blackscreen2.visible = true
@@ -289,7 +294,6 @@ func enter_state(state):
 			#AudioServer.set_bus_mute(1, true)
 			#AudioServer.set_bus_mute(2, true)
 			$Sounds/DeathSound.play()
-
 
 
 func exit_state(state):
@@ -344,7 +348,6 @@ func check_jump(delta):
 
 func apply_damage(damage):
 	if hit_timer.is_stopped():
-
 		hurtbox_area.set_collision_layer_value(1, false)
 		hurtbox_area.set_collision_mask_value(1, false)
 		health -= damage
@@ -353,8 +356,12 @@ func apply_damage(damage):
 		#self.set_modulate(Color(1, 1, 1, 0.3))
 		self.material.set_shader_parameter("color",OUTLINE_HURT)
 		if health <= 0:
-			enter_state(States.DEATH)
+			destroy()
 			#queue_free()
+
+
+func destroy():
+	enter_state(States.DEATH)
 
 
 func apply_knockback(direction, force=KNOCKBACK):

@@ -20,6 +20,9 @@ func _on_button_button_up():
 	#self.visible = false
 	#AudioServer.set_bus_mute(1, true)
 	#sAudioServer.set_bus_mute(2, true)
-	SceneSwitcher.switch_scene(SceneSwitcher.Scenes.INITMAIN)
+	if Global.boss_level_flag == false:
+		SceneSwitcher.switch_scene(SceneSwitcher.Scenes.INITMAIN)
+	else:
+		SceneSwitcher.switch_scene(SceneSwitcher.Scenes.BOSS)
 
 

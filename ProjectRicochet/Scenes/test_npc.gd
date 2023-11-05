@@ -12,7 +12,7 @@ const SHOTGUN_DISTANCE = 200.0
 @onready var surround_check : Area2D = $SurroundCheck
 @onready var shoot_timer : Timer = $ShootTimer
 @onready var Bullet = preload("res://Scenes/Bullets/enemy_bullet.tscn")
-var health = 1000
+var health = 2000
 var rng = RandomNumberGenerator.new()
 var spawner : Spawner
 var boss_scene
@@ -40,7 +40,6 @@ func _physics_process(delta):
 	elif velocity.x < 0:
 		x_axis = -1
 	if weakref(player):
-		facing_x_axis = sign(global_position.direction_to(player.global_position).x)
 	
 		if global_position.distance_to(player.global_position) < SHOTGUN_DISTANCE:
 			shotgun_flag = true
@@ -49,14 +48,13 @@ func _physics_process(delta):
 			shotgun_flag = false
 			shoot_timer.wait_time = 3
 	
-	if abs(velocity.x) < 5:
+	if abs(velocity.x) < 2:
 		$Sprite.animation = "idle"
 	else:
 		$Sprite.animation = "run"
 	
 	self.scale.x = x_axis
-	$Sprite.scale.x = facing_x_axis * x_axis
-
+	
 	if not is_on_floor():
 		if velocity.y < 0:
 			$Sprite.animation = "jump"
@@ -82,6 +80,7 @@ func _physics_process(delta):
 		#var axis = to_local(navagent.get_next_path_position().normalized())
 		var axis = global_position.direction_to(next)
 		#var intented_velocity = (next - global_position).normalized() * SPEED
+
 
 		var intended_velocity
 		if is_jumping:
@@ -118,6 +117,7 @@ func move():
 	if global_position.direction_to(navagent.get_next_path_position()).y < 0:
 		enable_jump()
 
+
 func apply_damage(damage):
 	set_modulate(Color(1,0.2,0.2,0.8))
 	if boss_scene != null:
@@ -126,8 +126,19 @@ func apply_damage(damage):
 		else:
 			boss_scene.boss_health -= health
 	health -= damage
+	if health <= 0:
+		destroy()
+
+
 func apply_knockback(force, direction):
 	pass
+
+
+func destroy():
+	if spawner != null:
+		spawner.spawned_enemies -= 1
+	$Sprite.play()
+
 
 func shoot():
 	if shotgun_flag or global_position.distance_to(player.global_position) < SHOTGUN_DISTANCE:
@@ -161,7 +172,6 @@ func shoot():
 			new_bullet.scale = Vector2(0.3,0.3)
 			new_bullet.prepare(direction)
 			get_tree().get_root().add_child(new_bullet)
-			
 			#$ShootSound2D.play()
 			await get_tree().create_timer(0.2).timeout
 
@@ -227,8 +237,9 @@ func _on_area_2d_body_exited(body):
 	if not navagent.is_navigation_finished():
 		enable_jump()
 	else:
-		move()
-		enable_jump()
+		if is_on_floor():
+			move()
+			enable_jump()
 
 
 func _on_timer_timeout():
@@ -274,3 +285,8 @@ func _on_shotgun_check_body_entered(body):
 	if body.is_in_group("player"):
 		shoot()
 		move()
+
+
+func _on_explosion_sprite_animation_finished():
+	queue_free()
+	#pass # Replace with function body.
