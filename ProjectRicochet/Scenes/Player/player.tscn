@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://oicjjw82y2vb"]
+[gd_scene load_steps=104 format=3 uid="uid://oicjjw82y2vb"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_0oquj"]
 [ext_resource type="Shader" path="res://Scenes/Player/player.gdshader" id="1_pm0xl"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://dhe5x42e6hhtt" path="res://Sprites/Player/maleBase/base/base_dark5.png" id="14_a3snf"]
 [ext_resource type="Texture2D" uid="uid://btv23fvy8ioy0" path="res://Sprites/Player/maleBase/base/base_dark7.png" id="15_4loak"]
 [ext_resource type="Texture2D" uid="uid://xxgo4e3me60v" path="res://Sprites/Player/maleBase/base/base_dark6.png" id="16_j5fhy"]
+[ext_resource type="Texture2D" uid="uid://dom7dioak0vh0" path="res://Sprites/Player/FINALPLAYER/player_walk_backwards.png" id="21_beb6m"]
 [ext_resource type="Texture2D" uid="uid://64qhkt4xxxt5" path="res://Sprites/Player/FINALPLAYER/player_crouch.png" id="21_sawqd"]
 [ext_resource type="Texture2D" uid="uid://bbaas3fcls8yr" path="res://Sprites/Player/FINALPLAYER/player_idle.png" id="22_1xvv4"]
 [ext_resource type="Texture2D" uid="uid://dqal6maomlgb2" path="res://Sprites/Player/player_new22_sheet.png" id="22_ptltd"]
@@ -144,6 +145,38 @@ animations = [{
 "name": &"walk",
 "speed": 8.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d17ho"]
+atlas = ExtResource("21_beb6m")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wxqw"]
+atlas = ExtResource("21_beb6m")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rm3if"]
+atlas = ExtResource("21_beb6m")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8a0pq"]
+atlas = ExtResource("21_beb6m")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgoat"]
+atlas = ExtResource("21_beb6m")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjph3"]
+atlas = ExtResource("21_beb6m")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74fkx"]
+atlas = ExtResource("21_beb6m")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe227"]
+atlas = ExtResource("21_beb6m")
+region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqm6g"]
 atlas = ExtResource("21_sawqd")
@@ -283,6 +316,35 @@ region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m3sn"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d17ho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wxqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rm3if")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8a0pq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgoat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjph3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74fkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oe227")
+}],
+"loop": true,
+"name": &"backwalk",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aqm6g")
@@ -496,7 +558,7 @@ use_parent_material = true
 position = Vector2(0, 1)
 scale = Vector2(0.7, 0.75)
 sprite_frames = SubResource("SpriteFrames_0m3sn")
-animation = &"idle"
+animation = &"backwalk"
 autoplay = "walk"
 
 [node name="HurtSprite" type="AnimatedSprite2D" parent="."]
@@ -522,18 +584,18 @@ width = 2.0
 default_color = Color(0.745098, 0.690196, 0.941176, 0.572549)
 
 [node name="GunSprite" type="Sprite2D" parent="Gun"]
-position = Vector2(0.00152588, 45.9206)
-rotation = 1.57079
+rotation = 1.5708
 scale = Vector2(3.5, 2.5)
 texture = ExtResource("28_gw84u")
+offset = Vector2(12, 0)
 
 [node name="GunOutlineSprite" type="Sprite2D" parent="Gun"]
 z_index = -1
 use_parent_material = true
-position = Vector2(0.0610352, 45.8317)
-rotation = 1.57079
+rotation = 1.5708
 scale = Vector2(3.5, 2.5)
 texture = ExtResource("28_gw84u")
+offset = Vector2(12, 0)
 
 [node name="GunRayCast" type="RayCast2D" parent="Gun"]
 visible = false
@@ -570,6 +632,12 @@ color = Color(0.643137, 0.239216, 1, 1)
 texture = ExtResource("30_wu22n")
 texture_scale = 0.2
 
+[node name="MuzzleFlash" type="PointLight2D" parent="Gun"]
+position = Vector2(3.57141, 87.4996)
+energy = 0.0
+texture = ExtResource("30_wu22n")
+texture_scale = 0.15
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="HurtboxArea" type="Area2D" parent="."]
@@ -591,7 +659,7 @@ visible = false
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_7qvtm")
 
-[node name="Sounds" type="Node" parent="."]
+[node name="Sounds" type="Node2D" parent="."]
 
 [node name="GunSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("12_x4i6c")

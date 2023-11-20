@@ -20,7 +20,6 @@ func chase_step(delta):
 			if player_x_axis * facing_x_axis != 1:
 				turn_to_player_timer.start()
 			var target_distance = global_position.distance_to(player.global_position)
-			print(target_x)
 			if abs(target_x) < away_target_distance:
 				velocity.x =  lerp(velocity.x, movement_x_axis * -SPEED, delta * MOVE_FACTOR)
 			elif abs(target_x) > away_target_distance and abs(target_x) < toward_target_distance:

@@ -1,6 +1,5 @@
 extends Control
 
-var restart_flag = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -12,7 +11,7 @@ func _process(delta):
 
 
 func _on_start_button_button_up():
-	get_tree().change_scene_to_file("res://Scenes/init_main.tscn")
+	SceneSwitcher.switch_scene(SceneSwitcher.Scenes.INITMAIN)
 	#get_tree().reload_current_scene()
 
 

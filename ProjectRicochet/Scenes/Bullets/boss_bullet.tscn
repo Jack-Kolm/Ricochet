@@ -1,0 +1,158 @@
+[gd_scene load_steps=19 format=3 uid="uid://c1tvd6qusryl3"]
+
+[ext_resource type="Script" path="res://Scenes/Bullets/boss_bullet.gd" id="1_yiktd"]
+[ext_resource type="Texture2D" uid="uid://bvbdowigv2yk1" path="res://Sprites/Light/light1.png" id="2_xu4j1"]
+[ext_resource type="Texture2D" uid="uid://cunu8rmyj32d3" path="res://Sprites/Bullets/NewBullets/NewBullet7.png" id="3_a0q4h"]
+[ext_resource type="Texture2D" uid="uid://dl03ttlb24ada" path="res://Sprites/Explosion/explosion1.png" id="5_e42wj"]
+[ext_resource type="Texture2D" uid="uid://dt4xoaxgrgijr" path="res://Sprites/Explosion/explosion2.png" id="6_jfx2r"]
+[ext_resource type="Texture2D" uid="uid://b5gger2f4230r" path="res://Sprites/Explosion/explosion3.png" id="7_mwyu6"]
+[ext_resource type="Texture2D" uid="uid://bodebyb4vgk07" path="res://Sprites/Explosion/explosion4.png" id="8_8wwy1"]
+[ext_resource type="Texture2D" uid="uid://biskv30bbbw7q" path="res://Sprites/Explosion/explosion5.png" id="9_rqrdk"]
+[ext_resource type="Script" path="res://Scenes/Bullets/trace_test.gd" id="10_46gbm"]
+[ext_resource type="Texture2D" uid="uid://cb2clutnd13pb" path="res://Sprites/Explosion/explosion6.png" id="10_ih01h"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7nkuh"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_5iufb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xhhqd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_a0q4h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_dv2qf"]
+resource_name = "explosion"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplosionSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_20f2r"]
+_data = {
+"explosion": SubResource("Animation_dv2qf")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pfxgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_e42wj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jfx2r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_mwyu6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_8wwy1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rqrdk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ih01h")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tvsam"]
+radius = 15.6257
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xgle"]
+radius = 15.2861
+
+[node name="BossBullet" type="CharacterBody2D" groups=["bullets"]]
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_yiktd")
+
+[node name="BulletCast" type="RayCast2D" parent="."]
+position = Vector2(-6.19888e-05, 0.0881703)
+scale = Vector2(0.667571, 1.85699)
+target_position = Vector2(0, 19.2169)
+collide_with_areas = true
+
+[node name="Trace" type="Line2D" parent="."]
+top_level = true
+light_mask = 4
+visibility_layer = 4
+z_index = 3
+material = SubResource("CanvasItemMaterial_7nkuh")
+width = 5.0
+width_curve = SubResource("Curve_5iufb")
+default_color = Color(1, 0.0784314, 0.0784314, 1)
+script = ExtResource("10_46gbm")
+max_length = 100
+
+[node name="BulletSprite" type="AnimatedSprite2D" parent="."]
+light_mask = 3
+position = Vector2(4.76837e-07, 4.76837e-07)
+rotation = 1.57079
+scale = Vector2(1.38581, 1.34067)
+sprite_frames = SubResource("SpriteFrames_xhhqd")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 1
+position = Vector2(-3.63798e-12, 0)
+rotation = 1.57079
+scale = Vector2(2.39774, 2.31965)
+color = Color(1, 0.180392, 0.0901961, 1)
+energy = 20.0
+texture = ExtResource("2_xu4j1")
+texture_scale = 0.07
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_20f2r")
+}
+
+[node name="ExplosionSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 0.364706)
+position = Vector2(0.694444, -0.704225)
+scale = Vector2(0.679669, 0.674258)
+sprite_frames = SubResource("SpriteFrames_pfxgj")
+
+[node name="RicochetSoundPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -15.0
+pitch_scale = 0.6
+max_polyphony = 5
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2.19345e-05, -0.19981)
+shape = SubResource("CircleShape2D_tvsam")
+
+[node name="DestructionTimer" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_7xgle")
+
+[connection signal="timeout" from="DestructionTimer" to="." method="_on_destruction_timer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

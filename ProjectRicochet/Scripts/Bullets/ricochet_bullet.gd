@@ -48,7 +48,6 @@ func step(delta):
 		bullet_sprite.set_modulate(Color(1, 1, 1, 1))
 		current_goal = points.pop_front()
 		next_point = current_goal[0]
-		#print(current_goal)
 		direction = global_position.direction_to(next_point)
 		var index = rng.randi_range(0,3)
 		sound_player.stream = impact_sounds[index]
@@ -81,7 +80,6 @@ func step(delta):
 		#current_goal = points.pop_front()
 		#next_point = current_goal[0]
 		#direction = global_position.direction_to(next_point)
-		#print(current_goal)
 		#direction = global_position.direction_to(next_point)
 		var index = rng.randi_range(0,3)
 		sound_player.stream = impact_sounds[index]
@@ -142,7 +140,7 @@ func _on_wall_check_body_entered(body):
 	query.set_collision_mask(1)
 	var space_state = get_world_2d().direct_space_state
 	var result = space_state.intersect_ray(query)
-	print(result)
+
 	#var collision_point = bullet_cast.get_collision_point()
 	#var normal = bullet_cast.get_collision_normal()
 	#body.get_collision_normal

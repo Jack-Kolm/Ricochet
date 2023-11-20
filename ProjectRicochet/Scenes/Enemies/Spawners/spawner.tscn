@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Spawners/spawner.gd" id="1_0w3ks"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_vui38"]
-a = Vector2(-224, 0)
-b = Vector2(312, 0)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ttvf"]
+size = Vector2(640, 32)
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_0w3ks")
@@ -12,11 +11,13 @@ script = ExtResource("1_0w3ks")
 [node name="ActivateSpawnArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActivateSpawnArea"]
-shape = SubResource("SegmentShape2D_vui38")
+shape = SubResource("RectangleShape2D_4ttvf")
 
 [node name="SpawnDelay" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 autostart = true
+
+[node name="DestroyDelay" type="Timer" parent="."]
 
 [connection signal="body_exited" from="ActivateSpawnArea" to="." method="_on_activate_spawn_area_body_exited" flags=6]

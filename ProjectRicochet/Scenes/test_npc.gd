@@ -7,11 +7,15 @@ const SPEED = 300.0
 const JUMP_SPEED = 500.0
 const JUMP_VELOCITY = -400.0
 const SHOTGUN_DISTANCE = 200.0
+const SHOTGUN_SHOOT_TIME = 2
+const RIFLE_SHOOT_TIME = 2.2
 @onready var path_follow = get_parent()
 @onready var navagent : NavigationAgent2D = $NavigationAgent2D
 @onready var surround_check : Area2D = $SurroundCheck
 @onready var shoot_timer : Timer = $ShootTimer
-@onready var Bullet = preload("res://Scenes/Bullets/enemy_bullet.tscn")
+
+@onready var Bullet = preload("res://Scenes/Bullets/boss_bullet.tscn")
+
 var health = 2000
 var rng = RandomNumberGenerator.new()
 var spawner : Spawner
@@ -27,7 +31,7 @@ var prev_spot = null
 var destroyed = false
 var activated = true
 func _ready():
-	#path_follow.rotates = false
+	add_to_group("enemies")
 	pass
 	
 func _physics_process(delta):
@@ -40,30 +44,43 @@ func _physics_process(delta):
 	elif velocity.x < 0:
 		x_axis = -1
 	if weakref(player):
-	
+		facing_x_axis = sign(global_position.direction_to(player.global_position).x)
+		var gun_rot = global_position.angle_to_point(player.global_position)
+		$Gun.rotation = gun_rot
 		if global_position.distance_to(player.global_position) < SHOTGUN_DISTANCE:
 			shotgun_flag = true
-			shoot_timer.wait_time = 2
+			shoot_timer.wait_time = SHOTGUN_SHOOT_TIME
 		else:
 			shotgun_flag = false
-			shoot_timer.wait_time = 3
+			shoot_timer.wait_time = RIFLE_SHOOT_TIME
 	
 	if abs(velocity.x) < 2:
-		$Sprite.animation = "idle"
+		$Sprite/Sprite.animation = "idle"
 	else:
-		$Sprite.animation = "run"
-	
-	self.scale.x = x_axis
-	
-	if not is_on_floor():
-		if velocity.y < 0:
-			$Sprite.animation = "jump"
+		if x_axis * facing_x_axis != 1:
+			$Sprite/Sprite.animation = "backwalk"
 		else:
-			$Sprite.animation = "fall"
+			$Sprite/Sprite.animation = "run"
+	
+	
+	$AxisNode.scale.x = x_axis
+	$Sprite.scale.x = facing_x_axis
+	if not is_on_floor():
+		if not $Sprite/SpriteWings.is_playing():
+			$Sprite/SpriteWings.play()
+		if not $Sounds/WingSound.is_playing():
+			$Sounds/WingSound.play()
+		if velocity.y < 0:
+			$Sprite/Sprite.animation = "jump"
+		else:
+			$Sprite/Sprite.animation = "fall"
 		# Add the gravity.
 		if is_jumping:
 			velocity.y -= gravity * delta
 		velocity.y += gravity * delta
+	else:
+		$Sprite/SpriteWings.stop()
+		$Sprite/SpriteWings.frame = 3
 	#if global_position.distance_to(player.global_position) < 100:
 	# Add the gravity.
 	#	path_follow.progress = (path_follow.progress + SPEED * delta)
@@ -137,43 +154,56 @@ func apply_knockback(force, direction):
 func destroy():
 	if spawner != null:
 		spawner.spawned_enemies -= 1
-	$Sprite.play()
+	$Sprite/Sprite.play("death")
+	$Gun.visible = false
+	$Sprite/SpriteWings.visible = false
+	activated = false
+	shoot_timer.stop()
+	
 
 
 func shoot():
+	var rifle_speed = 600
+	var shotgun_speed = 400
+	var barrel_point = $Gun/BarrelPoint.global_position
 	if shotgun_flag or global_position.distance_to(player.global_position) < SHOTGUN_DISTANCE:
 		var new_bullet = Bullet.instantiate()
 		var new_bullet2 = Bullet.instantiate()
 		var new_bullet3 = Bullet.instantiate()
-		new_bullet.global_position = global_position
-		new_bullet2.global_position = global_position
-		new_bullet3.global_position = global_position
+		new_bullet.global_position = barrel_point
+		new_bullet2.global_position = barrel_point
+		new_bullet3.global_position = barrel_point
 		var direction = global_position.direction_to(player.hitpoint())
 		var direction2 = direction.rotated(PI/8)
 		var direction3 = direction.rotated(-PI/8)
 		new_bullet.scale = Vector2(0.2,0.2)
 		new_bullet2.scale = Vector2(0.2,0.2)
 		new_bullet3.scale = Vector2(0.2,0.2)
-		new_bullet.speed = 370
-		new_bullet2.speed = 370
-		new_bullet3.speed = 370
+		new_bullet.speed = shotgun_speed
+		new_bullet2.speed = shotgun_speed
+		new_bullet3.speed = shotgun_speed
+		$Sounds/ShotgunShootSound.play()
 		new_bullet.prepare(direction)
 		get_tree().get_root().add_child(new_bullet)
 		new_bullet2.prepare(direction2)
 		get_tree().get_root().add_child(new_bullet2)
 		new_bullet3.prepare(direction3)
 		get_tree().get_root().add_child(new_bullet3)
+
 	else:
 		for n in range(3):
 			var new_bullet = Bullet.instantiate()
-			new_bullet.global_position = global_position
+			new_bullet.global_position = barrel_point
 			var direction = global_position.direction_to(player.hitpoint())
-			new_bullet.speed = 320
+			new_bullet.speed = rifle_speed
 			new_bullet.scale = Vector2(0.3,0.3)
 			new_bullet.prepare(direction)
 			get_tree().get_root().add_child(new_bullet)
-			#$ShootSound2D.play()
+			var pitch_offset = rng.randf_range(-0.3, 0.3)
+			$Sounds/RifleShootSound.pitch_scale = 1 + pitch_offset
+			$Sounds/RifleShootSound.play()
 			await get_tree().create_timer(0.2).timeout
+			
 
 func enable_jump():
 	is_jumping = true
@@ -191,8 +221,6 @@ func avoid_bullet(incoming_dir : Vector2, bullet_dir: Vector2, incoming_pos: Vec
 	query.collision_mask = 9
 	var result = space_state.intersect_ray(query)
 	var new_pos = Vector2(0,0)
-	print(result)
-	print(abs(incoming_dir.y))
 	if result:
 		if abs(incoming_dir.x) > 0.8:
 			if is_on_floor():

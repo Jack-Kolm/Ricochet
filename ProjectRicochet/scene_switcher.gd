@@ -29,6 +29,8 @@ func switch_scene(scene : Scenes):
 			call_deferred("_deferred_switch_scene", boss_scene)
 		Scenes.END:
 			call_deferred("_deferred_switch_scene", end_scene)
+		Scenes.MENU:
+			call_deferred("_deferred_switch_scene", menu_scene)
 
 func _deferred_switch_scene(respath):
 	if current_scene != null:

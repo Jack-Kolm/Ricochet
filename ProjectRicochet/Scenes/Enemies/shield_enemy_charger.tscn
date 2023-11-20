@@ -698,8 +698,10 @@ stream = SubResource("AudioStreamWAV_goj61")
 [node name="WalkSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(176, -120)
 stream = SubResource("AudioStreamOggVorbis_v7m3a")
-volume_db = -17.0
+volume_db = -15.0
 pitch_scale = 0.7
+max_distance = 500.0
+attenuation = 3.73213
 
 [node name="SeparationNode" type="Node2D" parent="."]
 

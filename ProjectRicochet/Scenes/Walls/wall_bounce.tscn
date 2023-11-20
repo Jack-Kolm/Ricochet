@@ -1,20 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmrfmdxahubd5"]
+[gd_scene load_steps=7 format=3 uid="uid://dmrfmdxahubd5"]
 
+[ext_resource type="Shader" path="res://Scenes/Walls/wall_bounce.gdshader" id="1_nm5d3"]
 [ext_resource type="Texture2D" uid="uid://d02wfoxgst8pi" path="res://Sprites/Wall/Wall_BOUNCE.png" id="1_pcfod"]
+[ext_resource type="Texture2D" uid="uid://6pc50r0471ee" path="res://Sprites/Wall/Wall_NORMAL.png" id="2_xfeeh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_txu1h"]
+shader = ExtResource("1_nm5d3")
+shader_parameter/amount = 40.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ke1i0"]
+shader = ExtResource("1_nm5d3")
+shader_parameter/amount = 40.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjhsa"]
 size = Vector2(1280, 160)
 
 [node name="WallBounce" type="StaticBody2D"]
-modulate = Color(0.0588235, 1, 0.639216, 0.34902)
 z_index = -1
+material = SubResource("ShaderMaterial_txu1h")
+position = Vector2(-14, -20)
 collision_layer = 6
 collision_mask = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ke1i0")
+use_parent_material = true
 texture = ExtResource("1_pcfod")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(3.33786e-06, 4.17233e-07)
 scale = Vector2(0.1, 0.1)
 shape = SubResource("RectangleShape2D_pjhsa")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+use_parent_material = true
+texture = ExtResource("2_xfeeh")

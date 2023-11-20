@@ -120,7 +120,6 @@ func boids_separation(delta):
 	#velocity.y += new_velocity_y
 
 
-
 func apply_knockback(force, direction):
 	velocity = Vector2(0,0)
 	velocity += force * direction

@@ -463,7 +463,6 @@ one_shot = true
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_s2yrm")
-bus = &"SoundEffects"
 
 [node name="SpawnSprite" type="AnimatedSprite2D" parent="."]
 visible = false

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://6pc50r0471ee" path="res://Sprites/Wall/Wall_NORMAL.png" id="1_q4587"]
 
 [node name="RestartMenu" type="Control"]
+z_index = 10
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3xwqn")
@@ -19,11 +20,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Try Again"
 
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="QuitToMenuButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Menu"
 
@@ -53,4 +54,5 @@ offset_right = 39.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="button_up" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/RestartButton" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_button_up"]

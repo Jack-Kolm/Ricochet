@@ -26,3 +26,5 @@ func _on_button_button_up():
 		SceneSwitcher.switch_scene(SceneSwitcher.Scenes.BOSS)
 
 
+func _on_quit_to_menu_button_button_up():
+		SceneSwitcher.switch_scene(SceneSwitcher.Scenes.MENU)

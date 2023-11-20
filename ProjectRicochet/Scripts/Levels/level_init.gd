@@ -56,12 +56,10 @@ func cleanup():
 			child.queue_free()
 	
 	for child in level_children:
-		#print(child.name)
 		child.queue_free()
 
 
 func reload_self():
-	#print("YOOO")
 	cleanup()
 	get_tree().reload_current_scene()
 	$CanvasLayer/RestartMenu.visible = false

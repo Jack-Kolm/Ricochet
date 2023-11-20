@@ -32,7 +32,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	super(delta)
-	
+	if not $WingSound.is_playing():
+		$WingSound.play()
 
 func chase_step(delta):
 	if weakref(player).get_ref():

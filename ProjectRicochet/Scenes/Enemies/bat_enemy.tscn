@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://7g343iav3fgo"]
+[gd_scene load_steps=114 format=3 uid="uid://7g343iav3fgo"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/bat_enemy.gd" id="1_takm6"]
 [ext_resource type="Texture2D" uid="uid://diqgdiguyrn4" path="res://Sprites/Enemies/Bat/bat-Sheet.png" id="2_1dbtj"]
@@ -84,6 +84,7 @@
 [ext_resource type="Texture2D" uid="uid://c4sxy1o101fub" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10080.png" id="91_ad1b7"]
 [ext_resource type="Texture2D" uid="uid://dy4o6kjlfbway" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10081.png" id="92_u46qk"]
 [ext_resource type="Texture2D" uid="uid://dak8vsat15nxp" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10082.png" id="93_v4eh8"]
+[ext_resource type="AudioStream" uid="uid://bo1n4nehdqav1" path="res://Sounds/Walk/fast-simple-chop-5-6270.mp3" id="94_fct4g"]
 [ext_resource type="Texture2D" uid="uid://byao1oqnkxa7o" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10083.png" id="94_p6mcd"]
 [ext_resource type="Texture2D" uid="uid://c4p0tvjkq7sua" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10084.png" id="95_ijhwn"]
 [ext_resource type="Texture2D" uid="uid://ce4i7mjbl576s" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10085.png" id="96_p4rb0"]
@@ -470,7 +471,7 @@ radius = 32.9848
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_br52v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glpa1"]
-radius = 296.0
+radius = 573.53
 
 [node name="BatEnemy" type="CharacterBody2D"]
 scale = Vector2(0.45, 0.45)
@@ -553,6 +554,13 @@ shape = SubResource("CircleShape2D_glpa1")
 
 [node name="DeathTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="WingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("94_fct4g")
+volume_db = -8.0
+pitch_scale = 1.5
+max_distance = 500.0
+attenuation = 6.9644
 
 [connection signal="animation_finished" from="ExplosionSprite" to="." method="_on_explosion_sprite_animation_finished"]
 [connection signal="animation_finished" from="ExplosionSprite2" to="." method="_on_explosion_sprite_animation_finished"]

@@ -18,7 +18,6 @@ var should_play_music = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	boss_bar.modulate.a = 0.0
 	blackscreen.modulate.a = 0.0
 	player.change_camera_zoom(4, 2)
@@ -48,6 +47,7 @@ func _process(delta):
 			var bar_scale = 1
 			if is_bats:
 				bar_scale = boss_health / BATS_TOTAL_HEALTH
+				$Music/BatMusic.volume_db = -5
 			else:
 				$CanvasLayer/BossBar/BatsLabel.visible = false
 				$CanvasLayer/BossBar/BossLabel.visible = true
@@ -57,6 +57,7 @@ func _process(delta):
 			else:
 				boss_health_bar.scale.x
 		else:
+			$Music/BatMusic.volume_db -= 1
 			boss_bar.modulate.a = lerp(boss_bar.modulate.a, 0.0, delta)
 
 func engage_boss():
@@ -71,11 +72,13 @@ func engage_boss():
 
 func cleanup():
 	for child in get_children():
-		child.queue_free()
+		if child.is_in_group("enemies") or child.is_in_group("bullets"):
+			child.queue_free()
 
 
 func _on_bats_spawner_activated():
 	is_bats = true
+
 
 
 func _on_bats_spawner_completed():

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dpymqpf3w1780"
+path="res://.godot/imported/sniper-rifle-5989.mp3-b6c5589459c3cfe99e15b40aafa74e43.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Enemy Shooting/sniper-rifle-5989.mp3"
+dest_files=["res://.godot/imported/sniper-rifle-5989.mp3-b6c5589459c3cfe99e15b40aafa74e43.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -27,7 +27,7 @@ const FADE_DELTA = 2
 
 const GUN_RIGHT_Y = 0.24
 const GUN_LEFT_Y = -0.24
-
+const GUN_OFFSET_X = 6
 
 const MIN_GUN_CHARGE = 0.1
 const MAX_GUN_CHARGE = 0.2
@@ -50,14 +50,13 @@ var jump_charge = 0
 var gun_charge = 0
 
 var jump_timer = 0.0
-var air_time = 0.0
 
 var target_zoom = Vector2(1.0,1.0)
 var zoom_delta = 1
 
-var jump_check = 1
-
+var jump_fall_check = 1
 var is_jumping = false
+var fall_point = Vector2()
 
 var boss_flag = false
 
@@ -116,25 +115,21 @@ func _physics_process(delta):
 
 
 func general_step(delta):
+	$Gun/MuzzleFlash.energy = lerp($Gun/MuzzleFlash.energy, 0.0, delta*JUMP_DELTA)
 	$HurtSprite.material.set_shader_parameter("tint", lerp($HurtSprite.material.get_shader_parameter("tint"), Color.BLACK, delta))
 	camera.zoom = lerp(camera.zoom, target_zoom, delta*zoom_delta)
-	#gun_bar.set_modulate(Color(0.5,0.5,0.5))
 	if Input.is_action_just_released("Shoot"):
-		#if gun_charge >= MIN_GUN_CHARGE:
 		var inner_ring_offset = 0.05
 		if outer_ring.scale.x <= inner_ring.scale.x + inner_ring_offset and outer_ring.scale.x > inner_inner_ring.scale.x:
 			shoot()
-		#gun_charge = 0
+		
 	if Input.is_action_pressed("Shoot"):
 		var aim_speed_delta = 1.8
 		var outer_min_scale = Vector2(0.1,0.1)
 		outer_ring.visible = true
 		outer_ring.scale = lerp(outer_ring.scale, outer_min_scale, delta*aim_speed_delta)
 		outer_ring.modulate = lerp(outer_ring.modulate, Color(255,255,255, 1), delta)
-		#if gun_charge < MAX_GUN_CHARGE:
-		#	gun_charge += delta
-		#else:
-		#	gun_bar.set_modulate(Color(0.5,0.5,1))
+
 	else:
 		outer_ring.modulate = Color(255,255,255,0)
 		outer_ring.visible = false
@@ -147,7 +142,7 @@ func general_step(delta):
 		camera.offset = lerp(camera.offset, mouse_local_pos*MOUSE_POS_SCALE, delta*AIM_FACTOR)
 	else:
 		camera.offset = lerp(camera.offset, mouse_dir*MOUSE_POS_SCALE*MAX_CAMERA_OFFSET, delta*AIM_FACTOR)
-	
+
 	if mouse_dir.x > 0:
 		gun.scale.y = GUN_RIGHT_Y
 		gun.angle_offset = PI/2
@@ -158,27 +153,25 @@ func general_step(delta):
 		player_sprite.scale.x = -SPRITE_X_SCALE
 	
 	health_bar.text = "Player health: "+str(health)
-	#gun_bar.text = "GUN: "+str(gun_charge)
-	#jump_bar.text = "JUMP: "+str(outer_ring.scale.x)
-	
-	#if direction:
-	#	player_sprite.scale.x = SPRITE_X_SCALE * direction
 	
 	check_jump(delta)
 	if is_on_floor(): 
-	
+		if is_jumping:
+			var fall_distance = fall_point.distance_to(global_position)
+			print(fall_distance)
+		is_jumping = false
 		second_jump = false
-		jump_check = 1
+		jump_fall_check = 1
 	else:
-		
 		# Add the gravity.
 		velocity.y += gravity * delta
-		if sign(velocity.y)*jump_check == 1:
+		if sign(velocity.y)*jump_fall_check == 1:
+			fall_point = global_position
 			player_sprite.animation = "fall"
 			player_sprite.play()
-			jump_check = -1
+			jump_fall_check = -1
 	
-	if is_jumping:
+	"""if is_jumping:
 		if Input.is_action_just_pressed("ui_accept"):
 			jump_timer = 0.0
 			if is_on_floor():
@@ -195,7 +188,7 @@ func general_step(delta):
 			if jump_timer < MAX_JUMP_TIME and not second_jump:
 				velocity.y = lerp(velocity.y, MAX_JUMP_VELOCITY, delta*JUMP_DELTA)
 		if Input.is_action_just_released("ui_accept") and not is_on_floor():
-				jump_timer = 1
+				jump_timer = 1"""
 	move_and_slide()
 
 
@@ -213,7 +206,13 @@ func standard_state(delta):
 		if not player_sprite.is_playing():
 			player_sprite.play()
 		if direction:
-			if Input.is_action_pressed("Sprint"):
+			var aim_dir = sign(global_position.direction_to(get_global_mouse_position()).x)
+			if aim_dir*direction != 1:
+				player_sprite.animation = "backwalk"
+				if $Sounds/WalkSound.playing == false:
+					$Sounds/WalkSound.play()
+					$Sounds/RunSound.stop()
+			elif Input.is_action_pressed("Sprint"):
 				player_sprite.animation = "walk"
 				if $Sounds/WalkSound.playing == false:
 					$Sounds/WalkSound.play()
@@ -223,11 +222,12 @@ func standard_state(delta):
 				if $Sounds/RunSound.playing == false:
 					$Sounds/RunSound.play()
 					$Sounds/WalkSound.stop()
-
+			
 		else:
 			$Sounds/WalkSound.stop()
 			$Sounds/RunSound.stop()
 			player_sprite.animation = "idle"
+	
 	general_step(delta)
 
 func crouch_state(delta):
@@ -320,7 +320,7 @@ func shoot():
 		get_tree().get_root().add_child(new_bullet)
 		gun_sound_player.play()
 		shoot_timer.start()
-		var mat : Material = self.material
+		$Gun/MuzzleFlash.energy = 10
 
 func check_jump(delta):
 	if Input.is_action_just_pressed("ui_accept"):
@@ -332,12 +332,13 @@ func check_jump(delta):
 			player_sprite.animation = "jump"
 			player_sprite.play()
 			$Sounds/JumpSound.play()
-			jump_check = 1
+			jump_fall_check = 1
+			is_jumping = true
 		elif not second_jump:
 			$Sounds/JumpSound.play()
 			velocity.y = SECOND_JUMP_START
 			second_jump = true
-			jump_check = 1
+			jump_fall_check = 1
 	if Input.is_action_pressed("ui_accept") and not is_on_floor():
 		jump_timer += delta
 		if jump_timer < MAX_JUMP_TIME and not second_jump:
@@ -356,7 +357,7 @@ func apply_damage(damage):
 		#self.set_modulate(Color(1, 1, 1, 0.3))
 		self.material.set_shader_parameter("color",OUTLINE_HURT)
 		if health <= 0:
-			destroy()
+			destroy()  
 			#queue_free()
 
 

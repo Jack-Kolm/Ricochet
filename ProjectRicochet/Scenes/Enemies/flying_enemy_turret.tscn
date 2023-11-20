@@ -1,8 +1,9 @@
-[gd_scene load_steps=104 format=3 uid="uid://nk3n3e6a5tr1"]
+[gd_scene load_steps=105 format=3 uid="uid://nk3n3e6a5tr1"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/flying_enemy_turret.gd" id="1_oddko"]
 [ext_resource type="Texture2D" uid="uid://dmr505c5pcfvj" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10001.png" id="2_qsomc"]
 [ext_resource type="Texture2D" uid="uid://bhie70kd1el5f" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10002.png" id="3_q7jub"]
+[ext_resource type="Texture2D" uid="uid://n2kca58xu0oc" path="res://Sprites/Player/gunarm3.png" id="3_qpmcd"]
 [ext_resource type="AudioStream" uid="uid://dr28wscj1s3g" path="res://Sounds/Explosions/despawn1.wav" id="4_3s57a"]
 [ext_resource type="Texture2D" uid="uid://ci7fkwv5v7thy" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10003.png" id="4_o82lq"]
 [ext_resource type="Texture2D" uid="uid://dmi07j333vsp7" path="res://Sprites/Enemies/turret3.png" id="4_pyv1h"]
@@ -93,7 +94,7 @@
 [ext_resource type="Texture2D" uid="uid://b5btbkfkwuqy3" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10088.png" id="89_bfotd"]
 [ext_resource type="Texture2D" uid="uid://boix3scnwarwb" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10089.png" id="90_fxk7s"]
 [ext_resource type="Texture2D" uid="uid://d0lflvuqwdemj" path="res://Sprites/Explosion/explosion1_package/package/png frames/320x240/explosion_10090.png" id="91_v0l8e"]
-[ext_resource type="AudioStream" uid="uid://dsg8bkw3qevlv" path="res://Sounds/Enemy Shooting/enemyShoot.wav" id="94_gfcfn"]
+[ext_resource type="AudioStream" uid="uid://hl4u7ywn5w6i" path="res://Sounds/Player Shooting Sounds/WSG52#1 (WSG51_OneShot; WSG51_Shot).wav" id="95_2rntf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ga16"]
 
@@ -446,7 +447,6 @@ one_shot = true
 
 [node name="DespawnSound2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_3s57a")
-bus = &"SoundEffects"
 
 [node name="CohesionArea" type="Area2D" parent="."]
 visible = false
@@ -457,7 +457,16 @@ shape = SubResource("CircleShape2D_caao7")
 
 [node name="HitSoundPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamWAV_goj61")
-bus = &"SoundEffects"
+
+[node name="Gun" type="Node2D" parent="."]
+
+[node name="GunSprite" type="Sprite2D" parent="Gun"]
+scale = Vector2(5, 5)
+texture = ExtResource("3_qpmcd")
+offset = Vector2(13, 1)
+
+[node name="BarrelPoint" type="Node2D" parent="Gun"]
+position = Vector2(140, 0)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wqdeg")
@@ -477,8 +486,11 @@ monitorable = false
 shape = SubResource("CircleShape2D_8ah8c")
 
 [node name="ShootSound2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("94_gfcfn")
-bus = &"SoundEffects"
+stream = ExtResource("95_2rntf")
+volume_db = -12.0
+max_distance = 1000.0
+attenuation = 1.8025
+max_polyphony = 3
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]

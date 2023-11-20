@@ -2,8 +2,10 @@ extends StaticBody2D
 
 class_name Gun
 
-const RECOIL_DELTA = 2
-
+const RECOIL_DELTA = 6
+const RUN_DELTA = 10
+const GUN_OFFSET_Y = -10.0
+const GUN_RUN_OFFSET_X = 5
 var angle_offset = PI/2
 
 @onready var raycast = $GunRayCast
@@ -33,7 +35,11 @@ func _process(delta):
 		laser.set_point_position(1, aimcast.target_position)
 
 
-	self.position = lerp(self.position, Vector2(0.0, -10.0), delta*RECOIL_DELTA)
+	if get_parent().player_sprite.animation == "run":
+		self.position = lerp(self.position, Vector2(GUN_RUN_OFFSET_X*get_parent().direction, GUN_OFFSET_Y), delta*RUN_DELTA)
+	else:
+		self.position = lerp(self.position, Vector2(0, GUN_OFFSET_Y), delta*RECOIL_DELTA)
+	
 	look_at(get_global_mouse_position())
 	self.rotation = self.rotation - angle_offset
 	#raycast.rotation = self.rotation

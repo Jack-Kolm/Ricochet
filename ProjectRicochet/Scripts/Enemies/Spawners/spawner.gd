@@ -17,12 +17,12 @@ signal completed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#delta = delta * Global.delta_factor
 	if has_completed:
+		await completed
 		cleanup()
 	elif not has_completed and has_spawned and spawned_enemies <= 0:
-		has_completed = true
 		completed.emit()
+		has_completed = true
 
 
 func cleanup():

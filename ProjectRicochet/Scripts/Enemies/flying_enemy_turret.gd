@@ -31,7 +31,7 @@ func chase_step(delta):
 		var distance = global_position.distance_to(goal)
 		var direction_vector = (player.hitpoint() - global_position)
 		direction = direction_vector.normalized()
-
+		$Gun.rotation = global_position.angle_to_point(player.global_position)
 		if direction_vector.y < VERTICAL_DISTANCE:
 			velocity = lerp(velocity, Vector2(velocity.x, UP_SPEED), delta*BACKING_DELTA_FACTOR)
 		elif distance < AWAY_DISTANCE:
@@ -49,17 +49,25 @@ func chase_step(delta):
 			$Sprite.scale.x = 1
 			$Sprite.rotation = direction.angle() - PI
 
+func general_step(delta):
+	super(delta)
+	$Gun/GunSprite.set_modulate(lerp(sprite.get_modulate(), Color(1,1,1,1), delta*HURT_DELTA)) 
 
 func shoot():
 	var new_bullet = Bullet.instantiate()
-	new_bullet.global_position = global_position
+	new_bullet.global_position = $Gun/BarrelPoint.global_position
 	new_bullet.prepare(direction)
 	get_tree().get_root().add_child(new_bullet)
 	$ShootSound2D.play()
 
 func destroy():
 	super()
+	$Gun.visible = false
 	set_collision_layer_value(2, false)
+
+func apply_damage(damage):
+	super(damage)
+	$Gun/GunSprite.set_modulate(Color(0.7, 1, 1, 0.7))
 
 
 func _on_shoot_timer_timeout():

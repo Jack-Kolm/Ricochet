@@ -303,7 +303,6 @@ func _on_ledge_check_right_body_exited(body):
 			self.velocity.x = -LEDGE_VELOCITY
 			movement_x_axis *= -1
 		States.CHASE:
-			print("RIGHT EXIT")
 			self.velocity.y = -200
 			self.velocity.x = -LEDGE_VELOCITY
 			#movement_x_axis *= -1

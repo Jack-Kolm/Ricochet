@@ -394,8 +394,9 @@ texture = ExtResource("95_pr3bd")
 
 [node name="ExplosionSprite" type="AnimatedSprite2D" parent="."]
 visible = false
-modulate = Color(0, 0.133333, 0.133333, 0.870588)
-scale = Vector2(0.55, 0.3)
+modulate = Color(0, 0, 0, 0.52549)
+position = Vector2(0, 5.6)
+scale = Vector2(0.7, 0.3885)
 sprite_frames = SubResource("SpriteFrames_al581")
 frame = 89
 frame_progress = 1.0
@@ -403,12 +404,10 @@ frame_progress = 1.0
 [node name="UnlockSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("93_m62j0")
 volume_db = 10.0
-bus = &"SoundEffects"
 
 [node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("95_4hbns")
 volume_db = -5.0
-bus = &"SoundEffects"
 
 [node name="UnlockTimer" type="Timer" parent="."]
 one_shot = true

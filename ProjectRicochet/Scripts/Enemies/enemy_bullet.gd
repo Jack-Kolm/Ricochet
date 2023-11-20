@@ -23,6 +23,9 @@ func _physics_process(delta):
 	#	if collision_info.get_collider().is_in_group("player"):
 	#		pass
 
+
+
+
 func prepare(start_direction):
 	self.direction = start_direction
 	self.velocity = start_direction * speed
@@ -50,3 +53,5 @@ func _on_hitbox_area_entered(area):
 		player.apply_damage(damage)
 		self.destroy()
 
+func bbp():
+	return self.global_position

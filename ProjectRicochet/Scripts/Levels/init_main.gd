@@ -17,6 +17,9 @@ var boss_scene = preload("res://Scenes/boss.tscn")
 var restart_scene = preload("res://Scenes/Menus/restart_menu.tscn")
 var restart_menu = null
 
+var boss_door_unlock_count = 5
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#super()
@@ -26,31 +29,13 @@ func _ready():
 
 func _process(delta):
 	if elevator:
+		if not $Walls/Elevator/ElevatorGoing.is_playing():
+			$Walls/Elevator/ElevatorGoing.play()
 		$Walls/Elevator.global_position.y += 50 * delta
 		if $Walls/Elevator.global_position.y > -500:
+			$Walls/Elevator/ElevatorGoing.stop()
+			$Walls/Elevator/ElevatorEnd.play()
 			elevator = false
-
-func _on_game_area_body_exited(body):
-	if body.name == "Player":
-		"""
-		var enemies = get_tree().get_nodes_in_group("enemies")
-		var bullets = get_tree().get_nodes_in_group("bullets")
-		for enemy in enemies:
-			enemy.queue_free()
-		for bullet in bullets:
-			bullet.queue_free()
-		
-		var everything = get_tree().get_root().get_children()
-		for child in everything:
-			child.queue_free()
-		
-		#self.visible = false
-		#restart_menu.restart_flag = true
-		#get_tree().change_scene_to_packed(menu_scene)
-		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn)
-		"""
-		var node_children = get_tree().get_root().get_children()
-		goto_menu(node_children)
 
 
 func goto_restart_menu():
@@ -102,25 +87,23 @@ func cleanup():
 	var children = get_tree().get_root().get_children()
 	var level_children 
 	for child in children:
-		if child.name == "InitMain":
-			level_children = child.get_children()
-		elif child.is_in_group("enemies"):
+		if child.is_in_group("enemies"):
 			child.queue_free()
 	
-	for child in level_children:
-		#print(child.name)
-		child.queue_free()
+	for child in get_children():
+		if child.is_in_group("enemies") or child.is_in_group("bullets"):
+			child.queue_free()
 
 
 func reload_self():
-	#print("YOOO")
 	cleanup()
 	get_tree().reload_current_scene()
 
-func _on_zoom_area_5_entered():
-	elevator = true
-	pass # Replace with function body.
-
+func unlock_boss_door():
+	boss_door_unlock_count =  boss_door_unlock_count - 1
+	print(boss_door_unlock_count)
+	if boss_door_unlock_count < 1:
+		$Walls/WallLock3.unlock()
 
 func _on_spawner_1_completed():
 	$Walls/WallLock1.unlock()
@@ -138,4 +121,31 @@ func _on_spawner_2_completed():
 
 func _on_fall_area_body_entered(body):
 	if body.is_in_group("player"):
-		body.detroy()
+		cleanup()
+		body.destroy()
+	elif body.is_in_group("enemies"):
+		body.destroy()
+
+
+func _on_spawner_8_completed():
+	$Walls/Elevator/ElevatorStart.play()
+
+
+func _on_elevator_start_finished():
+	elevator = true
+
+
+func _on_elevator_spawner_1_completed():
+	pass
+
+func _on_elevator_spawner_2_completed():
+	pass
+
+func _on_elevator_spawner_3_completed():
+	pass
+
+func _on_elevator_spawner_4_completed():
+	pass
+
+func _on_elevator_end_finished():
+	$Walls/WallLock3.unlock()
