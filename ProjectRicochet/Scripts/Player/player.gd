@@ -35,6 +35,8 @@ const MAX_GUN_CHARGE = 0.2
 const OUTLINE_NORMAL = Color(0.7, 0.5, 1.0, 1.0)
 const OUTLINE_HURT = Color(0.2, 0.1, 0.4, 1.0)
 
+
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var rng = RandomNumberGenerator.new()
@@ -42,7 +44,7 @@ enum States {STANDARD, CROUCHING, DEATH}
 var current_state = States.STANDARD
 var previous_state = States.STANDARD
 var direction = 0.0
-var health = 1000.0
+var health = Global.PLAYER_MAX_HEALTH
 var friction_factor = NORMAL_FRICTION
 var second_jump = false
 
@@ -98,6 +100,10 @@ func _ready():
 	root_node = get_tree().get_root().get_child(0)
 	blackscreen1.modulate.a = 0
 	blackscreen2.modulate.a = 0
+	if Global.revive_flag:
+		heal()
+		Global.revive_flag = false
+	#health = Global.player_health
 	#bbc.texture()
 
 func _physics_process(delta):
@@ -109,12 +115,10 @@ func _physics_process(delta):
 			crouch_state(delta)
 		States.DEATH:
 			death_state(delta)
-		_:
-			var what_the_fuck = true
-
 
 
 func general_step(delta):
+	$CanvasLayer/HealthBar/InnerBar.scale.x = Global.player_health / Global.PLAYER_MAX_HEALTH
 	$Gun/MuzzleFlash.energy = lerp($Gun/MuzzleFlash.energy, 0.0, delta*JUMP_DELTA)
 	$HurtSprite.material.set_shader_parameter("tint", lerp($HurtSprite.material.get_shader_parameter("tint"), Color.BLACK, delta))
 	camera.zoom = lerp(camera.zoom, target_zoom, delta*zoom_delta)
@@ -134,15 +138,12 @@ func general_step(delta):
 		outer_ring.modulate = Color(255,255,255,0)
 		outer_ring.visible = false
 		outer_ring.scale = Vector2(1,1)
-	
-	
 	var mouse_local_pos = (get_global_mouse_position() - global_position)
 	var mouse_dir = mouse_local_pos.normalized()
 	if global_position.distance_to(get_global_mouse_position()) < MAX_CAMERA_OFFSET:
 		camera.offset = lerp(camera.offset, mouse_local_pos*MOUSE_POS_SCALE, delta*AIM_FACTOR)
 	else:
 		camera.offset = lerp(camera.offset, mouse_dir*MOUSE_POS_SCALE*MAX_CAMERA_OFFSET, delta*AIM_FACTOR)
-
 	if mouse_dir.x > 0:
 		gun.scale.y = GUN_RIGHT_Y
 		gun.angle_offset = PI/2
@@ -151,9 +152,7 @@ func general_step(delta):
 		gun.scale.y = GUN_LEFT_Y
 		gun.angle_offset = 3*(PI/2)
 		player_sprite.scale.x = -SPRITE_X_SCALE
-	
-	health_bar.text = "Player health: "+str(health)
-	
+	health_bar.text = "Player health: "+str(Global.player_health)
 	check_jump(delta)
 	if is_on_floor(): 
 		if is_jumping:
@@ -170,25 +169,6 @@ func general_step(delta):
 			player_sprite.animation = "fall"
 			player_sprite.play()
 			jump_fall_check = -1
-	
-	"""if is_jumping:
-		if Input.is_action_just_pressed("ui_accept"):
-			jump_timer = 0.0
-			if is_on_floor():
-				velocity.y = INITIAL_JUMP_VELOCITY
-				player_sprite.animation = "jump"
-				player_sprite.play()
-				jump_check = 1
-			elif not second_jump:
-				velocity.y = SECOND_JUMP_START
-				second_jump = true
-				jump_check = 1
-		if Input.is_action_pressed("ui_accept") and not is_on_floor():
-			jump_timer += delta
-			if jump_timer < MAX_JUMP_TIME and not second_jump:
-				velocity.y = lerp(velocity.y, MAX_JUMP_VELOCITY, delta*JUMP_DELTA)
-		if Input.is_action_just_released("ui_accept") and not is_on_floor():
-				jump_timer = 1"""
 	move_and_slide()
 
 
@@ -222,13 +202,12 @@ func standard_state(delta):
 				if $Sounds/RunSound.playing == false:
 					$Sounds/RunSound.play()
 					$Sounds/WalkSound.stop()
-			
 		else:
 			$Sounds/WalkSound.stop()
 			$Sounds/RunSound.stop()
 			player_sprite.animation = "idle"
-	
 	general_step(delta)
+
 
 func crouch_state(delta):
 	stand_hurtbox.disabled = true
@@ -237,8 +216,8 @@ func crouch_state(delta):
 	player_sprite.animation = "crouch"
 	general_step(delta)
 
-func death_state(delta):
 
+func death_state(delta):
 	camera.zoom = lerp(camera.zoom, target_zoom, delta*zoom_delta)
 	hurtbox_area.set_collision_layer_value(1, false)
 	hurtbox_area.set_collision_mask_value(1, false)
@@ -258,7 +237,9 @@ func death_state(delta):
 	if blackscreen1.modulate.a >= 0.99:
 		blackscreen2.modulate.a = lerp(blackscreen2.modulate.a, 1.0, delta*FADE_DELTA)
 		if blackscreen2.modulate.a >= 0.99:
-
+			print(get_parent().name)
+			if get_parent().name == "BossLevel":
+				get_parent().cleanup()
 			SceneSwitcher.switch_scene(SceneSwitcher.Scenes.RESTART)
 
 
@@ -282,8 +263,6 @@ func enter_state(state):
 		States.CROUCHING:
 			player_sprite.play()
 		States.DEATH:
-			#player_sprite.animation = "walk"
-			#player_sprite.stop()
 			blackscreen1.z_index = 7
 			player_sprite.z_index = 8
 			blackscreen2.z_index = 9
@@ -294,6 +273,7 @@ func enter_state(state):
 			#AudioServer.set_bus_mute(1, true)
 			#AudioServer.set_bus_mute(2, true)
 			$Sounds/DeathSound.play()
+			$CanvasLayer/HealthBar.visible = false
 
 
 func exit_state(state):
@@ -322,8 +302,9 @@ func shoot():
 		shoot_timer.start()
 		$Gun/MuzzleFlash.energy = 10
 
+
 func check_jump(delta):
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("Jump"):
 		jump_timer = 0.0
 		if current_state != States.STANDARD:
 			enter_state(States.STANDARD)
@@ -339,11 +320,11 @@ func check_jump(delta):
 			velocity.y = SECOND_JUMP_START
 			second_jump = true
 			jump_fall_check = 1
-	if Input.is_action_pressed("ui_accept") and not is_on_floor():
+	if Input.is_action_pressed("Jump") and not is_on_floor():
 		jump_timer += delta
 		if jump_timer < MAX_JUMP_TIME and not second_jump:
 			velocity.y = lerp(velocity.y, MAX_JUMP_VELOCITY, delta*JUMP_DELTA)
-	if Input.is_action_just_released("ui_accept") and not is_on_floor():
+	if Input.is_action_just_released("Jump") and not is_on_floor():
 			jump_timer = 1
 
 
@@ -351,18 +332,22 @@ func apply_damage(damage):
 	if hit_timer.is_stopped():
 		hurtbox_area.set_collision_layer_value(1, false)
 		hurtbox_area.set_collision_mask_value(1, false)
-		health -= damage
+		Global.player_health -= damage
 		hit_sound_player.play()
 		hit_timer.start()
 		#self.set_modulate(Color(1, 1, 1, 0.3))
 		self.material.set_shader_parameter("color",OUTLINE_HURT)
-		if health <= 0:
+		if Global.player_health <= 0:
 			destroy()  
-			#queue_free()
 
 
 func destroy():
+	Global.revive_flag = true
 	enter_state(States.DEATH)
+
+
+func heal():
+	Global.player_health = Global.PLAYER_MAX_HEALTH
 
 
 func apply_knockback(direction, force=KNOCKBACK):
@@ -403,4 +388,6 @@ func _on_hit_timer_timeout():
 
 func _on_knockback_timer_timeout():
 	friction_factor = NORMAL_FRICTION
+
+
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://oicjjw82y2vb"]
+[gd_scene load_steps=107 format=3 uid="uid://oicjjw82y2vb"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_0oquj"]
 [ext_resource type="Shader" path="res://Scenes/Player/player.gdshader" id="1_pm0xl"]
@@ -50,6 +50,7 @@
 [ext_resource type="AudioStream" uid="uid://dyvt8hdyvf3y3" path="res://Sounds/Walk/steps_platform2-[AudioTrimmer.com].ogg" id="41_5fvvb"]
 [ext_resource type="Texture2D" uid="uid://d02wfoxgst8pi" path="res://Sprites/Wall/Wall_BOUNCE.png" id="41_yoisc"]
 [ext_resource type="AudioStream" uid="uid://blvfqu67iyiyv" path="res://Sounds/Walk/jump.wav" id="42_aj2vj"]
+[ext_resource type="Texture2D" uid="uid://cscj5j1ptuaqx" path="res://Sprites/Square.png" id="47_3h57x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oykvv"]
 shader = ExtResource("1_pm0xl")
@@ -529,6 +530,16 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5hdhj"]
+shader = ExtResource("27_y3ogx")
+shader_parameter/active = true
+shader_parameter/tint = Color(0.317647, 0.403922, 0.74902, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7c5re"]
+shader = ExtResource("27_y3ogx")
+shader_parameter/active = true
+shader_parameter/tint = Color(0.180392, 0.788235, 0.47451, 1)
+
 [node name="Player" type="CharacterBody2D" groups=["avoid_bullet", "player"]]
 material = SubResource("ShaderMaterial_oykvv")
 position = Vector2(176, -120)
@@ -742,6 +753,34 @@ rotation = 1.5708
 scale = Vector2(3.99032, 5.06176)
 sprite_frames = SubResource("SpriteFrames_04hsf")
 
+[node name="HealthBar" type="Node2D" parent="CanvasLayer"]
+light_mask = 32
+visibility_layer = 32
+z_index = 2
+material = SubResource("ShaderMaterial_5hdhj")
+position = Vector2(23, 40)
+scale = Vector2(1.5, 1.5)
+skew = 0.261799
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/HealthBar"]
+modulate = Color(0, 0, 0, 1)
+use_parent_material = true
+position = Vector2(0, -15)
+scale = Vector2(5, 0.6)
+texture = ExtResource("47_3h57x")
+centered = false
+
+[node name="InnerBar" type="Node2D" parent="CanvasLayer/HealthBar"]
+position = Vector2(5, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/HealthBar/InnerBar"]
+modulate = Color(0.27, 4, 0, 1)
+material = SubResource("ShaderMaterial_7c5re")
+position = Vector2(-1.90735e-06, -10)
+scale = Vector2(4.8, 0.4)
+texture = ExtResource("47_3h57x")
+centered = false
+
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 9
@@ -756,6 +795,7 @@ offset_bottom = 26.0
 scale = Vector2(2, 2)
 
 [node name="HealthLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 

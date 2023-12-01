@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://4suuxsvbhi8k"]
+
+[ext_resource type="Script" path="res://Scenes/Visuals/intro_screen.gd" id="1_3lyvn"]
+[ext_resource type="PackedScene" uid="uid://dsxnthupu7anj" path="res://Scenes/Visuals/fader.tscn" id="1_li52i"]
+[ext_resource type="Texture2D" uid="uid://dv3qhwgvh2vpd" path="res://Sprites/Arrow.png" id="2_1wib2"]
+[ext_resource type="PackedScene" uid="uid://kt5cvfx4d4hd" path="res://Scenes/Walls/wall_normal.tscn" id="2_28esk"]
+[ext_resource type="Texture2D" uid="uid://6pc50r0471ee" path="res://Sprites/Wall/Wall_NORMAL.png" id="2_uus0t"]
+[ext_resource type="PackedScene" uid="uid://cgshgrem1j5uk" path="res://Scenes/Bullets/advanced_ricochet_bullet.tscn" id="3_5xxij"]
+[ext_resource type="Texture2D" uid="uid://cg5t7d4tusorq" path="res://Sprites/Tiles/inner.png" id="7_gaebd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oiov0"]
+size = Vector2(48.25, 52.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_su3qi"]
+size = Vector2(176, 176)
+
+[node name="IntroScreen" type="Node2D"]
+script = ExtResource("1_3lyvn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(960, 544)
+scale = Vector2(27.7337, 134.685)
+texture = ExtResource("2_uus0t")
+
+[node name="WallNormal" parent="." instance=ExtResource("2_28esk")]
+position = Vector2(1056, 888)
+rotation = -3.14159
+scale = Vector2(2, 2)
+
+[node name="WallNormal2" parent="." instance=ExtResource("2_28esk")]
+position = Vector2(432, 688)
+rotation = -1.5708
+scale = Vector2(2, 2)
+
+[node name="WallNormal3" parent="." instance=ExtResource("2_28esk")]
+position = Vector2(432, 688)
+rotation = -1.5708
+scale = Vector2(2, 2)
+
+[node name="AdvancedRicochetBullet" parent="." instance=ExtResource("3_5xxij")]
+position = Vector2(1928, 584)
+
+[node name="Fader" parent="." instance=ExtResource("1_li52i")]
+position = Vector2(960, 440)
+stay_time = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Fader"]
+scale = Vector2(3, 3)
+texture = ExtResource("2_1wib2")
+
+[node name="Label" type="Label" parent="Fader"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -128.0
+offset_right = 16.0
+offset_bottom = -102.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HitNode" type="StaticBody2D" parent="."]
+position = Vector2(960, 496)
+collision_layer = 0
+collision_mask = 0
+
+[node name="HitArea" type="Area2D" parent="HitNode"]
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitNode/HitArea"]
+shape = SubResource("RectangleShape2D_oiov0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitNode"]
+visible = false
+shape = SubResource("RectangleShape2D_su3qi")
+
+[node name="Sprite2D" type="Sprite2D" parent="HitNode"]
+scale = Vector2(0.117188, 0.117188)
+texture = ExtResource("7_gaebd")
+
+[connection signal="finished" from="Fader" to="." method="_on_fader_finished"]
+[connection signal="body_entered" from="HitNode/HitArea" to="." method="_on_hit_area_body_entered"]

@@ -26,6 +26,11 @@ func _ready():
 	self.visible = true
 	self.player.change_camera_zoom(NORMAL_ZOOM)
 	restart_menu = restart_scene.instantiate()
+	Global.second_boss_flag = false
+	if Global.elevator_checkpoint:
+		$Enemies/ElevatorShieldEnemy.queue_free()
+		player.global_position = $Checkpoint.global_position
+		$Checkpoint.set_as_active()
 
 func _process(delta):
 	if elevator:
@@ -53,8 +58,7 @@ func goto_restart_menu():
 	pass
 
 func boss_door_activate():
-	var node_children = get_tree().get_root().get_children()
-	goto_boss(node_children)
+	SceneSwitcher.switch_scene(SceneSwitcher.Scenes.BOSS)
 
 
 func set_player(player):
@@ -149,3 +153,7 @@ func _on_elevator_spawner_4_completed():
 
 func _on_elevator_end_finished():
 	$Walls/WallLock3.unlock()
+
+
+func _on_checkpoint_activated():
+	Global.elevator_checkpoint = true

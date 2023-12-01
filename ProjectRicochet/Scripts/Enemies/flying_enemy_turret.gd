@@ -15,7 +15,7 @@ const VERTICAL_DISTANCE = 80
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()
-	health = 800
+	health = 300
 	explosion_sprite = $ExplosionSprite
 	sprite = $Sprite
 

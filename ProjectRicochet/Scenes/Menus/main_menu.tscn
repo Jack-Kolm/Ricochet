@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://pstxfjuujuba"]
+[gd_scene load_steps=6 format=3 uid="uid://pstxfjuujuba"]
 
 [ext_resource type="Script" path="res://Scripts/Menus/main_menu.gd" id="1_xddvt"]
+[ext_resource type="Texture2D" uid="uid://cscj5j1ptuaqx" path="res://Sprites/Square.png" id="2_n6uhk"]
+[ext_resource type="FontFile" uid="uid://cqmvq6e5nt6g8" path="res://Fonts/CutiveMono-Regular.ttf" id="3_7djyf"]
+[ext_resource type="PackedScene" uid="uid://dbtka81hpf4ox" path="res://Scenes/menu_button.tscn" id="3_fdc2r"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_itfkp"]
+font = ExtResource("3_7djyf")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -11,47 +17,82 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xddvt")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(992, 560)
+scale = Vector2(45.3333, 26.1667)
+texture = ExtResource("2_n6uhk")
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -32.0
-offset_top = 128.0
-offset_right = 34.0
-offset_bottom = 224.0
+anchors_preset = -1
+anchor_left = 0.533
+anchor_top = 0.652
+anchor_right = 0.533
+anchor_bottom = 0.652
+offset_left = -111.36
+offset_top = -448.16
+offset_right = 16.6399
+offset_bottom = -277.16
 grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(3, 3)
 pivot_offset = Vector2(34, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxMain" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxMain"]
 layout_mode = 2
 text = "Ricochet"
-horizontal_alignment = 1
+label_settings = SubResource("LabelSettings_itfkp")
 
-[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="StartButton" parent="MarginContainer/VBoxMain" instance=ExtResource("3_fdc2r")]
 layout_mode = 2
-text = "Start Game"
+text = " START GAME"
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="TutorialButton" parent="MarginContainer/VBoxMain" instance=ExtResource("3_fdc2r")]
 layout_mode = 2
-text = "Start from Tutorial"
+text = " TUTORIAL"
 
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ExtrasButton" parent="MarginContainer/VBoxMain" instance=ExtResource("3_fdc2r")]
 layout_mode = 2
-text = "Start from Boss 1"
+text = " EXTRAS"
 
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="QuitButton" parent="MarginContainer/VBoxMain" instance=ExtResource("3_fdc2r")]
 layout_mode = 2
-text = "Start from Boss 2"
+text = " QUIT"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxExtras" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
-text = "Quit
-"
 
-[connection signal="button_up" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_button_up"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_button_up"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxExtras"]
+layout_mode = 2
+text = "Ricochet"
+label_settings = SubResource("LabelSettings_itfkp")
+
+[node name="Boss1Button" parent="MarginContainer/VBoxExtras" instance=ExtResource("3_fdc2r")]
+layout_mode = 2
+text = " BOSS 1 (BATS)"
+
+[node name="Boss2Button" parent="MarginContainer/VBoxExtras" instance=ExtResource("3_fdc2r")]
+layout_mode = 2
+text = " BOSS 2 (WINGS)"
+
+[node name="BackButton" parent="MarginContainer/VBoxExtras" instance=ExtResource("3_fdc2r")]
+layout_mode = 2
+text = " BACK"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 1080.0
+
+[connection signal="button_up" from="MarginContainer/VBoxMain/StartButton" to="." method="_on_start_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxMain/TutorialButton" to="." method="_on_tutorial_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxMain/ExtrasButton" to="." method="_on_extras_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxMain/QuitButton" to="." method="_on_quit_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxExtras/Boss1Button" to="." method="_on_boss_1_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxExtras/Boss2Button" to="." method="_on_boss_2_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxExtras/BackButton" to="." method="_on_back_menu_button_up"]

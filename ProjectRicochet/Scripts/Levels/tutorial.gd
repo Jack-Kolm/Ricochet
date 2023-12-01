@@ -12,30 +12,32 @@ func _ready():
 	player.change_camera_zoom(2.2, 4)
 
 
-func set_player(player):
-	self.player = player
+#func set_player(player):
+#	self.player = player
 
 
 func good_hit():
-	$MiddleText.text = "✓"
-	$MiddleText.set_modulate(Color(0.3,1.0,0.3))
-	$MiddleText.visible = true
-	$MiddleTextLamp.enabled = true
-	$Switch1/Sprite2D.set_modulate(Color(0.5, 2.0, 0.5))
-	$Lamp1.enabled = false
-	$Lamp3.enabled = true
-	button_hit = true
-	$SwitchTimer.start()
+	if not button_hit:
+		$MiddleText.text = "✓"
+		$MiddleText.set_modulate(Color(0.3,1.0,0.3))
+		$MiddleText.visible = true
+		$MiddleTextLamp.enabled = true
+		$Switch1/Sprite2D.set_modulate(Color(0.5, 2.0, 0.5))
+		$Lamp1.enabled = false
+		$Lamp3.enabled = true
+		button_hit = true
+		$SwitchTimer.start()
 
 func bad_hit():
-	$MiddleText.text = "✗"
-	$MiddleText.set_modulate(Color(1.0,0.3,0.3))
-	$MiddleText.visible = true
-	$MiddleTextLamp.enabled = true
-	$Switch1/Sprite2D.set_modulate(Color(2.0, 0.5, 0.5))
-	$Lamp1.enabled = false
-	$Lamp2.enabled = true
-	$SwitchTimer.start()
+	if not button_hit:
+		$MiddleText.text = "✗"
+		$MiddleText.set_modulate(Color(1.0,0.3,0.3))
+		$MiddleText.visible = true
+		$MiddleTextLamp.enabled = true
+		$Switch1/Sprite2D.set_modulate(Color(2.0, 0.5, 0.5))
+		$Lamp1.enabled = false
+		$Lamp2.enabled = true
+		$SwitchTimer.start()
 
 func _on_switch_timer_timeout():
 	if button_hit:
@@ -56,15 +58,13 @@ func _on_switch_timer_timeout():
 		$Lamp2.enabled = false
 
 
-
-
 func _on_teleport_area_body_entered(body):
-	return
-	var everything = get_tree().get_root().get_children()
-	for child in everything:
-		child.queue_free()
-	#var my_bullets = get_tree().get_nodes_in_group("ricochet_bullets")
-	#for bullet in my_bullets:
-	#	bullet.queue_free()
-	get_tree().change_scene_to_file("res://Scenes/Menus/main_menu.tscn")
+	if body.is_in_group("player"):
+		for child in get_children():
+			child.queue_free()
+		#var my_bullets = get_tree().get_nodes_in_group("ricochet_bullets")
+		#for bullet in my_bullets:
+		#	bullet.queue_free()
+		SceneSwitcher.switch_scene(SceneSwitcher.Scenes.INITMAIN)
+	#get_tree().change_scene_to_file("res://Scenes/Menus/main_menu.tscn")
 

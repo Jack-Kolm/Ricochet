@@ -31,9 +31,9 @@ var prev_spot = null
 var destroyed = false
 var activated = true
 func _ready():
-	add_to_group("enemies")
-	pass
-	
+	self.add_to_group("enemies")
+
+
 func _physics_process(delta):
 	if not activated:
 		return
@@ -43,7 +43,7 @@ func _physics_process(delta):
 		x_axis = 1
 	elif velocity.x < 0:
 		x_axis = -1
-	if weakref(player):
+	if weakref(player).get_ref():
 		facing_x_axis = sign(global_position.direction_to(player.global_position).x)
 		var gun_rot = global_position.angle_to_point(player.global_position)
 		$Gun.rotation = gun_rot
@@ -119,6 +119,8 @@ func _input(event):
 
 
 func move():
+	if not weakref(player).get_ref():
+		return
 	var next_spot
 	var dist = INF
 	for spot in jump_spots.get_children():
@@ -163,6 +165,8 @@ func destroy():
 
 
 func shoot():
+	if not weakref(player).get_ref():
+		return
 	var rifle_speed = 600
 	var shotgun_speed = 400
 	var barrel_point = $Gun/BarrelPoint.global_position
@@ -230,18 +234,15 @@ func avoid_bullet(incoming_dir : Vector2, bullet_dir: Vector2, incoming_pos: Vec
 		elif abs(incoming_dir.y) > 0.8:
 			velocity.y = -50
 			velocity.x = sign(incoming_dir.x) * 220
-
 		else:
 			if is_on_floor():
 				if incoming_dir.y > 0:
 					#if incoming_dir.x > 0
 					velocity.y = -60
 					velocity.x = sign(incoming_dir.x) * 200
-
 				else:
 					velocity.y = -50
 					velocity.x = sign(incoming_dir.x) * 200
-
 			else:
 				#velocity = incoming_dir.orthogonal() * 300
 				velocity.y = incoming_dir.y * -300
@@ -301,8 +302,6 @@ func _on_fall_timer_timeout():
 	#disable_jump()
 	if not is_on_floor():
 		move()
-	#	navagent.target_position = prev_spot.global_position
-	pass # Replace with function body.
 
 
 func _on_shoot_timer_timeout():

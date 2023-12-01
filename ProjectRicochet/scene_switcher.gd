@@ -4,8 +4,8 @@ var menu_scene = preload("res://Scenes/Menus/main_menu.tscn")
 var boss_scene = preload("res://Scenes/boss.tscn")
 var restart_scene = preload("res://Scenes/Menus/restart_menu.tscn")
 var end_scene = preload("res://Scenes/end.tscn")
-
-enum Scenes {INITMAIN, MENU, RESTART, BOSS, END}
+var tutorial_scene = preload("res://Scenes/Levels/tutorial.tscn")
+enum Scenes {INITMAIN, MENU, RESTART, BOSS, END, TUTORIAL}
 
 var current_scene = null
 # Called when the node enters the scene tree for the first time.
@@ -31,6 +31,9 @@ func switch_scene(scene : Scenes):
 			call_deferred("_deferred_switch_scene", end_scene)
 		Scenes.MENU:
 			call_deferred("_deferred_switch_scene", menu_scene)
+		Scenes.TUTORIAL:
+			call_deferred("_deferred_switch_scene", tutorial_scene)
+
 
 func _deferred_switch_scene(respath):
 	if current_scene != null:

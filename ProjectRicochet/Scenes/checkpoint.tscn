@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqi1eo1rxs5hf"]
+
+[ext_resource type="Script" path="res://Scripts/checkpoint.gd" id="1_7by7u"]
+[ext_resource type="PackedScene" uid="uid://dsxnthupu7anj" path="res://Scenes/Visuals/fader.tscn" id="2_0joss"]
+[ext_resource type="Texture2D" uid="uid://ji6tsnhdf7s5" path="res://Sprites/Explosion/shields.png" id="2_q0uuv"]
+[ext_resource type="FontFile" uid="uid://cqmvq6e5nt6g8" path="res://Fonts/CutiveMono-Regular.ttf" id="4_yf4r8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x1itl"]
+radius = 24.3311
+
+[sub_resource type="LabelSettings" id="LabelSettings_dpkrx"]
+font = ExtResource("4_yf4r8")
+
+[node name="Checkpoint" type="Node2D"]
+light_mask = 2
+visibility_layer = 2
+z_index = 3
+script = ExtResource("1_7by7u")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_x1itl")
+
+[node name="Sprite" type="Sprite2D" parent="Area2D"]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(1.52588e-05, 3.8147e-06)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_q0uuv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -48.0
+offset_right = 128.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="Fader" parent="MarginContainer" instance=ExtResource("2_0joss")]
+stay_time = 0
+
+[node name="Label" type="Label" parent="MarginContainer/Fader"]
+modulate = Color(0.117647, 1, 0.521569, 1)
+offset_left = 35.0
+offset_right = 220.0
+offset_bottom = 22.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Checkpoint reached!"
+label_settings = SubResource("LabelSettings_dpkrx")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

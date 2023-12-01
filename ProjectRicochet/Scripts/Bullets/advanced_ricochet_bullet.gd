@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 1220
 const MAX_BOUNCES = 6
-const BASE_DAMAGE = 10000
+const BASE_DAMAGE = 100
 const KNOCKBACK_FACTOR = 100
 
 @onready var bullet_sprite = $BulletSprite
@@ -14,7 +14,7 @@ const KNOCKBACK_FACTOR = 100
 @onready var destruction_delay_timer = $DestructionDelayTimer
 @onready var hitbox = $Hitbox
 var direction = Vector2(0, 0)
-var bounces = 1
+var bounces = 0
 var should_bounce = false
 var damage = BASE_DAMAGE
 var destroyed = false
@@ -97,18 +97,21 @@ func check_enemy(body):
 			var enemy = body
 			enemy.apply_damage(damage)
 			enemy.apply_knockback(KNOCKBACK_FACTOR*bounces, direction)
-			var hit_effect = HitEffect.instantiate()
-			hit_effect.global_position = global_position
-			get_tree().get_root().add_child.call_deferred(hit_effect)
-			#Global.delta_factor = 0.01
-			hitstop_flag = true
-			Engine.time_scale = 0.1
-			play_hit_sound()
-			#$HitstopTimer.start()
+			play_good_hit()
+
 		else:
 			play_hit_sound(false)
 		destroy()
 
+func play_good_hit():
+	var hit_effect = HitEffect.instantiate()
+	hit_effect.global_position = global_position
+	get_tree().get_root().add_child.call_deferred(hit_effect)
+	#Global.delta_factor = 0.01
+	hitstop_flag = true
+	Engine.time_scale = 0.1
+	play_hit_sound()
+	
 
 func play_hit_sound(good_hit=true):
 	if good_hit:

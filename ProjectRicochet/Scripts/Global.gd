@@ -1,18 +1,14 @@
 
 extends Node
 
+const PLAYER_MAX_HEALTH : float = 1000.0
+
 var delta_factor = 1
-var bad_bitch = "bad bitch"
 var current_level_name : String
 var boss_level_flag = false
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var second_boss_flag = false
+var elevator_checkpoint = false
+var player_health : float = PLAYER_MAX_HEALTH
+var revive_flag = false
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-func get_bad_bitch():
-	return bad_bitch
+enum Checkpoints {ELEVATOR, BAT, FINAL}

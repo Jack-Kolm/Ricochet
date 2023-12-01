@@ -3,8 +3,8 @@ extends Node2D
 const FADEOUT_DELTA = 1.5
 
 enum EnemyTypes {CHARGER, SHIELD_CHARGER, TURRET, BAT, BOSS}
-@export var enemy_type : EnemyTypes
 
+@export var enemy_type : EnemyTypes
 @onready var Turret = preload("res://Scenes/Enemies/flying_enemy_turret.tscn")
 @onready var ShieldCharger = preload("res://Scenes/Enemies/shield_enemy_charger.tscn")
 @onready var Bat = preload("res://Scenes/Enemies/bat_enemy.tscn")
@@ -14,16 +14,17 @@ var fadeout = false
 var player : Player
 var spawner : Spawner
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#delta = delta * Global.delta_factor
 	if fadeout:
 		$SpawnSprite.set_modulate(lerp($SpawnSprite.get_modulate(), Color(10,0.3,0.3,0), delta*FADEOUT_DELTA)) 
-
 
 
 func spawn():
@@ -57,17 +58,21 @@ func spawn():
 	new_enemy.spawner = self.spawner
 	#new_enemy.add_to_group("enemies")
 	new_enemy.global_position = global_position
+	get_parent().add_child.call_deferred(new_enemy)
 	get_tree().get_root().add_child.call_deferred(new_enemy)
 	$SpawnSprite.play()
 	fadeout = true
 	$SpawnSound.play()
 	return new_enemy
 
+
 func set_player(player):
 	self.player = player
 
+
 func set_sprite_rotation(angle):
 	$SpawnSprite.rotation = angle
+
 
 func _on_activate_spawn_area_body_entered(body):
 	spawn()
