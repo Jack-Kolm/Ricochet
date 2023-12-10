@@ -57,7 +57,7 @@ func shoot():
 	var new_bullet = Bullet.instantiate()
 	new_bullet.global_position = $Gun/BarrelPoint.global_position
 	new_bullet.prepare(direction)
-	get_tree().get_root().add_child(new_bullet)
+	get_parent().add_child(new_bullet)
 	$ShootSound2D.play()
 
 func destroy():

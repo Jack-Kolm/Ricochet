@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Spawners/enemy_spawn.gd" id="1_n4a5p"]
 [ext_resource type="Texture2D" uid="uid://tihwnxjxhdrx" path="res://Sprites/Explosion/moresplosion.png" id="2_en78c"]
-[ext_resource type="AudioStream" uid="uid://bmhvc1341tyxv" path="res://Sounds/spawn.wav" id="3_s2yrm"]
+[ext_resource type="AudioStream" uid="uid://bmhvc1341tyxv" path="res://Sounds/Misc/spawn.wav" id="3_s2yrm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mfxtm"]
 atlas = ExtResource("2_en78c")

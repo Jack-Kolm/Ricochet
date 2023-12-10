@@ -93,9 +93,6 @@ var boss_flag = false
 @onready var AdvancedBullet = preload("res://Scenes/Bullets/advanced_ricochet_bullet.tscn")
 
 
-#@onready var gun_sounds = [GunSound1, GunSound2, GunSound3, GunSound4]
-
-
 func _ready():
 	root_node = get_tree().get_root().get_child(0)
 	blackscreen1.modulate.a = 0
@@ -223,7 +220,6 @@ func death_state(delta):
 	hurtbox_area.set_collision_mask_value(1, false)
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
-	#self.set_modulate(Color(1, 1, 1, 0.3))
 	self.material.set_shader_parameter("color",OUTLINE_NORMAL)
 	gun.visible = false
 	blackscreen1.z_index = 3
@@ -237,23 +233,16 @@ func death_state(delta):
 	if blackscreen1.modulate.a >= 0.99:
 		blackscreen2.modulate.a = lerp(blackscreen2.modulate.a, 1.0, delta*FADE_DELTA)
 		if blackscreen2.modulate.a >= 0.99:
-			print(get_parent().name)
 			if get_parent().name == "BossLevel":
 				get_parent().cleanup()
 			SceneSwitcher.switch_scene(SceneSwitcher.Scenes.RESTART)
 
 
 func _input(event):
-	if event.is_action_pressed("Shoot"):
-		#shoot()
-		pass
-	#if event.is_action_pressed("Crouch"):
-	#	if is_on_floor() and current_state != States.CROUCHING:
-	#		enter_state(States.CROUCHING)
-	if event.is_action_released("Crouch"):
-		enter_state(States.STANDARD)
-	if event.is_action("Shoot"):
-		pass
+	if event.is_action_pressed("Pause"):
+		$PauseMenu.enable()
+
+
 
 
 func enter_state(state):
@@ -285,19 +274,16 @@ func exit_state(state):
 
 func shoot():
 	if not gun.is_tip_colliding() and shoot_timer.is_stopped():
-		var direction = (get_global_mouse_position() - $Gun/GunTipBox.global_position).normalized()
+		var aim_direction = (get_global_mouse_position() - $Gun/GunTipBox.global_position).normalized()
 		var new_bullet = AdvancedBullet.instantiate()
 		
-		gun.recoil(direction)
+		gun.recoil(aim_direction)
 		
-		var shake_amount = 3
-		var r1 = rng.randf_range(-1.0, 1.0)
-		var r2 = rng.randf_range(-1.0, 1.0)
-		camera.set_offset(camera.offset - direction)
+		camera.set_offset(camera.offset - aim_direction)
 		
-		new_bullet.prepare(direction)
+		new_bullet.prepare(aim_direction)
 		new_bullet.global_position = laser_sprite.global_position
-		get_tree().get_root().add_child(new_bullet)
+		get_parent().add_child(new_bullet)
 		gun_sound_player.play()
 		shoot_timer.start()
 		$Gun/MuzzleFlash.energy = 10
@@ -350,11 +336,11 @@ func heal():
 	Global.player_health = Global.PLAYER_MAX_HEALTH
 
 
-func apply_knockback(direction, force=KNOCKBACK):
+func apply_knockback(knockback_direction, force=KNOCKBACK):
 	if hit_timer.is_stopped():
 		knockback_timer.start()
 		friction_factor = KNOCKBACK_FRICTION
-		velocity = Vector2(force*sign(direction.x), -force)
+		velocity = Vector2(force*sign(knockback_direction.x), -force)
 
 
 func hitpoint():
@@ -370,13 +356,11 @@ func hitpoint():
 
 func change_camera_zoom(zoom_scale, delta_factor=1):
 	var current_zoom = target_zoom.x
-	var current_delta = zoom_delta
+	#var current_delta = zoom_delta
 	target_zoom = Vector2(zoom_scale, zoom_scale)
 	zoom_delta = delta_factor
 	return [current_zoom, zoom_delta]
 
-func _on_hurtbox_area_body_entered(body):
-	pass
 
 
 func _on_hit_timer_timeout():

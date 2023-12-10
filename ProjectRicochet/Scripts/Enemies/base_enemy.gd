@@ -20,7 +20,7 @@ var spawner : Spawner = null
 var death_delta = 8
 
 
-var hit_sound = preload("res://Sounds/hitHurtEnemy.wav")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,8 +44,6 @@ func death_step(delta):
 		explosion_sprite.modulate.a = lerp(explosion_sprite.modulate.a, 0.0, delta*EXPLOSION_FADE_DELTA)
 
 func apply_damage(damage):
-	#$HitSoundPlayer2D.stream = hit_sound
-	#$HitSoundPlayer2D.play()
 	sprite.set_modulate(Color(0.7, 1, 1, 0.7))
 	health -= damage
 	if health <= 0:

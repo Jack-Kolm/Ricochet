@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://pstxfjuujuba" path="res://Scenes/Menus/main_menu.tscn" id="3_ik5va"]
 [ext_resource type="PackedScene" uid="uid://b1xb1kngoyjgw" path="res://Scenes/Menus/restart_menu.tscn" id="4_5ywyw"]
 
-[node name="level_master" type="Node2D"]
+[node name="LevelMaster" type="Node2D"]
 
 [node name="InitMain" parent="." instance=ExtResource("1_5bvam")]
 

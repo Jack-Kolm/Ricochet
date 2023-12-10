@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://4suuxsvbhi8k"]
+[gd_scene load_steps=11 format=3 uid="uid://4suuxsvbhi8k"]
 
-[ext_resource type="Script" path="res://Scenes/Visuals/intro_screen.gd" id="1_3lyvn"]
+[ext_resource type="Script" path="res://Scripts/Menus/intro_screen.gd" id="1_3lyvn"]
 [ext_resource type="PackedScene" uid="uid://dsxnthupu7anj" path="res://Scenes/Visuals/fader.tscn" id="1_li52i"]
-[ext_resource type="Texture2D" uid="uid://dv3qhwgvh2vpd" path="res://Sprites/Arrow.png" id="2_1wib2"]
+[ext_resource type="Texture2D" uid="uid://dv3qhwgvh2vpd" path="res://Sprites/Misc/Arrow.png" id="2_1wib2"]
 [ext_resource type="PackedScene" uid="uid://kt5cvfx4d4hd" path="res://Scenes/Walls/wall_normal.tscn" id="2_28esk"]
 [ext_resource type="Texture2D" uid="uid://6pc50r0471ee" path="res://Sprites/Wall/Wall_NORMAL.png" id="2_uus0t"]
 [ext_resource type="PackedScene" uid="uid://cgshgrem1j5uk" path="res://Scenes/Bullets/advanced_ricochet_bullet.tscn" id="3_5xxij"]
-[ext_resource type="Texture2D" uid="uid://cg5t7d4tusorq" path="res://Sprites/Tiles/inner.png" id="7_gaebd"]
+[ext_resource type="Texture2D" uid="uid://chkbpg3aylfqh" path="res://Sprites/Tiles/Tile3.png" id="7_f4h70"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kb0i5"]
+font_size = 32
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oiov0"]
 size = Vector2(48.25, 52.25)
@@ -42,11 +45,7 @@ position = Vector2(1928, 584)
 
 [node name="Fader" parent="." instance=ExtResource("1_li52i")]
 position = Vector2(960, 440)
-stay_time = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="Fader"]
-scale = Vector2(3, 3)
-texture = ExtResource("2_1wib2")
+fade_in = false
 
 [node name="Label" type="Label" parent="Fader"]
 anchors_preset = 8
@@ -54,13 +53,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -128.0
-offset_right = 16.0
-offset_bottom = -102.0
+offset_left = -320.0
+offset_top = -248.0
+offset_right = -147.0
+offset_bottom = -107.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(3.64019, 3.64019)
 size_flags_horizontal = 4
+text = "A game made by Jack Kolm"
+label_settings = SubResource("LabelSettings_kb0i5")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -81,9 +83,17 @@ shape = SubResource("RectangleShape2D_oiov0")
 visible = false
 shape = SubResource("RectangleShape2D_su3qi")
 
+[node name="Sprite2D2" type="Sprite2D" parent="HitNode"]
+visible = false
+position = Vector2(0, -56)
+scale = Vector2(3, 3)
+texture = ExtResource("2_1wib2")
+
 [node name="Sprite2D" type="Sprite2D" parent="HitNode"]
-scale = Vector2(0.117188, 0.117188)
-texture = ExtResource("7_gaebd")
+position = Vector2(0, -24)
+rotation = 0.785397
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_f4h70")
 
 [connection signal="finished" from="Fader" to="." method="_on_fader_finished"]
 [connection signal="body_entered" from="HitNode/HitArea" to="." method="_on_hit_area_body_entered"]

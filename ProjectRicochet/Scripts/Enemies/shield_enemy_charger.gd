@@ -45,7 +45,6 @@ func chase_step(delta):
 			velocity.x =  lerp(velocity.x, facing_x_axis*CHARGE_SPEED, delta * CHARGE_FACTOR)
 	
 	for ray in $SeparationNode.get_children():
-
 		if ray.is_colliding() and ray.get_collider().is_in_group("enemies"):
 				var move_away_x = -sign(global_position.direction_to(ray.get_collider().global_position).x)
 				velocity.x = lerp(velocity.x, move_away_x*SEPARATION_SPEED, delta*SEPARATION_DELTA)

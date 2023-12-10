@@ -62,9 +62,11 @@ func _on_teleport_area_body_entered(body):
 	if body.is_in_group("player"):
 		for child in get_children():
 			child.queue_free()
-		#var my_bullets = get_tree().get_nodes_in_group("ricochet_bullets")
-		#for bullet in my_bullets:
-		#	bullet.queue_free()
 		SceneSwitcher.switch_scene(SceneSwitcher.Scenes.INITMAIN)
-	#get_tree().change_scene_to_file("res://Scenes/Menus/main_menu.tscn")
+		#$CanvasLayer/Fader.activate()
+
+
+
+func _on_fader_finished():
+	pass
 

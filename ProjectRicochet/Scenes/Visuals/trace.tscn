@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://6qqwyt6lrfmo"]
+
+[ext_resource type="Script" path="res://Scripts/Visuals/bullet_trace.gd" id="1_k6n5w"]
+
+[sub_resource type="Curve" id="Curve_klgkr"]
+_data = [Vector2(0.190722, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.473684), 1.63368, 0.0, 0, 0]
+point_count = 2
+
+[node name="Trace" type="Line2D"]
+width = 3.0
+width_curve = SubResource("Curve_klgkr")
+default_color = Color(0.3, 0, 0.7, 1)
+script = ExtResource("1_k6n5w")

@@ -8,7 +8,7 @@ enum EnemyTypes {CHARGER, SHIELD_CHARGER, TURRET, BAT, BOSS}
 @onready var Turret = preload("res://Scenes/Enemies/flying_enemy_turret.tscn")
 @onready var ShieldCharger = preload("res://Scenes/Enemies/shield_enemy_charger.tscn")
 @onready var Bat = preload("res://Scenes/Enemies/bat_enemy.tscn")
-@onready var Boss = preload("res://nav_char.tscn")
+@onready var Boss = preload("res://Scenes/Enemies/final_boss.tscn")
 
 var fadeout = false
 var player : Player

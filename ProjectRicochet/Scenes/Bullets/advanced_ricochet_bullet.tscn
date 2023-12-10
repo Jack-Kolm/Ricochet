@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://cgshgrem1j5uk"]
 
 [ext_resource type="Script" path="res://Scripts/Bullets/advanced_ricochet_bullet.gd" id="1_ug471"]
-[ext_resource type="PackedScene" uid="uid://6qqwyt6lrfmo" path="res://Scripts/Visuals/trace.tscn" id="2_puxhx"]
+[ext_resource type="PackedScene" uid="uid://6qqwyt6lrfmo" path="res://Scenes/Visuals/trace.tscn" id="2_puxhx"]
 [ext_resource type="Texture2D" uid="uid://cup88ux63f0si" path="res://Sprites/Bullets/NewBullets/XNewerBullet1.png" id="2_v84vs"]
 [ext_resource type="Texture2D" uid="uid://cys1ri8b2lnup" path="res://Sprites/Bullets/NewBullets/XNewerBullet2.png" id="3_im536"]
 [ext_resource type="Texture2D" uid="uid://6sl66ghfc0yb" path="res://Sprites/Bullets/NewBullets/XNewerBullet3.png" id="4_t0pul"]

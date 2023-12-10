@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cis4dur84vje8"]
 
-[ext_resource type="Script" path="res://Scenes/Visuals/zoom_area.gd" id="1_4q85j"]
+[ext_resource type="Script" path="res://Scripts/Visuals/zoom_area.gd" id="1_4q85j"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_tmc4q"]
 b = Vector2(0, 500)

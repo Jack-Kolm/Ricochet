@@ -1,15 +1,14 @@
 extends "res://Scripts/Enemies/flying_enemy_base.gd"
 
-const BASE_SPEED = 60
-const CHARGE_SPEED = 200
-const CHARGE_DISTANCE = 150
+const BASE_SPEED = 80
+const CHARGE_SPEED = 220
+const CHARGE_DISTANCE = 170
 const BODY_DAMAGE = 100
 const GOAL_DELTA = 2
 
 @onready var collision_box = $CollisionBoxShape
 @onready var hitbox_shape = $Hitbox/Shape
 
-var death_sound = preload("res://Sounds/explosion.wav")
 
 var group = []
 var is_bat=true
@@ -92,8 +91,6 @@ func batboids(separation_factor, cohesion_factor, delta):
 
 func destroy():
 	super()
-	#hit_sound_player.stream = death_sound
-	#hit_sound_player.play()
 	set_collision_layer_value(2, false)
 
 

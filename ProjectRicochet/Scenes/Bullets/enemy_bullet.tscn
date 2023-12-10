@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=3 uid="uid://kjclso7aii3r"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/enemy_bullet.gd" id="1_c7sl8"]
-[ext_resource type="Texture2D" uid="uid://brvpmy0c0jwsi" path="res://Sprites/Bullets/enemy_bullet4.png" id="2_r82oe"]
+[ext_resource type="Texture2D" uid="uid://brvpmy0c0jwsi" path="res://Sprites/Bullets/EnemyBullets/enemy_bullet4.png" id="2_r82oe"]
 [ext_resource type="Texture2D" uid="uid://bvbdowigv2yk1" path="res://Sprites/Light/light1.png" id="3_1hw4u"]
 [ext_resource type="Texture2D" uid="uid://dl03ttlb24ada" path="res://Sprites/Explosion/explosion1.png" id="9_wstov"]
 [ext_resource type="Texture2D" uid="uid://dt4xoaxgrgijr" path="res://Sprites/Explosion/explosion2.png" id="10_5n1g4"]
-[ext_resource type="PackedScene" uid="uid://6qqwyt6lrfmo" path="res://Scripts/Visuals/trace.tscn" id="10_6bwnd"]
+[ext_resource type="PackedScene" uid="uid://6qqwyt6lrfmo" path="res://Scenes/Visuals/trace.tscn" id="10_6bwnd"]
 [ext_resource type="Texture2D" uid="uid://b5gger2f4230r" path="res://Sprites/Explosion/explosion3.png" id="11_s52o1"]
 [ext_resource type="Texture2D" uid="uid://bodebyb4vgk07" path="res://Sprites/Explosion/explosion4.png" id="12_usyaq"]
 [ext_resource type="Texture2D" uid="uid://biskv30bbbw7q" path="res://Sprites/Explosion/explosion5.png" id="13_k3wsn"]

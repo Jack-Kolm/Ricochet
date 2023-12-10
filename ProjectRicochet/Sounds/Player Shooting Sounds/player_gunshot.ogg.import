@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b43ivldqwfjgi"
+path="res://.godot/imported/player_gunshot.ogg-ad2e735451aed551da76f97da5127445.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Player Shooting Sounds/player_gunshot.ogg"
+dest_files=["res://.godot/imported/player_gunshot.ogg-ad2e735451aed551da76f97da5127445.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

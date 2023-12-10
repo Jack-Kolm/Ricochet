@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1xb1kngoyjgw"]
+[gd_scene load_steps=6 format=3 uid="uid://b1xb1kngoyjgw"]
 
 [ext_resource type="Script" path="res://Scripts/Menus/restart_menu.gd" id="1_3xwqn"]
 [ext_resource type="Texture2D" uid="uid://6pc50r0471ee" path="res://Sprites/Wall/Wall_NORMAL.png" id="1_q4587"]
+[ext_resource type="FontFile" uid="uid://cqmvq6e5nt6g8" path="res://Fonts/CutiveMono-Regular.ttf" id="2_g1jdh"]
+[ext_resource type="PackedScene" uid="uid://dbtka81hpf4ox" path="res://Scenes/Menus/menu_button.tscn" id="3_ulbjp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wb0ot"]
+font = ExtResource("2_g1jdh")
 
 [node name="RestartMenu" type="Control"]
 z_index = 10
@@ -20,13 +25,22 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Try Again"
+text = "Defeat"
+label_settings = SubResource("LabelSettings_wb0ot")
+horizontal_alignment = 1
 
-[node name="QuitToMenuButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Separator4" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Quit to Menu"
+
+[node name="ResButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ulbjp")]
+layout_mode = 2
+text = " TRY AGAIN"
+
+[node name="MenuQuitButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ulbjp")]
+layout_mode = 2
+text = " QUIT TO MENU"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
@@ -54,5 +68,5 @@ offset_right = 39.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="button_up" from="MarginContainer/VBoxContainer/RestartButton" to="." method="_on_button_button_up"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/ResButton" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/MenuQuitButton" to="." method="_on_quit_to_menu_button_button_up"]

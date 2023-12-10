@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbtka81hpf4ox"]
+
+[ext_resource type="FontFile" uid="uid://cqmvq6e5nt6g8" path="res://Fonts/CutiveMono-Regular.ttf" id="1_tkdca"]
+[ext_resource type="Texture2D" uid="uid://bslu77yr16iv8" path="res://Sprites/Bullets/NewBullets/NewBullet1.png" id="2_pf4gm"]
+[ext_resource type="Script" path="res://Scripts/Menus/menu_button.gd" id="3_ylpv5"]
+[ext_resource type="AudioStream" uid="uid://clcbdwnb6ioo2" path="res://Sounds/Misc/click.wav" id="4_vdyu6"]
+
+[sub_resource type="Theme" id="Theme_nl420"]
+default_font = ExtResource("1_tkdca")
+
+[node name="MenuButton" type="Button"]
+theme = SubResource("Theme_nl420")
+icon = ExtResource("2_pf4gm")
+flat = true
+alignment = 0
+script = ExtResource("3_ylpv5")
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vdyu6")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

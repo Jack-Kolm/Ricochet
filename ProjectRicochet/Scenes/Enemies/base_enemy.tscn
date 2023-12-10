@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://2i51o0eitqsa"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/base_enemy.gd" id="1_qtd8a"]
-[ext_resource type="Texture2D" uid="uid://bbsi6ewqrw0li" path="res://Sprites/Explosion/Explosion.png" id="2_ckgt6"]
-[ext_resource type="AudioStream" uid="uid://d1hc6qoyrjlkt" path="res://Sounds/Explosions/despawn_explosion.wav" id="8_g0dnn"]
+[ext_resource type="Texture2D" uid="uid://bbsi6ewqrw0li" path="res://Sprites/Explosion/despawn_explosion.png" id="2_ckgt6"]
+[ext_resource type="AudioStream" path="res://Sounds/Explosions/despawn_explosion.wav" id="8_g0dnn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_033u7"]
 atlas = ExtResource("2_ckgt6")

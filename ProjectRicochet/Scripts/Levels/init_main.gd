@@ -13,7 +13,7 @@ const FAR_ZOOM = 1.6
 @export var player : Player
 
 var menu_scene = preload("res://Scenes/Menus/main_menu.tscn")
-var boss_scene = preload("res://Scenes/boss.tscn")
+var boss_scene = preload("res://Scenes/Levels/boss_level.tscn")
 var restart_scene = preload("res://Scenes/Menus/restart_menu.tscn")
 var restart_menu = null
 
@@ -26,6 +26,7 @@ func _ready():
 	self.visible = true
 	self.player.change_camera_zoom(NORMAL_ZOOM)
 	restart_menu = restart_scene.instantiate()
+	Global.boss_level_flag = false
 	Global.second_boss_flag = false
 	if Global.elevator_checkpoint:
 		$Enemies/ElevatorShieldEnemy.queue_free()
@@ -43,20 +44,6 @@ func _process(delta):
 			elevator = false
 
 
-func goto_restart_menu():
-	"""var node_children = get_tree().get_root().get_children()
-
-	var enemies = get_tree().get_nodes_in_group("enemies")
-	var bullets = get_tree().get_nodes_in_group("bullets")
-	for enemy in enemies:
-		enemy.queue_free()
-	for bullet in bullets:
-		bullet.queue_free()
-	Global.current_level_name = get_tree().current_scene.name
-	get_tree().change_scene_to_packed(restart_scene)"""
-	#SceneSwitcher.switch_scene("res://Scenes/Menus/restart_menu.tscn")
-	pass
-
 func boss_door_activate():
 	SceneSwitcher.switch_scene(SceneSwitcher.Scenes.BOSS)
 
@@ -68,7 +55,7 @@ func set_player(player):
 func get_player():
 	return player
 
-
+"""
 func goto_menu(children):
 	for child in children:
 		child.queue_free()
@@ -86,6 +73,7 @@ func goto_boss(children):
 		child.queue_free()
 	get_tree().change_scene_to_file("res://Scenes/boss.tscn")
 
+"""
 
 func cleanup():
 	var children = get_tree().get_root().get_children()
@@ -93,11 +81,9 @@ func cleanup():
 	for child in children:
 		if child.is_in_group("enemies"):
 			child.queue_free()
-	
 	for child in get_children():
 		if child.is_in_group("enemies") or child.is_in_group("bullets"):
 			child.queue_free()
-
 
 func reload_self():
 	cleanup()

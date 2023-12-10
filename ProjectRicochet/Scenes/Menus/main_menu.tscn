@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://pstxfjuujuba"]
+[gd_scene load_steps=11 format=3 uid="uid://pstxfjuujuba"]
 
 [ext_resource type="Script" path="res://Scripts/Menus/main_menu.gd" id="1_xddvt"]
-[ext_resource type="Texture2D" uid="uid://cscj5j1ptuaqx" path="res://Sprites/Square.png" id="2_n6uhk"]
 [ext_resource type="FontFile" uid="uid://cqmvq6e5nt6g8" path="res://Fonts/CutiveMono-Regular.ttf" id="3_7djyf"]
-[ext_resource type="PackedScene" uid="uid://dbtka81hpf4ox" path="res://Scenes/menu_button.tscn" id="3_fdc2r"]
+[ext_resource type="Texture2D" uid="uid://cscj5j1ptuaqx" path="res://Sprites/Misc/Square.png" id="3_tpbi5"]
+[ext_resource type="PackedScene" uid="uid://dbtka81hpf4ox" path="res://Scenes/Menus/menu_button.tscn" id="4_6vfou"]
+[ext_resource type="AudioStream" uid="uid://dwg48pfw47h0l" path="res://Sounds/Player Shooting Sounds/main_menu_gunshot.wav" id="5_0fkjr"]
+[ext_resource type="PackedScene" uid="uid://dsxnthupu7anj" path="res://Scenes/Visuals/fader.tscn" id="6_deqm8"]
+[ext_resource type="Texture2D" uid="uid://c8k2uduvm4pit" path="res://Sprites/Input/Tiles/tile_0101.png" id="7_7ntut"]
+[ext_resource type="Texture2D" uid="uid://dvl20vi2b4rsy" path="res://Sprites/Misc/RobotV2Border3.png" id="7_dqim2"]
+[ext_resource type="AudioStream" uid="uid://bm42aurmiyiel" path="res://Sounds/Music/Claire de Lune.mp3" id="8_ekial"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_itfkp"]
 font = ExtResource("3_7djyf")
@@ -17,24 +22,38 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xddvt")
 
+[node name="Space" type="Label" parent="."]
+layout_mode = 2
+offset_left = 844.0
+offset_top = 349.0
+offset_right = 971.0
+offset_bottom = 368.0
+label_settings = SubResource("LabelSettings_itfkp")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(992, 560)
 scale = Vector2(45.3333, 26.1667)
-texture = ExtResource("2_n6uhk")
+texture = ExtResource("3_tpbi5")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+layout_mode = 2
+offset_left = 377.0
+offset_top = 184.0
+offset_right = 513.0
+offset_bottom = 355.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.533
+anchor_left = 0.436
 anchor_top = 0.652
 anchor_right = 0.533
 anchor_bottom = 0.652
-offset_left = -111.36
+offset_left = -486.12
 offset_top = -448.16
-offset_right = 16.6399
+offset_right = -510.48
 offset_bottom = -277.16
-grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3, 3)
 pivot_offset = Vector2(34, 0)
@@ -47,21 +66,45 @@ layout_mode = 2
 text = "Ricochet"
 label_settings = SubResource("LabelSettings_itfkp")
 
-[node name="StartButton" parent="MarginContainer/VBoxMain" instance=ExtResource("3_fdc2r")]
+[node name="Separator" type="HSeparator" parent="MarginContainer/VBoxMain"]
+layout_mode = 2
+
+[node name="OpenStartButton" parent="MarginContainer/VBoxMain" instance=ExtResource("4_6vfou")]
 layout_mode = 2
 text = " START GAME"
 
-[node name="TutorialButton" parent="MarginContainer/VBoxMain" instance=ExtResource("3_fdc2r")]
-layout_mode = 2
-text = " TUTORIAL"
-
-[node name="ExtrasButton" parent="MarginContainer/VBoxMain" instance=ExtResource("3_fdc2r")]
+[node name="ExtrasButton" parent="MarginContainer/VBoxMain" instance=ExtResource("4_6vfou")]
 layout_mode = 2
 text = " EXTRAS"
 
-[node name="QuitButton" parent="MarginContainer/VBoxMain" instance=ExtResource("3_fdc2r")]
+[node name="QuitButton" parent="MarginContainer/VBoxMain" instance=ExtResource("4_6vfou")]
 layout_mode = 2
 text = " QUIT"
+
+[node name="VBoxStartGame" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxStartGame"]
+layout_mode = 2
+text = "Play tutorial?"
+label_settings = SubResource("LabelSettings_itfkp")
+
+[node name="Separator2" type="HSeparator" parent="MarginContainer/VBoxStartGame"]
+visible = false
+layout_mode = 2
+
+[node name="TutorialButton" parent="MarginContainer/VBoxStartGame" instance=ExtResource("4_6vfou")]
+layout_mode = 2
+text = " YES"
+
+[node name="StartButton" parent="MarginContainer/VBoxStartGame" instance=ExtResource("4_6vfou")]
+layout_mode = 2
+text = " NO"
+
+[node name="BackButton" parent="MarginContainer/VBoxStartGame" instance=ExtResource("4_6vfou")]
+layout_mode = 2
+text = " BACK"
 
 [node name="VBoxExtras" type="VBoxContainer" parent="MarginContainer"]
 visible = false
@@ -72,27 +115,74 @@ layout_mode = 2
 text = "Ricochet"
 label_settings = SubResource("LabelSettings_itfkp")
 
-[node name="Boss1Button" parent="MarginContainer/VBoxExtras" instance=ExtResource("3_fdc2r")]
+[node name="Separator3" type="HSeparator" parent="MarginContainer/VBoxExtras"]
 layout_mode = 2
-text = " BOSS 1 (BATS)"
 
-[node name="Boss2Button" parent="MarginContainer/VBoxExtras" instance=ExtResource("3_fdc2r")]
+[node name="Boss1Button" parent="MarginContainer/VBoxExtras" instance=ExtResource("4_6vfou")]
 layout_mode = 2
-text = " BOSS 2 (WINGS)"
+text = " START FROM BOSS 1 
+ (BATS)"
 
-[node name="BackButton" parent="MarginContainer/VBoxExtras" instance=ExtResource("3_fdc2r")]
+[node name="Boss2Button" parent="MarginContainer/VBoxExtras" instance=ExtResource("4_6vfou")]
+layout_mode = 2
+text = " START FROM BOSS 2 
+ (W.I.N.G.S.)"
+
+[node name="BackButton" parent="MarginContainer/VBoxExtras" instance=ExtResource("4_6vfou")]
 layout_mode = 2
 text = " BACK"
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
-offset_right = 640.0
-offset_bottom = 1080.0
+offset_right = 960.0
+offset_bottom = 540.0
+scale = Vector2(2, 2)
 
-[connection signal="button_up" from="MarginContainer/VBoxMain/StartButton" to="." method="_on_start_button_button_up"]
-[connection signal="button_up" from="MarginContainer/VBoxMain/TutorialButton" to="." method="_on_tutorial_button_button_up"]
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "ENTERING GAME..."
+label_settings = SubResource("LabelSettings_itfkp")
+horizontal_alignment = 1
+
+[node name="StartSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_0fkjr")
+volume_db = -6.0
+
+[node name="PortraitFader" parent="." instance=ExtResource("6_deqm8")]
+position = Vector2(-49, 3)
+activated = true
+fade_out = false
+fade_factor = 0.05
+
+[node name="Sprite2D2" type="Sprite2D" parent="PortraitFader"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+position = Vector2(1452, 496)
+scale = Vector2(4, 4)
+skew = 0.20944
+texture = ExtResource("7_dqim2")
+
+[node name="Fader" parent="." instance=ExtResource("6_deqm8")]
+fade_in = false
+stay_time = 0.2
+
+[node name="Sprite2D2" type="Sprite2D" parent="Fader"]
+visible = false
+position = Vector2(1464, 232)
+scale = Vector2(242.4, 140.64)
+texture = ExtResource("7_7ntut")
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ekial")
+volume_db = -6.0
+
+[connection signal="button_up" from="MarginContainer/VBoxMain/OpenStartButton" to="." method="_on_open_menu_button_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxMain/ExtrasButton" to="." method="_on_extras_button_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxMain/QuitButton" to="." method="_on_quit_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxStartGame/TutorialButton" to="." method="_on_tutorial_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxStartGame/StartButton" to="." method="_on_start_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxStartGame/BackButton" to="." method="_on_back_menu_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxExtras/Boss1Button" to="." method="_on_boss_1_button_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxExtras/Boss2Button" to="." method="_on_boss_2_button_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxExtras/BackButton" to="." method="_on_back_menu_button_up"]
+[connection signal="finished" from="Fader" to="." method="_on_fader_finished"]
