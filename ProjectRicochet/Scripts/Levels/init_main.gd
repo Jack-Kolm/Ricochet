@@ -71,7 +71,6 @@ func reload_self():
 
 func unlock_boss_door():
 	boss_door_unlock_count =  boss_door_unlock_count - 1
-	print(boss_door_unlock_count)
 	if boss_door_unlock_count < 1:
 		$Walls/WallLock3.unlock()
 

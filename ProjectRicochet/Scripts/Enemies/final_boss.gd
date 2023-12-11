@@ -251,7 +251,7 @@ func _on_timer_timeout():
 
 
 func _on_navigation_agent_2d_path_changed():
-	print("I HAVE CHANGED")
+	pass
 
 
 func _on_surround_check_body_entered(body):

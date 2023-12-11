@@ -12,7 +12,6 @@ func _process(_delta):
 
 
 func _on_hit_area_body_entered(body):
-	print(body)
 	body.play_good_hit()
 	body.destroy()
 	$HitNode.visible = false

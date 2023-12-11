@@ -153,8 +153,7 @@ func general_step(delta):
 	check_jump(delta)
 	if is_on_floor(): 
 		if is_jumping:
-			var fall_distance = fall_point.distance_to(global_position)
-			print(fall_distance)
+			var _fall_distance = fall_point.distance_to(global_position)
 		is_jumping = false
 		second_jump = false
 		jump_fall_check = 1
