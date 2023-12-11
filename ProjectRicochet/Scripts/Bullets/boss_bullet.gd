@@ -17,8 +17,7 @@ var speed = 200.0
 func _ready():
 	pass
 
-func _physics_process(delta):
-
+func _physics_process(_delta):
 	self.rotation = direction.angle() - PI/2
 	move_and_slide()
 	#var collision_info = move_and_collide(velocity * delta)
@@ -36,11 +35,7 @@ func prepare(start_direction):
 func destroy():
 	queue_free()
 
-func _on_hitbox_body_entered(body):
-	#if body.name == "Player":
-	#	var player = body
-	#	player.apply_damage(damage, direction)
-	#	self.destroy()
+func _on_hitbox_body_entered(_body):
 	pass
 
 

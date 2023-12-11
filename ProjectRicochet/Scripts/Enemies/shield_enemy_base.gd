@@ -154,7 +154,7 @@ func death_step(delta):
 			velocity.y += gravity * delta
 		velocity.x = lerp(velocity.x, 0.0, delta*death_delta)
 
-func chase_step(delta):
+func chase_step(_delta):
 	pass
 
 
@@ -193,13 +193,13 @@ func turn_around():
 		turn_around_timer.start()
 
 
-func apply_damage(damage):
-	super(damage)
+func apply_damage(applied_damage):
+	super(applied_damage)
 	enter_state(States.HURT)
 	
 
 
-func apply_knockback(force, direction):
+func apply_knockback(_force, direction):
 	knockback_timer.start()
 	velocity = Vector2(SELF_KNOCKBACK_X*sign(direction.x), -SELF_KNOCKBACK_Y)
 	
@@ -221,11 +221,7 @@ func jump():
 	velocity.y = JUMP_VELOCITY
 
 
-func _on_wall_check_body_entered(body):
-	#if body.is_in_group("enemies"):
-	#	var dir_switch = sign(global_position.direction_to(body.global_position).x)
-	#	self.velocity.x = LEDGE_VELOCITY * -dir_switch
-	#else:
+func _on_wall_check_body_entered(_body):
 	movement_x_axis *= -1
 
 
@@ -268,7 +264,7 @@ func _on_turn_to_player_timer_timeout():
 		facing_x_axis = player_x_axis
 
 
-func _on_ledge_check_body_exited(body):
+func _on_ledge_check_body_exited(_body):
 	match current_state:
 		States.ROAM:
 			velocity.x = 0
@@ -280,7 +276,7 @@ func _on_ledge_check_body_exited(body):
 
 
 
-func _on_ledge_check_left_body_exited(body):
+func _on_ledge_check_left_body_exited(_body):
 	if $LedgeCheckLeft.has_overlapping_bodies():
 		return
 	match current_state:
@@ -295,7 +291,7 @@ func _on_ledge_check_left_body_exited(body):
 
 
 
-func _on_ledge_check_right_body_exited(body):
+func _on_ledge_check_right_body_exited(_body):
 	if $LedgeCheckRight.has_overlapping_bodies():
 		return
 	match current_state:
@@ -315,9 +311,9 @@ func _on_chase_area_body_exited(body):
 
 func _on_hitbox_body_entered(body):
 	if body.is_in_group("player"):
-		var player = body
-		player.apply_knockback(Vector2(player_x_axis, 0), KNOCKBACK_PLAYER_FORCE)
-		player.apply_damage(damage)
+		var player_body = body
+		player_body.apply_knockback(Vector2(player_x_axis, 0), KNOCKBACK_PLAYER_FORCE)
+		player_body.apply_damage(damage)
 		charging = false
 
 

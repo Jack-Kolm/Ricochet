@@ -541,16 +541,6 @@ shader_parameter/tint = Color(0.180392, 0.839216, 0.556863, 1)
 
 [sub_resource type="GDScript" id="GDScript_ibyur"]
 script/source = "extends Node
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 "
 
 [node name="Player" type="CharacterBody2D" groups=["avoid_bullet", "player"]]

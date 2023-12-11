@@ -19,8 +19,8 @@ func _ready():
 	restart_menu = menu_scene.instantiate()
 
 
-func set_player(player):
-	self.player = player
+func set_player(new_player):
+	self.player = new_player
 
 
 func get_player():

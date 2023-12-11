@@ -66,7 +66,7 @@ func roam_step(delta):
 	velocity = lerp(velocity, Vector2(0,0), delta*STATIONARY_DELTA_FACTOR)
 
 
-func chase_step(delta):
+func chase_step(_delta):
 	pass
 
 func death_step(delta):
@@ -78,9 +78,9 @@ func death_step(delta):
 
 
 func boids_separation(delta):
-	var separation_distance = 1000
+	#var separation_distance = 1000
 	var separation_factor = 2
-	var delta_factor = 1
+	#var delta_factor = 1
 	var separation_dx = 0.0
 	var separation_dy = 0.0
 	var should_separate = false
@@ -120,12 +120,12 @@ func boids_separation(delta):
 	#velocity.y += new_velocity_y
 
 
-func apply_knockback(force, direction):
+func apply_knockback(force, knockback_direction):
 	velocity = Vector2(0,0)
-	velocity += force * direction
+	velocity += force * knockback_direction
 
-func set_aggro_start(aggro_start : bool):
-	self.aggro_start = aggro_start
+func set_aggro_start(new_aggro_start : bool):
+	self.aggro_start = new_aggro_start
 	
 
 func _on_player_detection_body_entered(body):

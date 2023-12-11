@@ -25,7 +25,7 @@ var boss_scene
 var x_axis = 1
 var facing_x_axis = 1
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var delta
+var delta_tracker
 var is_jumping = false
 var shotgun_flag = false
 
@@ -39,7 +39,7 @@ func _ready():
 func _physics_process(delta):
 	if not activated:
 		return
-	self.delta = delta
+	self.delta_tracker = delta
 	self.modulate = lerp(self.modulate, Color(1,1,1,1), delta)
 	if velocity.x > 0:
 		x_axis = 1
@@ -64,7 +64,6 @@ func _physics_process(delta):
 		else:
 			$Sprite/Sprite.animation = "run"
 	
-	
 	$AxisNode.scale.x = x_axis
 	$Sprite.scale.x = facing_x_axis
 	if not is_on_floor():
@@ -83,41 +82,26 @@ func _physics_process(delta):
 	else:
 		$Sprite/SpriteWings.stop()
 		$Sprite/SpriteWings.frame = 3
-	#if global_position.distance_to(player.global_position) < 100:
-	# Add the gravity.
-	#	path_follow.progress = (path_follow.progress + SPEED * delta)
-	#move_and_slide()
 	if navagent.is_navigation_finished():
 		if is_on_floor():
 			disable_jump()
-		
 		velocity.x = lerp(velocity.x, 0.0, delta)
 		move_and_slide()
 		return
 	else:
 		var next = navagent.get_next_path_position()
-		#var axis = to_local(navagent.get_next_path_position().normalized())
 		var axis = global_position.direction_to(next)
-		#var intented_velocity = (next - global_position).normalized() * SPEED
-
-
 		var intended_velocity
 		if is_jumping:
 			intended_velocity = axis * JUMP_SPEED
-			#if axis.y > 0:
-			#	intended_velocity.y += gravity * 0.2
 		else:
 			intended_velocity = axis * SPEED
 		navagent.set_velocity(intended_velocity)
-		#move_and_slide()
-
 
 
 func _input(event):
 	if event.is_action_pressed("TestAction"):
 		navagent.target_position = get_global_mouse_position()
-		#if global_position.direction_to(navagent.get_next_path_position()).y < 0:
-		#	enable_jump()
 
 
 func move():
@@ -128,7 +112,6 @@ func move():
 	for spot in jump_spots.get_children():
 		if spot == prev_spot:
 			continue
-		var to_spot_vect = spot.global_position - global_position
 		var to_spot = global_position.distance_to(spot.global_position)
 		if to_spot < dist:
 			next_spot = spot
@@ -151,7 +134,7 @@ func apply_damage(damage):
 		destroy()
 
 
-func apply_knockback(force, direction):
+func apply_knockback(_force, _direction):
 	pass
 
 
@@ -213,7 +196,6 @@ func avoid_bullet(incoming_dir : Vector2, bullet_dir: Vector2, incoming_pos: Vec
 	var query = PhysicsRayQueryParameters2D.create(incoming_pos, incoming_pos+bullet_dir*100)
 	query.collision_mask = 9
 	var result = space_state.intersect_ray(query)
-	var new_pos = Vector2(0,0)
 	if result:
 		if abs(incoming_dir.x) > 0.8:
 			if is_on_floor():
@@ -245,13 +227,12 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	if is_on_floor():
 		velocity = safe_velocity
 	else:
-		if self.delta != null:
-			velocity = lerp(velocity, safe_velocity, self.delta*1.65)
+		if self.delta_tracker != null:
+			velocity = lerp(velocity, safe_velocity, self.delta_tracker*1.65)
 	move_and_slide()
 
 
-func _on_area_2d_body_exited(body):
-	
+func _on_area_2d_body_exited(_body):
 	if not navagent.is_navigation_finished():
 		enable_jump()
 	else:
@@ -267,7 +248,6 @@ func _on_timer_timeout():
 		navagent.target_position = Vector2(player.global_position.x, player.global_position.y+height_offset)
 	else:
 		move()
-	#surround_check.get_overlapping_bodies()
 
 
 func _on_navigation_agent_2d_path_changed():

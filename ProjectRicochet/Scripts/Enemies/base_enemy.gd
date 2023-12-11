@@ -31,8 +31,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	var hello = true
+func _physics_process(_delta):
+	pass
 
 func general_step(delta):
 	sprite.set_modulate(lerp(sprite.get_modulate(), Color(1,1,1,1), delta*HURT_DELTA)) 

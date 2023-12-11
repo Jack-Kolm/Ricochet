@@ -7,7 +7,7 @@ var zoom_out_count = 0
 var elevator = false
 
 const CLOSE_ZOOM = 4.7
-const NORMAL_ZOOM = 3
+const NORMAL_ZOOM = 3.0
 const FAR_ZOOM = 1.6
 
 @export var player : Player
@@ -48,36 +48,16 @@ func boss_door_activate():
 	SceneSwitcher.switch_scene(SceneSwitcher.Scenes.BOSS)
 
 
-func set_player(player):
-	self.player = player
+func set_player(new_player):
+	self.player = new_player
 
 
 func get_player():
 	return player
 
-"""
-func goto_menu(children):
-	for child in children:
-		child.queue_free()
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
-
-func goto_end(children):
-	for child in children:
-		#if not child.is_in_group("player"):
-		child.queue_free()
-	get_tree().change_scene_to_file("res://Scenes/end.tscn")
-
-func goto_boss(children):
-	for child in children:
-		#if not child.is_in_group("player"):
-		child.queue_free()
-	get_tree().change_scene_to_file("res://Scenes/boss.tscn")
-
-"""
 
 func cleanup():
 	var children = get_tree().get_root().get_children()
-	var level_children 
 	for child in children:
 		if child.is_in_group("enemies"):
 			child.queue_free()
@@ -98,14 +78,11 @@ func unlock_boss_door():
 func _on_spawner_1_completed():
 	$Walls/WallLock1.unlock()
 	player.change_camera_zoom(CLOSE_ZOOM, 0.5)
-	pass # Replace with function body.
 
 
 func _on_spawner_2_completed():
 	$Walls/WallLock2.unlock()
 	$Graffiti/Arrow3.visible = true
-	#$AmbiencePlayer.play()
-	#$MusicPlayer.stop()
 	player.change_camera_zoom(NORMAL_ZOOM, 0.5)
 
 

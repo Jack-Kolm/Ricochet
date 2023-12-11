@@ -94,8 +94,8 @@ func destroy():
 	set_collision_layer_value(2, false)
 
 
-func set_player(player):
-	self.player = player
+func set_player(new_player):
+	self.player = new_player
 
 
 func _on_explosion_sprite_animation_finished():
@@ -105,9 +105,9 @@ func _on_explosion_sprite_animation_finished():
 
 func _on_hitbox_body_entered(body):
 	if body.is_in_group("player"):
-		var player = body
-		player.apply_knockback(direction)
-		player.apply_damage(BODY_DAMAGE)
+		var player_body = body
+		player_body.apply_knockback(direction)
+		player_body.apply_damage(BODY_DAMAGE)
 
 func apply_damage(damage):
 	if boss_scene != null:

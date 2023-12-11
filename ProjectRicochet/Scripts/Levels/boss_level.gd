@@ -74,7 +74,7 @@ func _process(delta):
 			if bar_scale >= 0:
 				boss_health_bar.scale.x = bar_scale
 			else:
-				boss_health_bar.scale.x
+				boss_health_bar.scale.x = 0.0
 		else:
 			$Music/BatMusic.volume_db -= 1
 			boss_bar.modulate.a = lerp(boss_bar.modulate.a, 0.0, delta)

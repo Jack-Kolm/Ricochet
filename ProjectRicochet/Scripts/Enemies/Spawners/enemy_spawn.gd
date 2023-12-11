@@ -22,7 +22,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#delta = delta * Global.delta_factor
 	if fadeout:
 		$SpawnSprite.set_modulate(lerp($SpawnSprite.get_modulate(), Color(10,0.3,0.3,0), delta*FADEOUT_DELTA)) 
 
@@ -56,25 +55,23 @@ func spawn():
 			new_enemy = Bat.instantiate()
 	$SpawnSprite.visible = true
 	new_enemy.spawner = self.spawner
-	#new_enemy.add_to_group("enemies")
 	new_enemy.global_position = global_position
 	get_parent().add_child.call_deferred(new_enemy)
-	get_tree().get_root().add_child.call_deferred(new_enemy)
 	$SpawnSprite.play()
 	fadeout = true
 	$SpawnSound.play()
 	return new_enemy
 
 
-func set_player(player):
-	self.player = player
+func set_player(new_player):
+	self.player = new_player
 
 
 func set_sprite_rotation(angle):
 	$SpawnSprite.rotation = angle
 
 
-func _on_activate_spawn_area_body_entered(body):
+func _on_activate_spawn_area_body_entered(_body):
 	spawn()
 
 

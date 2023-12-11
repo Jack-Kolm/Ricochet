@@ -135,12 +135,11 @@ func _on_explosion_sprite_animation_finished():
 	pass # Replace with function body.
 
 
-func _on_wall_check_body_entered(body):
+func _on_wall_check_body_entered(_body):
 	var query = PhysicsRayQueryParameters2D.create(global_position, direction*1000)
 	query.set_collision_mask(1)
 	var space_state = get_world_2d().direct_space_state
 	var result = space_state.intersect_ray(query)
-
 	#var collision_point = bullet_cast.get_collision_point()
 	#var normal = bullet_cast.get_collision_normal()
 	#body.get_collision_normal
